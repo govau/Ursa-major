@@ -67,15 +67,15 @@ jobs:
 
 workflows:
   version: 2.1
-  build-and-deploy-server:
+  build-and-deploy:
     jobs:
-      - build-and-test-server
-      - deploy-server:
-          requires:
-            - build-and-test-server
-          filters:
-            branches:
-              only: master
+      # - build-and-test-server
+      # - deploy-server:
+      #     requires:
+      #       - build-and-test-server
+      #     filters:
+      #       branches:
+      #         only: master
       - build-and-test-front-end
       - deploy-front-end:
           requires:

@@ -17,7 +17,6 @@ jobs:
             mkdir api-deploy
             cd api/
             mv src/ manifest.yml package.json gc-config.js node_modules/ ../api-deploy
-            ls -l ../api-deploy
       - persist_to_workspace:
           root: ~/app-server
           paths:
@@ -32,7 +31,8 @@ jobs:
       - run:
           name: Deploy server to cloud.gov.au development
           command: |
-            cd app-deploy/
+            ls -l
+            cd api-deploy/
             cf login -a $CF_API_STAGING -o $CF_ORG -s $CF_SPACE -u $CF_USERNAME -p $CF_PASSWORD_STAGING
             cf zero-downtime-push -f manifest.yml
 
@@ -56,7 +56,7 @@ jobs:
             cd front-end
             mv manifest.yml public/ ../front-end-deploy
       - persist_to_workspace:
-          root: ~/app-ui/
+          root: ~/app-ui
           paths:
             - front-end-deploy/
 
@@ -69,6 +69,7 @@ jobs:
       - run:
           name: Deploy to cloud.gov.au development
           command: |
+            ls -l
             cd front-end-deploy/
             cf login -a $CF_API_STAGING -o $CF_ORG -s $CF_SPACE -u $CF_USERNAME -p $CF_PASSWORD_STAGING
             cf zero-downtime-push -f manifest.yml

@@ -1,25 +1,21 @@
-version: 2.1
+version: 2
 jobs:
   build-and-test-server:
     docker:
       - image: circleci/node:8.12.0
-    working_directory: ~/api
+    working_directory: ~/app-server
     steps:
       - checkout
       - run:
           name: Server-directory
-          command: cd api/
-      - run:
-          name: Install NodeJS dependencies
-          command: npm i
-      # - run:
-      #     name: Run tests
-      #     command: npm run test
+          command: |
+            cd api/
+            npm i
       - persist_to_workspace:
-          root: ~/api
+          root: ~/app-server/api
           paths:
             - src/
-            - .env
+            - gc-config.js
             - manifest.yml
             - node_modules/
             - package.json
@@ -27,39 +23,32 @@ jobs:
   build-and-test-front-end:
     docker:
       - image: circleci/node:8.12.0
-    working_directory: ~/front-end
+    working_directory: ~/app-ui
     steps:
       - checkout
       - run:
           name: front-end-directory
-          command: cd front-end/
-      - run:
-          name: Install dependencies
-          command: npm install
-      - run:
-          name: Pre build script
-          command: . ./prebuild.sh
-      - run:
-          name: Build project
-          command: npm run build
+          command: |
+            cd front-end/
+            npm i
+            . ./prebuild.sh
+            npm run build
       - persist_to_workspace:
-          root: ~/analytics-front-end
+          root: ~/app-ui/front-end
           paths:
             - manifest.yml
-            - src/
             - public/
-            - package.json
 
   deploy-front-end:
     docker:
       - image: govau/cf-cli
     steps:
       - attach_workspace:
-          at: ~/front-end
+          at: ~/app-ui
       - run:
           name: Deploy to cloud.gov.au development
           command: |
-            cd ~/front-end
+            cd ~/app-ui/front-end
             cf login -a $CF_API_STAGING -o $CF_ORG -s $CF_SPACE -u $CF_USERNAME -p $CF_PASSWORD_STAGING
             cf zero-downtime-push govau-observatory -f manifest.yml
 
@@ -68,11 +57,11 @@ jobs:
       - image: govau/cf-cli
     steps:
       - attach_workspace:
-          at: ~/api
+          at: ~/app-server
       - run:
           name: Deploy server to cloud.gov.au development
           command: |
-            cd ~/api
+            cd ~/app-server/api
             cf login -a $CF_API_STAGING -o $CF_ORG -s $CF_SPACE -u $CF_USERNAME -p $CF_PASSWORD_STAGING
             cf zero-downtime-push analytics-server -f manifest.yml
 
@@ -81,13 +70,13 @@ workflows:
   build-and-deploy-server:
     jobs:
       - build-and-test-server
-      - build-and-test-front-end
       - deploy-server:
           requires:
             - build-and-test-server
           filters:
             branches:
               only: master
+      - build-and-test-front-end
       - deploy-front-end:
           requires:
             - build-and-test-front-end

@@ -1,6 +1,6 @@
 ---
 applications:
-  - name: observatory-api
+  - name: ursa-major-api
     buildpacks:
       - https://github.com/cloudfoundry/nodejs-buildpack
     memory: 128M

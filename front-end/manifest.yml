@@ -3,7 +3,7 @@ buildpack: staticfile_buildpack
 memory: 128M
 instances: 1
 applications:
-  - name: govau-observatory
+  - name: ursa-major-front-end
     path: ./public
 ---
 

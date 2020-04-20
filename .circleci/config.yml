@@ -34,7 +34,7 @@ jobs:
             cd ~/app-server
             cd api-deploy/
             cf login -a $CF_API_STAGING -o $CF_ORG -s $CF_SPACE -u $CF_USERNAME -p $CF_PASSWORD_STAGING
-            cf zero-downtime-push -f manifest.yml
+            cf zero-downtime-push ursa-major-api -f manifest.yml
 
   build-and-test-front-end:
     docker:
@@ -71,8 +71,9 @@ jobs:
           command: |
             cd ~/app-ui
             cd front-end-deploy/
+            ls -l
             cf login -a $CF_API_STAGING -o $CF_ORG -s $CF_SPACE -u $CF_USERNAME -p $CF_PASSWORD_STAGING
-            cf zero-downtime-push -f manifest.yml
+            cf zero-downtime-push ursa-major-front-end -f manifest.yml
 
 workflows:
   version: 2.1

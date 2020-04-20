@@ -39,7 +39,7 @@ It will start on port 3000 by default.
 Once in the `observatory-front-end` directory run the following commands:
 
 ```
-$ EXPORT GATSBY_API_URL="http://localhost:3000"
+$ EXPORT GATSBY_API_URL="http://localhost:3000/api"
 $ npm i
 $ npm run start
 ```

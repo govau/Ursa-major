@@ -1,0 +1,10 @@
+---
+applications:
+  - name: observatory-api
+    buildpacks:
+      - https://github.com/cloudfoundry/nodejs-buildpack
+    memory: 128M
+    instances: 1
+    command: node src/index.js
+---
+

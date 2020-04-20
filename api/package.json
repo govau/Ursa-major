@@ -1,0 +1,27 @@
+{
+  "name": "api",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node src/index.js",
+    "dev": "nodemon src/index.js"
+  },
+  "keywords": [],
+  "author": "raj",
+  "license": "ISC",
+  "dependencies": {
+    "@google-cloud/storage": "^4.7.0",
+    "cfenv": "^1.2.2",
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "express-graphql": "^0.9.0",
+    "graphql": "^15.0.0",
+    "ndjson": "^1.5.0",
+    "nodemon": "^2.0.3"
+  },
+  "devDependencies": {
+    "dotenv": "^8.2.0",
+    "prettier": "^2.0.4"
+  }
+}

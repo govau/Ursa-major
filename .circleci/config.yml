@@ -1,0 +1,96 @@
+version: 2.1
+jobs:
+  build-and-test-server:
+    docker:
+      - image: circleci/node:8.12.0
+    working_directory: ~/api
+    steps:
+      - checkout
+      - run:
+          name: Server-directory
+          command: cd api/
+      - run:
+          name: Install NodeJS dependencies
+          command: npm i
+      # - run:
+      #     name: Run tests
+      #     command: npm run test
+      - persist_to_workspace:
+          root: ~/api
+          paths:
+            - src/
+            - .env
+            - manifest.yml
+            - node_modules/
+            - package.json
+
+  build-and-test-front-end:
+    docker:
+      - image: circleci/node:8.12.0
+    working_directory: ~/front-end
+    steps:
+      - checkout
+      - run:
+          name: front-end-directory
+          command: cd front-end/
+      - run:
+          name: Install dependencies
+          command: npm install
+      - run:
+          name: Pre build script
+          command: . ./prebuild.sh
+      - run:
+          name: Build project
+          command: npm run build
+      - persist_to_workspace:
+          root: ~/analytics-front-end
+          paths:
+            - manifest.yml
+            - src/
+            - public/
+            - package.json
+
+  deploy-front-end:
+    docker:
+      - image: govau/cf-cli
+    steps:
+      - attach_workspace:
+          at: ~/front-end
+      - run:
+          name: Deploy to cloud.gov.au development
+          command: |
+            cd ~/front-end
+            cf login -a $CF_API_STAGING -o $CF_ORG -s $CF_SPACE -u $CF_USERNAME -p $CF_PASSWORD_STAGING
+            cf zero-downtime-push govau-observatory -f manifest.yml
+
+  deploy-server:
+    docker:
+      - image: govau/cf-cli
+    steps:
+      - attach_workspace:
+          at: ~/api
+      - run:
+          name: Deploy server to cloud.gov.au development
+          command: |
+            cd ~/api
+            cf login -a $CF_API_STAGING -o $CF_ORG -s $CF_SPACE -u $CF_USERNAME -p $CF_PASSWORD_STAGING
+            cf zero-downtime-push analytics-server -f manifest.yml
+
+workflows:
+  version: 2.1
+  build-and-deploy-server:
+    jobs:
+      - build-and-test-server
+      - build-and-test-front-end
+      - deploy-server:
+          requires:
+            - build-and-test-server
+          filters:
+            branches:
+              only: master
+      - deploy-front-end:
+          requires:
+            - build-and-test-front-end
+          filters:
+            branches:
+              only: master

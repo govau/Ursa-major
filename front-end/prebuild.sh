@@ -1,0 +1,3 @@
+#!/bin/bash
+
+GATSBY_API_URL="$RELEASE_GATSBY_API_URL"

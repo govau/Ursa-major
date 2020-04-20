@@ -1,8 +1,7 @@
 ---
 applications:
   - name: ursa-major-api
-    buildpacks:
-      - https://github.com/cloudfoundry/nodejs-buildpack
+    buildpack: nodejs_buildpack
     memory: 128M
     instances: 1
     command: node src/index.js

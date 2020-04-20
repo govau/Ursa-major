@@ -2,7 +2,7 @@ version: 2.1
 jobs:
   build-and-test-server:
     docker:
-      - image: circleci/node:8.12.0
+      - image: circleci/node:12.16.2
     working_directory: ~/app-server
     steps:
       - checkout
@@ -22,7 +22,7 @@ jobs:
 
   build-and-test-front-end:
     docker:
-      - image: circleci/node:8.12.0
+      - image: circleci/node:12.16.2
     working_directory: ~/app-ui
     steps:
       - checkout
@@ -69,13 +69,13 @@ workflows:
   version: 2.1
   build-and-deploy:
     jobs:
-      # - build-and-test-server
-      # - deploy-server:
-      #     requires:
-      #       - build-and-test-server
-      #     filters:
-      #       branches:
-      #         only: master
+      - build-and-test-server
+      - deploy-server:
+          requires:
+            - build-and-test-server
+          filters:
+            branches:
+              only: master
       - build-and-test-front-end
       - deploy-front-end:
           requires:

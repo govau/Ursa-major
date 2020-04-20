@@ -31,7 +31,7 @@ jobs:
       - run:
           name: Deploy server to cloud.gov.au development
           command: |
-            ls -l
+            cd ~/app-server
             cd api-deploy/
             cf login -a $CF_API_STAGING -o $CF_ORG -s $CF_SPACE -u $CF_USERNAME -p $CF_PASSWORD_STAGING
             cf zero-downtime-push -f manifest.yml
@@ -69,7 +69,7 @@ jobs:
       - run:
           name: Deploy to cloud.gov.au development
           command: |
-            ls -l
+            cd ~/app-ui
             cd front-end-deploy/
             cf login -a $CF_API_STAGING -o $CF_ORG -s $CF_SPACE -u $CF_USERNAME -p $CF_PASSWORD_STAGING
             cf zero-downtime-push -f manifest.yml

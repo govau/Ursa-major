@@ -1,5 +1,6 @@
 ---
 id: hero
+alt: true
 ---
 
 # Hello

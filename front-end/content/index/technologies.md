@@ -1,6 +1,7 @@
 ---
 # Don't change this ID
 id: tech
+alt: false
 ---
 
 ## What technologies are .gov.au visitors using?

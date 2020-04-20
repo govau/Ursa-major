@@ -34,6 +34,11 @@ $ npm run dev
 
 It will start on port 3000 by default.
 
+### Adjusting for custom project
+
+The `api/gc-config.js` file contains paths to cloud storage locations of the buckets and files that are being referenced.
+The `api/src/schema.js` file contains custom graphQL data structures for the queries.
+
 ## Start front end
 
 Once in the `observatory-front-end` directory run the following commands:

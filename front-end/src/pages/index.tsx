@@ -1,37 +1,11 @@
-import React, { useState, useLayoutEffect } from "react";
-import { Link } from "gatsby";
+import React from "react";
 import SEO from "../components/seo";
 import DefaultLayout from "../components/layouts/default-layout";
 import { useStaticQuery, graphql } from "gatsby";
 import Section from "../components/layouts/section";
 
-interface Browser {
-  browser: Array<{ agency: String }>;
-}
-
 const IndexPage = () => {
-  const [state, setstate] = useState<Browser | undefined>(undefined);
-
-  useLayoutEffect(() => {
-    fetch(`${process.env.GATSBY_API_URL}`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json",
-      },
-      body: JSON.stringify({
-        query: `{browser {agency}}`,
-      }),
-    })
-      .then((r) => r.json())
-      .then(({ errors, data }) => {
-        if (errors) {
-        } else {
-          setstate(data);
-        }
-      });
-  }, []);
-
+  //get MD content
   const { allMarkdownRemark } = useStaticQuery(
     graphql`
       query MyQuery {
@@ -42,6 +16,7 @@ const IndexPage = () => {
             html
             frontmatter {
               id
+              alt
             }
           }
         }
@@ -61,16 +36,15 @@ const IndexPage = () => {
     <DefaultLayout>
       <>
         <SEO title="Home" />
-        <Section alt={true}>
+        <Section alt={hero.frontmatter.alt}>
           <>
             <div
               className="container-fluid"
               dangerouslySetInnerHTML={{ __html: hero.html! }}
             />
-            <p>{state && state.browser[0].agency}</p>
           </>
         </Section>
-        <Section>
+        <Section alt={tech.frontmatter.alt}>
           <div
             className="container-fluid"
             dangerouslySetInnerHTML={{ __html: tech.html }}

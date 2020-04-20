@@ -7,50 +7,21 @@ jobs:
     steps:
       - checkout
       - run:
-          name: Server-directory
+          name: Install dependencies
           command: |
             cd api/
             npm i
-      - persist_to_workspace:
-          root: ~/app-server/api
-          paths:
-            - src/
-            - gc-config.js
-            - manifest.yml
-            - node_modules/
-            - package.json
-
-  build-and-test-front-end:
-    docker:
-      - image: circleci/node:12.16.2
-    working_directory: ~/app-ui
-    steps:
-      - checkout
       - run:
-          name: front-end-directory
+          name: Move assets into deploy directory
           command: |
-            cd front-end/
-            npm i
-            . ./prebuild.sh
-            npm run build
+            mkdir api-deploy
+            cd api/
+            mv src/ manifest.yml package.json gc-config.js node_modules/ ../api-deploy
+            ls -l ../api-deploy
       - persist_to_workspace:
-          root: ~/app-ui/front-end
+          root: ~/app-server
           paths:
-            - manifest.yml
-            - public/
-
-  deploy-front-end:
-    docker:
-      - image: govau/cf-cli
-    steps:
-      - attach_workspace:
-          at: ~/app-ui
-      - run:
-          name: Deploy to cloud.gov.au development
-          command: |
-            cd ~/app-ui/front-end
-            cf login -a $CF_API_STAGING -o $CF_ORG -s $CF_SPACE -u $CF_USERNAME -p $CF_PASSWORD_STAGING
-            cf zero-downtime-push govau-observatory -f manifest.yml
+            - api-deploy/
 
   deploy-server:
     docker:
@@ -61,9 +32,46 @@ jobs:
       - run:
           name: Deploy server to cloud.gov.au development
           command: |
-            cd ~/app-server/api
+            cd ~/app-deploy
             cf login -a $CF_API_STAGING -o $CF_ORG -s $CF_SPACE -u $CF_USERNAME -p $CF_PASSWORD_STAGING
-            cf zero-downtime-push analytics-server -f manifest.yml
+            cf zero-downtime-push -f manifest.yml
+
+  build-and-test-front-end:
+    docker:
+      - image: circleci/node:12.16.2
+    working_directory: ~/app-ui
+    steps:
+      - checkout
+      - run:
+          name: Install dependencies set envs
+          command: |
+            cd front-end/
+            npm i
+            . ./prebuild.sh
+            npm run build
+      - run:
+          name: Make deploy directory
+          command: |
+            mkdir front-end-deploy
+            cd front-end
+            mv manifest.yml public/ ../front-end-deploy
+      - persist_to_workspace:
+          root: ~/app-ui/
+          paths:
+            - front-end-deploy/
+
+  deploy-front-end:
+    docker:
+      - image: govau/cf-cli
+    steps:
+      - attach_workspace:
+          at: ~/app-ui
+      - run:
+          name: Deploy to cloud.gov.au development
+          command: |
+            cd ~/front-end-deploy
+            cf login -a $CF_API_STAGING -o $CF_ORG -s $CF_SPACE -u $CF_USERNAME -p $CF_PASSWORD_STAGING
+            cf zero-downtime-push -f manifest.yml
 
 workflows:
   version: 2.1

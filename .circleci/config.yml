@@ -1,10 +1,15 @@
-version: 2.1
+version: 2
 jobs:
   build-and-test-server:
     docker:
       - image: circleci/node:12.16.2
     working_directory: ~/app-server
     steps:
+      - run:
+          name: Set environment variables for build
+          command: |
+            echo 'export NODE_ENV=$CIRCLE_BRANCH' >> $BASH_ENV
+            source $BASH_ENV
       - checkout
       - run:
           name: Install dependencies
@@ -16,6 +21,7 @@ jobs:
           command: |
             mkdir api-deploy
             cd api/
+            ls -l
             mv src/ ./deploy/ package.json gc-config.js node_modules/ ../api-deploy
       - persist_to_workspace:
           root: ~/app-server
@@ -57,6 +63,11 @@ jobs:
       - image: circleci/node:12.16.2
     working_directory: ~/app-ui
     steps:
+      - run:
+          name: Set environment variables for build
+          command: |
+            echo 'export NODE_ENV=$CIRCLE_BRANCH' >> $BASH_ENV
+            source $BASH_ENV
       - checkout
       - run:
           name: Install dependencies set envs
@@ -70,9 +81,8 @@ jobs:
           command: |
             mkdir front-end-deploy
             cd front-end
-            mv public/ ../front-end-deploy
-            cd ../
             ls -l
+            mv public/ .deploy/ ../front-end-deploy
       - persist_to_workspace:
           root: ~/app-ui
           paths:
@@ -90,7 +100,6 @@ jobs:
             cd ~/app-ui
             cd front-end-deploy/
             mv .deploy/manifest-prod.yml ./
-            ls -l
             cf login -a $CF_API_PROD -o $CF_ORG -s $CF_SPACE -u $CF_USERNAME -p $CF_PASSWORD_PROD
             cf zero-downtime-push analytics -f manifest-prod.yml
 
@@ -105,7 +114,6 @@ jobs:
           command: |
             cd ~/app-ui
             mv .deploy/manifest-staging.yml ./
-            ls -l
             cf login -a $CF_API_STAGING -o $CF_ORG -s $CF_SPACE -u $CF_USERNAME -p $CF_PASSWORD_STAGING
             cf zero-downtime-push ursa-major-front-end -f manifest-staging.yml
 

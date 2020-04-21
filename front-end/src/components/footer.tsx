@@ -1,12 +1,12 @@
-import React from "react"
+import React from "react";
 
-import AUfooter, { AUfooterNav, AUfooterEnd } from "../auds/react/footer"
-
+import AUfooter, { AUfooterNav, AUfooterEnd } from "../auds/react/footer";
+import { Link } from "gatsby";
 interface Props {}
 
-const AuFooter: any = AUfooter
-const FooterNav: any = AUfooterNav
-const FooterEnd: any = AUfooterEnd
+const AuFooter: any = AUfooter;
+const FooterNav: any = AUfooterNav;
+const FooterEnd: any = AUfooterEnd;
 
 const Footer: React.FC<Props> = () => {
   return (
@@ -20,7 +20,7 @@ const Footer: React.FC<Props> = () => {
                   <h3 className="au-display-lg">Section</h3>
                   <ul className="au-link-list au-link-list--inline">
                     <li>
-                      <a href="#">Link 1</a>
+                      <Link to="/about">About</Link>
                     </li>
                     <li>
                       <a href="#">Link 2</a>
@@ -54,7 +54,7 @@ const Footer: React.FC<Props> = () => {
         </AuFooter>
       </div>
     </>
-  )
-}
+  );
+};
 
-export default Footer
+export default Footer;

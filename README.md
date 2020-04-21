@@ -1,10 +1,11 @@
-# Instructions
+# Ursa major 🚀
 
 ## Contents
 
 - [Start server](#start-server)
 - [Start front end](#start-front-end)
 - [Edit content](#edit-content)
+- [Creating new pages](#creating-new-pages)
 
 ## Start server
 
@@ -51,4 +52,25 @@ $ npm run start
 
 ### Edit content
 
-All content can be found in the `observatory-front-end/content` folder. It is contained in markdown files.
+All content can be found in the `observatory-front-end/content` folder. It is contained in markdown files. View the [markdown cheatsheet](https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet) for more information.
+
+### Creating new pages
+
+New pages can be with markdown files. For example to create a contact page, follow these steps:
+
+1. In the `front-end/content` folder, create a new folder called `contact-us`.
+2. In the `front-end/content/contact-us` folder, create a new file named contact.md
+3. Add the following content to the page
+
+```
+---
+path: /contact
+title: Contact Us
+---
+
+# Contact the team
+
+To get into contact with the team, please email at abc@example.com
+```
+
+The `path` attribute is the URL and the `title` attribute is for the [title](https://www.w3schools.com/tags/tag_title.asp) of the page.

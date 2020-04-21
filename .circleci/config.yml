@@ -16,13 +16,13 @@ jobs:
           command: |
             mkdir api-deploy
             cd api/
-            mv src/ manifest.yml package.json gc-config.js node_modules/ ../api-deploy
+            mv src/ ./deploy/ package.json gc-config.js node_modules/ ../api-deploy
       - persist_to_workspace:
           root: ~/app-server
           paths:
             - api-deploy/
 
-  deploy-server:
+  deploy-server-staging:
     docker:
       - image: govau/cf-cli
     steps:
@@ -33,8 +33,24 @@ jobs:
           command: |
             cd ~/app-server
             cd api-deploy/
+            mv .deploy/manifest-staging.yml ./
             cf login -a $CF_API_STAGING -o $CF_ORG -s $CF_SPACE -u $CF_USERNAME -p $CF_PASSWORD_STAGING
-            cf zero-downtime-push ursa-major-api -f manifest.yml
+            cf zero-downtime-push ursa-major-api -f manifest-staging.yml
+
+  deploy-server-prod:
+    docker:
+      - image: govau/cf-cli
+    steps:
+      - attach_workspace:
+          at: ~/app-server
+      - run:
+          name: Deploy server to cloud.gov.au development
+          command: |
+            cd ~/app-server
+            cd api-deploy/
+            mv .deploy/manifest-prod.yml ./
+            cf login -a $CF_API_PROD -o $CF_ORG -s $CF_SPACE -u $CF_USERNAME -p $CF_PASSWORD_PROD
+            cf zero-downtime-push analytics-api -f manifest-prod.yml
 
   build-and-test-front-end:
     docker:
@@ -54,13 +70,15 @@ jobs:
           command: |
             mkdir front-end-deploy
             cd front-end
-            mv manifest.yml public/ ../front-end-deploy
+            mv public/ ../front-end-deploy
+            cd ../
+            ls -l
       - persist_to_workspace:
           root: ~/app-ui
           paths:
             - front-end-deploy/
 
-  deploy-front-end:
+  deploy-front-end-prod:
     docker:
       - image: govau/cf-cli
     steps:
@@ -71,23 +89,52 @@ jobs:
           command: |
             cd ~/app-ui
             cd front-end-deploy/
+            mv .deploy/manifest-prod.yml ./
+            ls -l
+            cf login -a $CF_API_PROD -o $CF_ORG -s $CF_SPACE -u $CF_USERNAME -p $CF_PASSWORD_PROD
+            cf zero-downtime-push analytics -f manifest-prod.yml
+
+  deploy-front-end-staging:
+    docker:
+      - image: govau/cf-cli
+    steps:
+      - attach_workspace:
+          at: ~/app-ui
+      - run:
+          name: Deploy to cloud.gov.au development
+          command: |
+            cd ~/app-ui
+            mv .deploy/manifest-staging.yml ./
             ls -l
             cf login -a $CF_API_STAGING -o $CF_ORG -s $CF_SPACE -u $CF_USERNAME -p $CF_PASSWORD_STAGING
-            cf zero-downtime-push ursa-major-front-end -f manifest.yml
+            cf zero-downtime-push ursa-major-front-end -f manifest-staging.yml
 
 workflows:
   version: 2.1
   build-and-deploy:
     jobs:
       - build-and-test-server
-      - deploy-server:
+      - deploy-server-staging:
+          requires:
+            - build-and-test-server
+          filters:
+            branches:
+              only: develop
+      - deploy-server-prod:
           requires:
             - build-and-test-server
           filters:
             branches:
               only: master
+
       - build-and-test-front-end
-      - deploy-front-end:
+      - deploy-front-end-staging:
+          requires:
+            - build-and-test-front-end
+          filters:
+            branches:
+              only: develop
+      - deploy-front-end-prod:
           requires:
             - build-and-test-front-end
           filters:

@@ -1,0 +1,9 @@
+---
+applications:
+  - name: analytics-api
+    buildpack: nodejs_buildpack
+    memory: 128M
+    instances: 1
+    command: node src/index.js
+---
+

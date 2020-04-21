@@ -111,6 +111,7 @@ jobs:
           name: Deploy to cloud.gov.au development
           command: |
             cd ~/app-ui
+            cd front-end-deploy
             mv .deploy/manifest-staging.yml ./
             cf login -a $CF_API_STAGING -o $CF_ORG -s $CF_SPACE -u $CF_USERNAME -p $CF_PASSWORD_STAGING
             cf zero-downtime-push ursa-major-front-end -f manifest-staging.yml

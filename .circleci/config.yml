@@ -21,8 +21,7 @@ jobs:
           command: |
             mkdir api-deploy
             cd api/
-            ls -l
-            mv src/ ./deploy/ package.json gc-config.js node_modules/ ../api-deploy
+            mv src/ .deploy/ package.json gc-config.js node_modules/ ../api-deploy
       - persist_to_workspace:
           root: ~/app-server
           paths:
@@ -81,7 +80,6 @@ jobs:
           command: |
             mkdir front-end-deploy
             cd front-end
-            ls -l
             mv public/ .deploy/ ../front-end-deploy
       - persist_to_workspace:
           root: ~/app-ui

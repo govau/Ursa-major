@@ -18,6 +18,7 @@ analytics.service.gov.au uses the following data:
 # Who's behind this?  
 
 Analytics.service.gov.au is an initiative of the gov.au Observatory: a team of data specialists with research and analysis, design and development capabilities working within the [Digital Transformation Agency](https://dta.gov.au).  
+
 The gov.au Observatory’s goal is to provide richer context and insight across whole-of-government using data science and analysis. We help agencies harness data by:  
 - upgrading their Google Analytics accounts 
 - offering training and education 

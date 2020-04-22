@@ -38,6 +38,7 @@ jobs:
           command: |
             cd ~/app-server
             cd api-deploy/
+            rm -rf node_modules
             mv .deploy/manifest-staging.yml ./
             cf login -a $CF_API_STAGING -o $CF_ORG -s $CF_SPACE -u $CF_USERNAME -p $CF_PASSWORD_STAGING
             cf zero-downtime-push ursa-major-api -f manifest-staging.yml

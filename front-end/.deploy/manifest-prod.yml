@@ -1,0 +1,11 @@
+---
+buildpack: staticfile_buildpack
+memory: 128M
+instances: 1
+applications:
+  - name: analytics
+    path: ./public
+routes:
+  - route: analytics.service.gov.au
+---
+

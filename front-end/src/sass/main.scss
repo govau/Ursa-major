@@ -34,3 +34,17 @@ main > .au-body {
 .au-footer .au-link-list--inline li {
   @include AU-space(padding-right, 1unit);
 }
+
+h1 {
+  word-wrap: break-word;
+}
+
+@media only screen and (max-width: $AU-media-xs) {
+  .au-body h1 {
+    @include AU-space(font-size, 2.25unit);
+  }
+
+  .au-body h2 {
+    @include AU-space(font-size, 1.75unit);
+  }
+}

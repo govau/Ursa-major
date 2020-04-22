@@ -31,7 +31,7 @@ function SEO({ description, lang, meta, title }) {
     <Helmet
       htmlAttributes={{
         lang,
-        class: "no-js",
+        class: "js",
       }}
       title={title}
       titleTemplate={`%s | ${site.siteMetadata.title}`}
@@ -72,13 +72,7 @@ function SEO({ description, lang, meta, title }) {
       bodyAttributes={{
         class: "au-grid",
       }}
-    >
-      <script type="text/javascript">
-        {`
-          var $html = document.documentElement; if ($html.classList) $html.classList.remove("no-js"), $html.classList.add("js"); else { var className = "no-js"; $html.className = $html.className.replace(new RegExp("(^|\\b)" + className.split(" ").join("|") + "(\\b|$)", "gi"), " "), $html.className += " js" }
-        `}
-      </script>
-    </Helmet>
+    ></Helmet>
   );
 }
 

@@ -66,6 +66,7 @@ New pages can be with markdown files. For example to create a contact page, foll
 ---
 path: /contact
 title: Contact Us
+createPage: true
 ---
 
 # Contact the team
@@ -74,3 +75,45 @@ To get into contact with the team, please email at abc@example.com
 ```
 
 The `path` attribute is the URL and the `title` attribute is for the [title](https://www.w3schools.com/tags/tag_title.asp) of the page.
+
+#### Add page to main navigation/footer navivation
+
+To add links to new pages in the main nav bar or the footer, follow these steps:
+
+1. Open up the `front-end/gatsby-config.js` file.
+2. Find the `menuLinks` key for main nav links and the `footerLinks` key for the footer items.
+3. If you want to add a main nav link to the contact page we created above, add an object to the `menuLinks` key.
+
+#### Before
+
+```
+ menuLinks: [
+      {
+        text: "Home",
+        link: "/",
+      },
+      {
+        text: "About",
+        link: "/about",
+      },
+    ]
+```
+
+#### After
+
+```
+menuLinks: [
+      {
+        text: "Home",
+        link: "/",
+      },
+      {
+        text: "About",
+        link: "/about",
+      },
+      {
+        text: "Contact",
+        link: "/contact",
+      },
+    ],
+```

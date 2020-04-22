@@ -1,5 +1,5 @@
 import React from "react";
-import AUmainNav, { AUmainNavContent } from "./auds/main-nav";
+import AUmainNav, { AUmainNavContent } from "./ds/main-nav";
 import { useStaticQuery, graphql } from "gatsby";
 
 interface Props {

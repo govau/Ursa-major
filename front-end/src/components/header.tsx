@@ -31,7 +31,7 @@ const Header: React.FC<Props> = ({ siteTitle }) => {
               <Brand
                 title={siteTitle}
                 subline="The analytics dashboard for gov.au services."
-                link="#"
+                link="/"
                 brandImage={data.placeholderImage.childImageSharp.fluid.src}
                 brandImageAlt="Insert alternate text here"
               />

@@ -1,8 +1,11 @@
 import React from "react";
-import Header from "../header";
-import Footer from "../footer";
+import Header from "../navigation/header";
+import Footer from "../navigation/footer";
 import "../../sass/main.scss";
 import { useStaticQuery, graphql } from "gatsby";
+import MainNav from "../navigation/main-nav";
+import SEO from "../seo";
+import { Location } from "@reach/router";
 
 interface Props {
   children: React.ReactElement;
@@ -22,6 +25,10 @@ const DefaultLayout: React.FC<Props> = ({ children }) => {
   return (
     <>
       <Header siteTitle={data.site.siteMetadata.title} />
+      <SEO title={data.site.siteMetadata.title} />
+      <Location>
+        {({ navigate, location }) => <MainNav path={location.pathname} />}
+      </Location>
       <main>{children}</main>
       <Footer />
     </>

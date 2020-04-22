@@ -1,13 +1,13 @@
-import React from "react"
-import { useStaticQuery, graphql } from "gatsby"
-import AUheader, { AUheaderBrand } from "../auds/react/header"
+import React from "react";
+import { useStaticQuery, graphql } from "gatsby";
+import AUheader, { AUheaderBrand } from "../../auds/react/header";
 
 interface Props {
-  siteTitle: string
+  siteTitle: string;
 }
 
-const AUHeader: any = AUheader
-const Brand: any = AUheaderBrand
+const AUHeader: any = AUheader;
+const Brand: any = AUheaderBrand;
 
 const Header: React.FC<Props> = ({ siteTitle }) => {
   const data = useStaticQuery(graphql`
@@ -20,7 +20,7 @@ const Header: React.FC<Props> = ({ siteTitle }) => {
         }
       }
     }
-  `)
+  `);
 
   return (
     <>
@@ -30,8 +30,8 @@ const Header: React.FC<Props> = ({ siteTitle }) => {
             <div className="col-md-9">
               <Brand
                 title={siteTitle}
-                subline="Landing page for gov.au analytics"
-                link="#"
+                subline="The analytics dashboard for gov.au services."
+                link="/"
                 brandImage={data.placeholderImage.childImageSharp.fluid.src}
                 brandImageAlt="Insert alternate text here"
               />
@@ -40,7 +40,7 @@ const Header: React.FC<Props> = ({ siteTitle }) => {
         </div>
       </AUHeader>
     </>
-  )
-}
+  );
+};
 
-export default Header
+export default Header;

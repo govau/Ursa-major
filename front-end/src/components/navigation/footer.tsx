@@ -1,6 +1,6 @@
 import React from "react";
 
-import AUfooter, { AUfooterNav, AUfooterEnd } from "../auds/react/footer";
+import AUfooter, { AUfooterNav, AUfooterEnd } from "../../auds/react/footer";
 import { Link } from "gatsby";
 interface Props {}
 
@@ -23,7 +23,7 @@ const Footer: React.FC<Props> = () => {
                       <Link to="/about">About</Link>
                     </li>
                     <li>
-                      <a href="#">Link 2</a>
+                      <Link to="/contact">Contact</Link>
                     </li>
                     <li>
                       <a href="#">Link 3</a>

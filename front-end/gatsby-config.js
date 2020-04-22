@@ -4,9 +4,23 @@ module.exports = {
     url: "http://localhost:3000",
   },
   siteMetadata: {
-    title: `WoFG Analytics`,
+    title: `analytics.service.gov.au`,
     description: `The Observatory’s goal is to measure how people interact with government services. It empowers and supports teams to provide better services and outcomes for everyone.`,
     author: `@gatsbyjs`,
+    menuLinks: [
+      {
+        text: "Home",
+        link: "/",
+      },
+      {
+        text: "About",
+        link: "/about",
+      },
+      {
+        text: "Contact",
+        link: "/contact",
+      },
+    ],
   },
   plugins: [
     `gatsby-plugin-react-helmet`,
@@ -41,8 +55,31 @@ module.exports = {
         icon: `src/images/favicon.png`, // This path is relative to the root of the site.
       },
     },
+    {
+      resolve: `gatsby-plugin-google-gtag`,
+      options: {
+        // You can add multiple tracking ids and a pageview event will be fired for all of them.
+        trackingIds: ["G-0RP5C8YQRX"],
+        // This object gets passed directly to the gtag config command
+        // This config will be shared across all trackingIds
+        gtagConfig: {
+          anonymize_ip: true,
+          cookie_expires: 0,
+        },
+        // This object is used for configuration specific to this plugin
+        pluginConfig: {
+          // Puts tracking script in the head instead of the body
+          head: false,
+          // Setting this parameter is also optional
+          respectDNT: true,
+          // Avoids sending pageview hits from custom paths
+          // exclude: ["/preview/**", "/do-not-track/me/too/"],
+        },
+      },
+    },
+
     // this (optional) plugin enables Progressive Web App + Offline functionality
     // To learn more, visit: https://gatsby.dev/offline
     // `gatsby-plugin-offline`,
   ],
-}
+};

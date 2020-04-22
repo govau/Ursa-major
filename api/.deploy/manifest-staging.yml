@@ -5,5 +5,7 @@ applications:
     memory: 256M
     instances: 1
     command: node src/index.js
+  services:
+    - ursa-major-service
 ---
 

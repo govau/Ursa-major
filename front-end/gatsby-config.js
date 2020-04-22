@@ -4,7 +4,7 @@ module.exports = {
     url: "http://localhost:3000",
   },
   siteMetadata: {
-    title: `WoFG Analytics`,
+    title: `analytics.service.gov.au`,
     description: `The Observatory’s goal is to measure how people interact with government services. It empowers and supports teams to provide better services and outcomes for everyone.`,
     author: `@gatsbyjs`,
     menuLinks: [

@@ -30,8 +30,8 @@ const Header: React.FC<Props> = ({ siteTitle }) => {
             <div className="col-md-9">
               <Brand
                 title={siteTitle}
-                subline="Landing page for gov.au analytics"
-                link="#"
+                subline="The analytics dashboard for gov.au services."
+                link="/"
                 brandImage={data.placeholderImage.childImageSharp.fluid.src}
                 brandImageAlt="Insert alternate text here"
               />

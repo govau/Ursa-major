@@ -25,9 +25,6 @@ const Footer: React.FC<Props> = () => {
                     <li>
                       <Link to="/contact">Contact</Link>
                     </li>
-                    <li>
-                      <a href="#">Link 3</a>
-                    </li>
                   </ul>
                 </div>
               </div>
@@ -40,7 +37,7 @@ const Footer: React.FC<Props> = () => {
                     <small>
                       &copy; Commonwealth of Australia,{" "}
                       <a
-                        href="https://github.com/govau/design-system-components/blob/master/LICENSE.md"
+                        href="https://github.com/govau/ursa-major/blob/master/LICENSE"
                         rel="external license"
                       >
                         MIT licensed

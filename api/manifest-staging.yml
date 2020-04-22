@@ -1,9 +1,11 @@
 ---
 applications:
-  - name: analytics-api
+  - name: ursa-major-api
     buildpack: nodejs_buildpack
-    memory: 128M
+    memory: 256M
     instances: 1
     command: node src/index.js
+    services:
+      - ursa-major-service
 ---
 

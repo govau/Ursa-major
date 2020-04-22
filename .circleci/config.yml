@@ -21,7 +21,7 @@ jobs:
           command: |
             mkdir api-deploy
             cd api/
-            mv src/ .deploy/ package.json gc-config.js node_modules/ ../api-deploy
+            mv src/ manifest-prod.yml manifest-staging.yml package.json package-lock.json gc-config.js node_modules/ ../api-deploy
       - persist_to_workspace:
           root: ~/app-server
           paths:
@@ -38,7 +38,6 @@ jobs:
           command: |
             cd ~/app-server
             cd api-deploy/
-            mv .deploy/manifest-staging.yml ./
             cf login -a $CF_API_STAGING -o $CF_ORG -s $CF_SPACE -u $CF_USERNAME -p $CF_PASSWORD_STAGING
             cf zero-downtime-push ursa-major-api -f manifest-staging.yml
 
@@ -53,7 +52,6 @@ jobs:
           command: |
             cd ~/app-server
             cd api-deploy/
-            mv .deploy/manifest-prod.yml ./
             cf login -a $CF_API_PROD -o $CF_ORG -s $CF_SPACE -u $CF_USERNAME -p $CF_PASSWORD_PROD
             cf zero-downtime-push analytics-api -f manifest-prod.yml
 

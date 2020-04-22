@@ -7,6 +7,10 @@
     "start": "node src/index.js",
     "dev": "nodemon src/index.js"
   },
+  "engines": {
+    "node": "~10",
+    "npm": "~6"
+  },
   "keywords": [],
   "author": "raj",
   "license": "ISC",

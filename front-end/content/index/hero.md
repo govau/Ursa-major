@@ -3,6 +3,7 @@ id: hero
 alt: true
 ---
 
-# Hello
+# gov.au Observatory
 
-This is a description of the dashboard, and summarises why and how we're doing this. It also highlights that this data is anonymous and aggregated. To learn more about the data sources, visitors can go here. Hello
+We’re helping make data transparent to improve government digital services.  
+All data used is completely anonymous and privacy-preserving. To learn about how we source data, see the About page.

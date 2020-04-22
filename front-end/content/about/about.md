@@ -6,7 +6,7 @@ createPage: true
 
 # What is analytics.service.gov.au?
 
-Analytics.service.gov.au is a whole-of-government analytics dashboard, where we aggregate and display common metrics from Australian government websites and services.
+Analytics.service.gov.au is a whole-of-government analytics dashboard, where we aggregate and display common metrics from Australian Government websites and services.
 
 ## Where does the data come from?
 

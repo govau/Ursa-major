@@ -29,3 +29,4 @@ The gov.au Observatory’s goal is to provide richer context and insight across 
 - performing data analysis ourselves.
 
 If you’re a government agency looking to improve your services through data-informed decision making, [contact us](/contact) to learn more.
+

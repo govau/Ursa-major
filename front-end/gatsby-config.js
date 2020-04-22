@@ -7,6 +7,20 @@ module.exports = {
     title: `WoFG Analytics`,
     description: `The Observatory’s goal is to measure how people interact with government services. It empowers and supports teams to provide better services and outcomes for everyone.`,
     author: `@gatsbyjs`,
+    menuLinks: [
+      {
+        text: "Home",
+        link: "/",
+      },
+      {
+        text: "About",
+        link: "/about/",
+      },
+      {
+        text: "Contact",
+        link: "/contact/",
+      },
+    ],
   },
   plugins: [
     `gatsby-plugin-react-helmet`,
@@ -59,7 +73,7 @@ module.exports = {
           // Setting this parameter is also optional
           respectDNT: true,
           // Avoids sending pageview hits from custom paths
-          exclude: ["/preview/**", "/do-not-track/me/too/"],
+          // exclude: ["/preview/**", "/do-not-track/me/too/"],
         },
       },
     },

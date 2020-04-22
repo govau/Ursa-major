@@ -1,13 +1,13 @@
-import React from "react"
-import { useStaticQuery, graphql } from "gatsby"
-import AUheader, { AUheaderBrand } from "../auds/react/header"
+import React from "react";
+import { useStaticQuery, graphql } from "gatsby";
+import AUheader, { AUheaderBrand } from "../../auds/react/header";
 
 interface Props {
-  siteTitle: string
+  siteTitle: string;
 }
 
-const AUHeader: any = AUheader
-const Brand: any = AUheaderBrand
+const AUHeader: any = AUheader;
+const Brand: any = AUheaderBrand;
 
 const Header: React.FC<Props> = ({ siteTitle }) => {
   const data = useStaticQuery(graphql`
@@ -20,7 +20,7 @@ const Header: React.FC<Props> = ({ siteTitle }) => {
         }
       }
     }
-  `)
+  `);
 
   return (
     <>
@@ -40,7 +40,7 @@ const Header: React.FC<Props> = ({ siteTitle }) => {
         </div>
       </AUHeader>
     </>
-  )
-}
+  );
+};
 
-export default Header
+export default Header;

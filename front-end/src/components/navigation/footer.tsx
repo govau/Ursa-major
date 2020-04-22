@@ -1,6 +1,6 @@
 import React from "react";
 
-import AUfooter, { AUfooterNav, AUfooterEnd } from "../auds/react/footer";
+import AUfooter, { AUfooterNav, AUfooterEnd } from "../../auds/react/footer";
 import { Link } from "gatsby";
 interface Props {}
 

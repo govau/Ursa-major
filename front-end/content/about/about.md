@@ -6,7 +6,7 @@ createPage: true
 
 # What is analytics.service.gov.au? 
 
-Analytics.service.gov.au is a whole-of-government analytics dashboard, where we aggregate and display common metrics from Australian government websites and services. 
+Analytics.service.gov.au is a whole-of-government analytics dashboard, where we aggregate and display common metrics from Australian Government websites and services. 
 
 # Where does the data come from? 
 Data comes from agencies and organisations that are subscribed to the [whole-of-government Google Analytics contract](https://www.dta.gov.au/our-projects/google-analytics-government). Anonymous, aggregated data is produced when people visit their sites, and we ingest this data into Google Big Query to create a whole-of-government perspective. 

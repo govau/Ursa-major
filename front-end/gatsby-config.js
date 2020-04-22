@@ -14,11 +14,11 @@ module.exports = {
       },
       {
         text: "About",
-        link: "/about/",
+        link: "/about",
       },
       {
         text: "Contact",
-        link: "/contact/",
+        link: "/contact",
       },
     ],
   },

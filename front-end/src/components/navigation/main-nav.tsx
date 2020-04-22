@@ -2,7 +2,9 @@ import React from "react";
 import AUmainNav, { AUmainNavContent } from "./auds/main-nav";
 import { useStaticQuery, graphql } from "gatsby";
 
-interface Props {}
+interface Props {
+  path: string;
+}
 
 interface MenuItems {
   map(
@@ -14,7 +16,7 @@ interface MenuItems {
 const Nav: any = AUmainNav;
 const NavContent: any = AUmainNavContent;
 
-const MainNav = () => {
+const MainNav: React.FC<Props> = ({ path }) => {
   const data = useStaticQuery(graphql`
     query SiteQuery {
       site {
@@ -28,11 +30,15 @@ const MainNav = () => {
       }
     }
   `);
+
   const Links: MenuItems = data.site.siteMetadata.menuLinks;
   const mainNavItems: MenuItems = Links.map((menuItem: any) => ({
     text: menuItem.text,
     link: menuItem.link,
-    active: window.location.pathname === menuItem.link,
+    active:
+      path.length > 1
+        ? path.replace(/\/$/, "") === menuItem.link
+        : path === menuItem.link,
   }));
 
   return (

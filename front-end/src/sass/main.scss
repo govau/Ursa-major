@@ -48,3 +48,14 @@ h1 {
     @include AU-space(font-size, 1.75unit);
   }
 }
+
+.header__badge {
+  @include AU-space(padding, 2px 0.5unit);
+  @include AU-space(margin-left, 0.5unit);
+  border: solid 2px $AU-colordark-foreground-text;
+  border-radius: 2em;
+  font-size: 12px;
+  font-size: 0.75rem;
+  font-weight: normal;
+  vertical-align: middle;
+}

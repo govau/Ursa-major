@@ -22,6 +22,7 @@ const UniqueUsersLineGraph: React.FC<Props> = (pro: any) => {
   const initialState: any = {};
   const [state, setstate] = useState(initialState);
 
+  // use this to generate data for mobile view
   useLayoutEffect((): any => {
     let count: number = 0;
     let datePoint: string = "";
@@ -57,6 +58,7 @@ const UniqueUsersLineGraph: React.FC<Props> = (pro: any) => {
     setstate({ data: mobileData, xTicks });
   }, [graphData.loading]);
 
+  //REFACTOR this should be automatic based off the data
   const yDomain: [AxisDomain, AxisDomain] = isTabletOrMobile
     ? [0, 350]
     : [10, 30];
@@ -70,7 +72,8 @@ const UniqueUsersLineGraph: React.FC<Props> = (pro: any) => {
     yTicks: isTabletOrMobile ? [100, 200, 300] : [10, 20, 30, 40],
     xTicks: isTabletOrMobile
       ? state.xTicks
-      : [
+      : //REFACTOR this should be automatic based off the data
+        [
           "2020-02-01",
           "2020-02-15",
           "2020-03-01",

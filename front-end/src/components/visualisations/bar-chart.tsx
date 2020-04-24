@@ -60,7 +60,7 @@ const BarGraph: React.FC<Props> = ({
       <HeadingTag className={`bar-chart-title ${Heading.className}`}>
         {Heading.text}
       </HeadingTag>
-      <ResponsiveContainer width="100%" minWidth={900} height={300}>
+      <ResponsiveContainer width="100%" height={300}>
         <BarChart data={data} margin={margin}>
           <CartesianGrid strokeDasharray="3 3" />
           <XAxis

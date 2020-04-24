@@ -15,6 +15,7 @@ let months: Array<String> = [
   "Dec",
 ];
 
+//REFACTOR May become redundant once data stream is updated
 let formatDate: TickFormatterFunction;
 
 formatDate = (date) => {

@@ -27,6 +27,8 @@ const gc =
 const files = {
   bucket: "us-east1-dta-airflow-b3415db4-bucket",
   browser: "data/analytics/json/device_browser_daily_snapshot_doi.json",
+  uniqueViews:
+    "data/analytics/project_ursa_major/uniquevisitors_90days_daily_snapshot_doi.json",
   agency: "data/analytics/json/device_category_daily_snapshot_doi.json",
 }
 

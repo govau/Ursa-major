@@ -35,7 +35,7 @@ const Footer: React.FC<Props> = () => {
     <>
       <div className="au-body au-body--dark">
         <AuFooter dark>
-          <div className="container">
+          <div className="container-fluid">
             <FooterNav>
               <div className="row">
                 <div className="col-md-3 col-sm-6">

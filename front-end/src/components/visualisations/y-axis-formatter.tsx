@@ -1,4 +1,6 @@
-let scaleFormatter: (tick: any) => string;
+import { TickFormatterFunction } from "recharts";
+
+let scaleFormatter: TickFormatterFunction;
 
 scaleFormatter = (numb: any) => {
   return numb / 10 + "M";

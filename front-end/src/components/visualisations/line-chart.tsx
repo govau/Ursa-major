@@ -12,6 +12,7 @@ import {
   ResponsiveContainer,
   ScaleType,
   AxisDomain,
+  TickFormatterFunction,
 } from "recharts";
 import CustomTooltipContent from "./custom-tooltip";
 import scaleFormatter from "./y-axis-formatter";
@@ -22,11 +23,10 @@ interface Props extends LineChartProps {
   xTicks?: Array<string>;
   xTickSize?: number;
   xTickMargin?: number;
-  dataKey: string;
+  x_key: string;
   yDomain: [AxisDomain, AxisDomain];
   yKey: string;
   yScale?: ScaleType;
-  yLabel?: LabelProps;
   yTicks?: Array<number>;
   Heading: {
     text: string;
@@ -35,23 +35,24 @@ interface Props extends LineChartProps {
   };
   fill: string;
   dot?: Boolean;
+  yTickFormatter?: TickFormatterFunction;
 }
 
 const LineGraph: React.FC<Props> = ({
   data,
-  dataKey,
+  x_key,
   margin = { top: 20, right: 20, bottom: 20, left: 20 },
   xTicks,
   xTickSize,
   xTickMargin,
   Heading,
   yKey,
-  yLabel,
   yScale,
   yDomain,
   yTicks,
   dot = false,
   fill = "#489cba",
+  yTickFormatter,
 }) => {
   const HeadingTag: any = Heading.level || "h3";
   return (
@@ -63,7 +64,7 @@ const LineGraph: React.FC<Props> = ({
         <LineChart data={data} margin={margin}>
           <CartesianGrid strokeDasharray="3 3" />
           <XAxis
-            dataKey={dataKey}
+            dataKey={x_key}
             ticks={xTicks}
             tickSize={xTickSize}
             tickMargin={xTickMargin}
@@ -74,13 +75,12 @@ const LineGraph: React.FC<Props> = ({
             ticks={yTicks}
             scale={yScale}
             //FIX so it's customisable
-            tickFormatter={scaleFormatter}
+            tickFormatter={yTickFormatter}
           />
           <Tooltip content={CustomTooltipContent} />
           <Line
             type="monotone"
-            //FIX add prop type
-            dataKey="total_unique_users_scale"
+            dataKey={yKey}
             dot={dot}
             stroke={fill}
             strokeWidth={3}

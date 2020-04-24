@@ -15,12 +15,13 @@ import {
   TickFormatterFunction,
 } from "recharts";
 import CustomTooltipContent from "./custom-tooltip";
-import scaleFormatter from "./y-axis-formatter";
+import AxisTickRotate from "./angle-axis-tick";
 
 interface Props extends LineChartProps {
   xInterval?: AxisInterval;
   xLabel?: LabelProps;
   xTicks?: Array<string>;
+  xTickFormatter?: TickFormatterFunction;
   xTickSize?: number;
   xTickMargin?: number;
   x_key: string;
@@ -41,10 +42,11 @@ interface Props extends LineChartProps {
 const LineGraph: React.FC<Props> = ({
   data,
   x_key,
-  margin = { top: 20, right: 20, bottom: 20, left: 20 },
+  margin = { top: 20, right: 10, bottom: 40, left: 10 },
   xTicks,
   xTickSize,
   xTickMargin,
+  xTickFormatter,
   Heading,
   yKey,
   yScale,
@@ -60,15 +62,15 @@ const LineGraph: React.FC<Props> = ({
       <HeadingTag className={`bar-chart-title ${Heading.className}`}>
         {Heading.text}
       </HeadingTag>
-      <ResponsiveContainer width="100%" height={300}>
+      <ResponsiveContainer width="100%" height={350}>
         <LineChart data={data} margin={margin}>
           <CartesianGrid strokeDasharray="3 3" />
           <XAxis
             dataKey={x_key}
+            tick={<AxisTickRotate />}
             ticks={xTicks}
             tickSize={xTickSize}
             tickMargin={xTickMargin}
-            tickFormatter={formatDate}
           />
           <YAxis
             domain={yDomain}
@@ -92,7 +94,3 @@ const LineGraph: React.FC<Props> = ({
 };
 
 export default LineGraph;
-
-const formatDate = (date: any) => {
-  return date.substring(5);
-};

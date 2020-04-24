@@ -1,13 +1,8 @@
-import React, { useState, useLayoutEffect, useEffect } from "react";
+import React from "react";
 import SEO from "../components/seo";
 import DefaultLayout from "../components/layouts/default-layout";
 import { useStaticQuery, graphql } from "gatsby";
 import Section from "../components/layouts/section";
-import { useFetch } from "../components/hooks/use-fetch";
-import { useMediaQuery } from "react-responsive";
-import { AxisDomain } from "recharts";
-import { number } from "prop-types";
-import LineGraph from "../components/visualisations/line-chart";
 import UniqueUsersLineGraph from "../components/blocks/total-unique-users";
 
 const IndexPage = () => {

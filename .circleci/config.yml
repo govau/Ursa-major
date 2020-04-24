@@ -84,6 +84,7 @@ jobs:
           command: |
             cd front-end/
             npm i
+            npm run pancake
       - save_cache:
           name: Save node_modules to cache
           key: v3-dependency-cache-{{ checksum "front-end/package.json" }}

@@ -3,6 +3,7 @@ import SEO from "../components/seo";
 import DefaultLayout from "../components/layouts/default-layout";
 import { useStaticQuery, graphql } from "gatsby";
 import Section from "../components/layouts/section";
+import UniqueUsersLineGraph from "../components/blocks/total-unique-users";
 
 const IndexPage = () => {
   //get MD content
@@ -42,6 +43,11 @@ const IndexPage = () => {
               className="container-fluid"
               dangerouslySetInnerHTML={{ __html: hero.html! }}
             />
+          </>
+        </Section>
+        <Section>
+          <>
+            <UniqueUsersLineGraph />
           </>
         </Section>
         <Section alt={tech.frontmatter.alt}>

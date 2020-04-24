@@ -86,7 +86,7 @@ jobs:
             npm i
       - save_cache:
           name: Save node_modules to cache
-          key: v3-dependency-cache-{{ checksum "api/package.json" }}
+          key: v3-dependency-cache-{{ checksum "front-end/package.json" }}
           paths:
             - front-end/node_modules/
       - run:

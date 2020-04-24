@@ -117,3 +117,5 @@ menuLinks: [
       },
     ],
 ```
+
+The footer links can be updated in a similar way using the `footerLinks` key.

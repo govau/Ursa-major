@@ -92,6 +92,7 @@ jobs:
       - run:
           name: Set envs and build
           command: |
+            cd front-end/
             . ./prebuild.sh
             npm run build
       - run:

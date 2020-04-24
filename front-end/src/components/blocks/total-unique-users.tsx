@@ -43,8 +43,9 @@ const UniqueUsersLineGraph: React.FC<Props> = (pro: any) => {
           count = 0;
         }
 
-        if (i === 90) {
+        if (i === 89) {
           datePoint = graphData.data.total_unique[i].visit_date;
+          xTicks.push(datePoint);
           mobileData.push({
             total_unique_users_scale: count,
             visit_date: datePoint,

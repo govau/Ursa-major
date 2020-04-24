@@ -118,4 +118,4 @@ menuLinks: [
     ],
 ```
 
-The footer links can be updated in a similar way using the `footerLinks` key.
+The footer links can be updated in a similar way using the `footerLinks` key in the `front-end/gatsby-config.js` file.

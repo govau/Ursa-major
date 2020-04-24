@@ -7,5 +7,7 @@ applications:
     command: node src/index.js
     services:
       - ursa-major-service
+    routes:
+      - route: ursa-major-front-end.apps.y.cld.gov.au/api
 ---
 

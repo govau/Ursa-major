@@ -1,14 +1,15 @@
-const { Storage } = require("@google-cloud/storage")
-var cfenv = require("cfenv")
-const environment = process.env.NODE_ENV || "development"
-require("dotenv").config()
+import { Storage } from "@google-cloud/storage";
+import cfenv from "cfenv";
+require("dotenv").config();
 
-var appEnv
+const environment: string = process.env.NODE_ENV || "development";
+
+var appEnv: any;
 if (environment !== "development") {
-  appEnv = cfenv.getAppEnv()
+  appEnv = cfenv.getAppEnv();
 }
 
-const gc =
+const gc: any =
   environment !== "development"
     ? new Storage({
         credentials: {
@@ -20,16 +21,18 @@ const gc =
     : new Storage({
         credentials: {
           client_email: process.env.CLIENT_EMAIL,
-          private_key: process.env.PRIVATE_KEY.replace(/\\n/gm, "\n"),
+          private_key:
+            process.env.PRIVATE_KEY &&
+            process.env.PRIVATE_KEY.replace(/\\n/gm, "\n"),
         },
-      })
+      });
 
-const files = {
+const files: { [key: string]: string } = {
   bucket: "us-east1-dta-airflow-b3415db4-bucket",
   browser: "data/analytics/json/device_browser_daily_snapshot_doi.json",
   uniqueViews:
     "data/analytics/project_ursa_major/uniquevisitors_90days_daily_snapshot_doi.json",
   agency: "data/analytics/json/device_category_daily_snapshot_doi.json",
-}
+};
 
-module.exports = { gc, files }
+export { gc, files };

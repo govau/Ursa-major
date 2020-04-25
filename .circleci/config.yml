@@ -22,7 +22,7 @@ jobs:
           command: |
             mkdir api-deploy
             cd api/
-            mv dist/ manifest-prod.yml manifest-staging.yml package.json package-lock.json gc-config.js node_modules/ ../api-deploy
+            mv dist/ manifest-prod.yml manifest-staging.yml package.json package-lock.json node_modules/ ../api-deploy
       - persist_to_workspace:
           root: ~/app-server
           paths:

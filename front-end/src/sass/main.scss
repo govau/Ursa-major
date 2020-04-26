@@ -65,6 +65,15 @@ h1 {
   @include AU-space(padding-bottom, 1unit);
 }
 
-$transparent: rgba(0, 0, 0, 0);
-$background: white;
-$shadow: black;
+.custom-tooltip {
+  @include AU-fontgrid(xs);
+  background-color: rgba(1, 1, 1, 0.8);
+  color: $AU-colordark-foreground-text;
+  @include AU-space(padding, 0.35rem);
+  @include AU-space(max-width, 8rem);
+  border-radius: $AU-border-radius;
+
+  p + p {
+    @include AU-space(margin-top, 0.25rem);
+  }
+}

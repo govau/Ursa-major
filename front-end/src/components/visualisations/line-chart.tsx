@@ -14,8 +14,8 @@ import {
   AxisDomain,
   TickFormatterFunction,
 } from "recharts";
-import CustomTooltipContent from "./custom-tooltip";
 import AxisTickRotate from "./angle-axis-tick";
+import CustomTooltip from "./custom-tooltip";
 
 interface Props extends LineChartProps {
   xInterval?: AxisInterval;
@@ -37,6 +37,7 @@ interface Props extends LineChartProps {
   fill: string;
   dot?: Boolean;
   yTickFormatter?: TickFormatterFunction;
+  isTabletOrMobile: Boolean;
 }
 
 const LineGraph: React.FC<Props> = ({
@@ -55,6 +56,7 @@ const LineGraph: React.FC<Props> = ({
   dot = false,
   fill = "#489cba",
   yTickFormatter,
+  isTabletOrMobile,
 }) => {
   const HeadingTag: any = Heading.level || "h3";
   return (
@@ -79,7 +81,9 @@ const LineGraph: React.FC<Props> = ({
             //FIX so it's customisable
             tickFormatter={yTickFormatter}
           />
-          <Tooltip content={CustomTooltipContent} />
+          <Tooltip
+            content={<CustomTooltip isTabletOrMobile={isTabletOrMobile} />}
+          />
           <Line
             type="monotone"
             dataKey={yKey}

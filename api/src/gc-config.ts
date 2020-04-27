@@ -29,10 +29,14 @@ const gc: any =
 
 const files: { [key: string]: string } = {
   bucket: "us-east1-dta-airflow-b3415db4-bucket",
-  browser: "data/analytics/json/device_browser_daily_snapshot_doi.json",
+  browser_total_monthly:
+    "data/analytics/project_ursa_major/browser_12months_daily_snapshot_doi.json",
   uniqueViews:
     "data/analytics/project_ursa_major/uniquevisitors_90days_daily_snapshot_doi.json",
-  agency: "data/analytics/json/device_category_daily_snapshot_doi.json",
+  hourly_unique_views:
+    "data/analytics/project_ursa_major/uniquevisitors_90days_hourly_snapshot_doi.json",
+  operating_system_views:
+    "data/analytics/project_ursa_major/opsys_12months_daily_snapshot_doi.json",
 };
 
 export { gc, files };

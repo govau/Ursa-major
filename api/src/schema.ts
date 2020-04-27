@@ -12,6 +12,9 @@ import fetchGCdata from "./fetch-gc";
 import { sortDate } from "./helper/helper";
 
 import UniqueUserType from "./graphQL_types/total_unique_users";
+import BrowserTotalType from "./graphQL_types/browsers_monthly";
+import HourlyUniqueViewsType from "./graphQL_types/hourly_unique_views";
+import OperatingSystemDataType from "./graphQL_types/operating_sys";
 
 const RootQuery = new GraphQLObjectType({
   name: "RootQueryType",
@@ -22,6 +25,33 @@ const RootQuery = new GraphQLObjectType({
         const data: Array<Object> = await fetchGCdata(files.uniqueViews);
         const sorted: Array<Object> = data.sort(sortDate);
         return sorted;
+      },
+    },
+    total_browser: {
+      type: new GraphQLList(BrowserTotalType),
+      async resolve(parentValue: any, args: any) {
+        const data: Array<Object> = await fetchGCdata(
+          files.browser_total_monthly
+        );
+        return data;
+      },
+    },
+    hourly_unique_views: {
+      type: new GraphQLList(HourlyUniqueViewsType),
+      async resolve(parentValue: any, args: any) {
+        const data: Array<Object> = await fetchGCdata(
+          files.hourly_unique_views
+        );
+        return data;
+      },
+    },
+    operating_system_views: {
+      type: new GraphQLList(OperatingSystemDataType),
+      async resolve(parentValue: any, args: any) {
+        const data: Array<Object> = await fetchGCdata(
+          files.operating_system_views
+        );
+        return data;
       },
     },
   },

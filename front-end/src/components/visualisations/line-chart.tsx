@@ -43,7 +43,7 @@ interface Props extends LineChartProps {
 const LineGraph: React.FC<Props> = ({
   data,
   x_key,
-  margin = { top: 20, right: 10, bottom: 40, left: 10 },
+  margin,
   xTicks,
   xTickSize,
   xTickMargin,
@@ -59,6 +59,9 @@ const LineGraph: React.FC<Props> = ({
   isTabletOrMobile,
 }) => {
   const HeadingTag: any = Heading.level || "h3";
+  margin = isTabletOrMobile
+    ? { top: 20, right: 10, bottom: 40, left: -20 }
+    : { top: 20, right: 10, bottom: 40, left: -25 };
   return (
     <>
       <HeadingTag className={`bar-chart-title ${Heading.className}`}>

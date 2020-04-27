@@ -27,7 +27,8 @@ const UniqueUsersLineGraph: React.FC<Props> = (pro: any) => {
     let count: number = 0;
     let datePoint: string = "";
     let mobileData: Array<Object> = [];
-    let xTicks: Array<Object> = [];
+    let xTicksMobile: Array<Object> = [];
+    let xTicksDesktop: Array<Object> = [];
     var i: number = 0;
 
     if (!graphData.loading) {
@@ -36,7 +37,7 @@ const UniqueUsersLineGraph: React.FC<Props> = (pro: any) => {
           +graphData.data.total_unique[i].total_unique_users_scale + +count;
         if (i % 13 === 0) {
           datePoint = graphData.data.total_unique[i].visit_date;
-          i % 2 && xTicks.push(datePoint);
+          i % 2 && xTicksMobile.push(datePoint);
           mobileData.push({
             total_unique_users_scale: count,
             visit_date: datePoint,
@@ -44,9 +45,9 @@ const UniqueUsersLineGraph: React.FC<Props> = (pro: any) => {
           count = 0;
         }
 
-        if (i === 89) {
+        if (i === graphData.data.total_unique.length - 1) {
           datePoint = graphData.data.total_unique[i].visit_date;
-          xTicks.push(datePoint);
+          xTicksMobile.push(datePoint);
           mobileData.push({
             total_unique_users_scale: count,
             visit_date: datePoint,
@@ -54,14 +55,18 @@ const UniqueUsersLineGraph: React.FC<Props> = (pro: any) => {
           count = 0;
         }
       }
+
+      [13, 27, 41, 55, 69, 83].map((index) => {
+        xTicksDesktop.push(graphData.data.total_unique[index].visit_date);
+      });
     }
-    setstate({ data: mobileData, xTicks });
+    setstate({ data: mobileData, xTicksMobile, xTicksDesktop });
   }, [graphData.loading]);
 
   //REFACTOR this should be automatic based off the data
   const yDomain: [AxisDomain, AxisDomain] = isTabletOrMobile
-    ? [0, 350]
-    : [10, 30];
+    ? [50, 350]
+    : [0, 30];
 
   const props = {
     data: isTabletOrMobile ? state.data : graphData.data.total_unique,
@@ -70,19 +75,9 @@ const UniqueUsersLineGraph: React.FC<Props> = (pro: any) => {
     yDomain,
     type: number,
     yTicks: isTabletOrMobile ? [100, 200, 300] : [10, 20, 30, 40],
-    xTicks: isTabletOrMobile
-      ? state.xTicks
-      : //REFACTOR this should be automatic based off the data
-        [
-          "2020-02-01",
-          "2020-02-15",
-          "2020-03-01",
-          "2020-03-15",
-          "2020-04-01",
-          "2020-04-15",
-        ],
+    xTicks: isTabletOrMobile ? state.xTicksMobile : state.xTicksDesktop,
     xTickSize: 10,
-    xTickMargin: 10,
+    xTickMargin: 5,
     Heading: {
       text: "Total unique users, last 90 days",
       className: "au-display-md bar-chart-title",
@@ -92,6 +87,7 @@ const UniqueUsersLineGraph: React.FC<Props> = (pro: any) => {
     dot: isTabletOrMobile ? true : false,
     yTickFormatter: scaleFormatter,
     xTickFormatter: formatDate,
+    isTabletOrMobile,
   };
 
   return (

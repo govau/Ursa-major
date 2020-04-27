@@ -1,4 +1,4 @@
-const { GraphQLObjectType, GraphQLString, GraphQLFloat } = require("graphql")
+import { GraphQLObjectType, GraphQLString, GraphQLFloat } from "graphql";
 
 const UniqueUserType = new GraphQLObjectType({
   name: "total_unique_users",
@@ -10,6 +10,6 @@ const UniqueUserType = new GraphQLObjectType({
     month_day: { type: GraphQLString },
     visit_year: { type: GraphQLString },
   }),
-})
+});
 
-module.exports = UniqueUserType
+export default UniqueUserType;

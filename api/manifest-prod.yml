@@ -4,8 +4,10 @@ applications:
     buildpack: nodejs_buildpack
     memory: 256M
     instances: 1
-    command: node src/index.js
+    command: node dist/index.js
     services:
       - ursa-major-service-prod
+    routes:
+      - route: analytics.service.gov.au/api
 ---
 

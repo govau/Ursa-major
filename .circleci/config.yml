@@ -11,12 +11,21 @@ jobs:
             echo 'export NODE_ENV=$CIRCLE_BRANCH' >> $BASH_ENV
             source $BASH_ENV
       - checkout
+      - restore_cache:
+          name: Restore node_modules from cache
+          keys:
+            - v3-dependency-cache-{{ checksum "api/package.json" }}
       - run:
           name: Install dependencies
           command: |
             cd api/
             npm i
             npm run build
+      - save_cache:
+          name: Save node_modules to cache
+          key: v3-dependency-cache-{{ checksum "api/package.json" }}
+          paths:
+            - api/node_modules/
       - run:
           name: Move assets into deploy directory
           command: |
@@ -67,11 +76,25 @@ jobs:
             echo 'export NODE_ENV=$CIRCLE_BRANCH' >> $BASH_ENV
             source $BASH_ENV
       - checkout
+      - restore_cache:
+          name: Restore node_modules from cache
+          keys:
+            - v3-dependency-cache-{{ checksum "front-end/package.json" }}
       - run:
-          name: Install dependencies set envs
+          name: Install dependencies
           command: |
             cd front-end/
             npm i
+            npm run pancake
+      - save_cache:
+          name: Save node_modules to cache
+          key: v3-dependency-cache-{{ checksum "front-end/package.json" }}
+          paths:
+            - front-end/node_modules/
+      - run:
+          name: Set envs and build
+          command: |
+            cd front-end/
             . ./prebuild.sh
             npm run build
       - run:

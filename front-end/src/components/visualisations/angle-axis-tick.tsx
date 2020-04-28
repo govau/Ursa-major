@@ -1,13 +1,19 @@
 import React from "react";
-import formatDate from "./date-tick-formatter";
 interface Props {
   x?: number;
   y?: number;
   stroke?: string;
   payload?: any;
+  formatFunction?: any;
 }
 
-const AxisTickRotate: React.FC<Props> = ({ x, y, stroke, payload }) => {
+const AxisTickRotate: React.FC<Props> = ({
+  x,
+  y,
+  stroke,
+  payload,
+  formatFunction,
+}) => {
   return (
     <g transform={`translate(${x},${y})`}>
       <text
@@ -18,7 +24,9 @@ const AxisTickRotate: React.FC<Props> = ({ x, y, stroke, payload }) => {
         fill="#666"
         transform="rotate(-30)"
       >
-        {formatDate(payload.value)}
+        {typeof formatFunction === "undefined"
+          ? payload.value
+          : formatFunction(payload.value)}
       </text>
     </g>
   );

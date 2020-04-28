@@ -13,9 +13,10 @@ import {
   ScaleType,
   AxisDomain,
   TickFormatterFunction,
+  LegendType,
+  Legend,
 } from "recharts";
-import AxisTickRotate from "./angle-axis-tick";
-import CustomTooltip from "./custom-tooltip";
+import CustomTooltip from "./unique-users-tooltip";
 
 interface Props extends LineChartProps {
   xInterval?: AxisInterval;
@@ -26,7 +27,7 @@ interface Props extends LineChartProps {
   xTickMargin?: number;
   x_key: string;
   yDomain: [AxisDomain, AxisDomain];
-  yKey: string;
+  yKeys: Array<string>;
   yScale?: ScaleType;
   yTicks?: Array<number>;
   Heading: {
@@ -38,6 +39,10 @@ interface Props extends LineChartProps {
   dot?: Boolean;
   yTickFormatter?: TickFormatterFunction;
   isTabletOrMobile: Boolean;
+  Tick?: any;
+  CustomToolTip?: any;
+  margin?: Object;
+  legend?: Boolean;
 }
 
 const LineGraph: React.FC<Props> = ({
@@ -49,19 +54,27 @@ const LineGraph: React.FC<Props> = ({
   xTickMargin,
   xTickFormatter,
   Heading,
-  yKey,
+  Tick,
+  yKeys,
   yScale,
   yDomain,
   yTicks,
   dot = false,
+  CustomToolTip,
   fill = "#489cba",
   yTickFormatter,
   isTabletOrMobile,
+  legend,
 }) => {
   const HeadingTag: any = Heading.level || "h3";
-  margin = isTabletOrMobile
-    ? { top: 20, right: 10, bottom: 40, left: -20 }
-    : { top: 20, right: 10, bottom: 40, left: -25 };
+  if (!margin) {
+    margin = isTabletOrMobile
+      ? { top: 20, right: 10, bottom: 40, left: -0 }
+      : { top: 20, right: 10, bottom: 40, left: -15 };
+  }
+
+  const fills: Array<string | number> = ["#0077ff", "#002957", "#008568"];
+
   return (
     <>
       <HeadingTag className={`bar-chart-title ${Heading.className}`}>
@@ -72,8 +85,10 @@ const LineGraph: React.FC<Props> = ({
           <CartesianGrid strokeDasharray="3 3" />
           <XAxis
             dataKey={x_key}
-            tick={<AxisTickRotate />}
-            ticks={xTicks}
+            tick={
+              Tick && <Tick formatFunction={xTickFormatter && xTickFormatter} />
+            }
+            ticks={xTicks && xTicks}
             tickSize={xTickSize}
             tickMargin={xTickMargin}
           />
@@ -85,15 +100,28 @@ const LineGraph: React.FC<Props> = ({
             tickFormatter={yTickFormatter}
           />
           <Tooltip
-            content={<CustomTooltip isTabletOrMobile={isTabletOrMobile} />}
+            content={
+              CustomToolTip && (
+                <CustomToolTip isTabletOrMobile={isTabletOrMobile} />
+              )
+            }
           />
-          <Line
-            type="monotone"
-            dataKey={yKey}
-            dot={dot}
-            stroke={fill}
-            strokeWidth={3}
-          />
+          {legend && (
+            <Legend
+              // REFACTOR THIS, shouldn't be hard-coded in
+              wrapperStyle={{ bottom: "-10px" }}
+            />
+          )}
+          {yKeys.map((key: string, i: number) => (
+            <Line
+              type="monotone"
+              dataKey={key}
+              dot={dot}
+              stroke={fills[i]}
+              strokeWidth={3}
+              key={i}
+            />
+          ))}
         </LineChart>
       </ResponsiveContainer>
     </>

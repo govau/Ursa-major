@@ -39,11 +39,11 @@
     "prettier": "^2.0.4",
     "typescript": "^3.8.3"
   },
-"contributors": [
-  {
-    "name": "Sukhraj Ghuman",
-    "email": "sukhrajghuman@live.com",
-    "url": "https://github.com/sukhrajghuman"
-  }
-]
+  "contributors": [
+    {
+      "name": "Sukhraj Ghuman",
+      "email": "sukhrajghuman@live.com",
+      "url": "https://github.com/sukhrajghuman"
+    }
+  ]
 }

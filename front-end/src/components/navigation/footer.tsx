@@ -39,7 +39,6 @@ const Footer: React.FC<Props> = () => {
             <FooterNav>
               <div className="row">
                 <div className="col-md-3 col-sm-6">
-                  <h3 className="au-display-lg">Section</h3>
                   <ul className="au-link-list au-link-list--inline">
                     {Links.map((item: any, i: number) => (
                       <li key={i}>
@@ -53,7 +52,6 @@ const Footer: React.FC<Props> = () => {
             <div className="row">
               <div className="col-sm-12">
                 <FooterEnd>
-                  <p>Footer text</p>
                   <p>
                     <small>
                       &copy; Commonwealth of Australia,{" "}

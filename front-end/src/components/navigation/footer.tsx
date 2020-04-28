@@ -6,7 +6,7 @@ import { useStaticQuery, graphql } from "gatsby";
 
 interface Props {}
 interface FooterLinks {
-  map(arg0: (item: any) => JSX.Element): React.ReactNode;
+  map(arg0: (item: any, i: number) => JSX.Element): React.ReactNode;
   items: Array<Object>;
 }
 
@@ -35,14 +35,14 @@ const Footer: React.FC<Props> = () => {
     <>
       <div className="au-body au-body--dark">
         <AuFooter dark>
-          <div className="container">
+          <div className="container-fluid">
             <FooterNav>
               <div className="row">
                 <div className="col-md-3 col-sm-6">
                   <h3 className="au-display-lg">Section</h3>
                   <ul className="au-link-list au-link-list--inline">
-                    {Links.map((item: any) => (
-                      <li>
+                    {Links.map((item: any, i: number) => (
+                      <li key={i}>
                         <Link to={item.link}>{item.text}</Link>
                       </li>
                     ))}

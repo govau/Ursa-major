@@ -11,17 +11,27 @@ jobs:
             echo 'export NODE_ENV=$CIRCLE_BRANCH' >> $BASH_ENV
             source $BASH_ENV
       - checkout
+      - restore_cache:
+          name: Restore node_modules from cache
+          keys:
+            - v3-dependency-cache-{{ checksum "api/package.json" }}
       - run:
           name: Install dependencies
           command: |
             cd api/
             npm i
+            npm run build
+      - save_cache:
+          name: Save node_modules to cache
+          key: v3-dependency-cache-{{ checksum "api/package.json" }}
+          paths:
+            - api/node_modules/
       - run:
           name: Move assets into deploy directory
           command: |
             mkdir api-deploy
             cd api/
-            mv src/ manifest-prod.yml manifest-staging.yml package.json package-lock.json gc-config.js node_modules/ ../api-deploy
+            mv dist/ manifest-prod.yml manifest-staging.yml package.json package-lock.json node_modules/ ../api-deploy
       - persist_to_workspace:
           root: ~/app-server
           paths:
@@ -66,11 +76,25 @@ jobs:
             echo 'export NODE_ENV=$CIRCLE_BRANCH' >> $BASH_ENV
             source $BASH_ENV
       - checkout
+      - restore_cache:
+          name: Restore node_modules from cache
+          keys:
+            - v3-dependency-cache-{{ checksum "front-end/package.json" }}
       - run:
-          name: Install dependencies set envs
+          name: Install dependencies
           command: |
             cd front-end/
             npm i
+            npm run pancake
+      - save_cache:
+          name: Save node_modules to cache
+          key: v3-dependency-cache-{{ checksum "front-end/package.json" }}
+          paths:
+            - front-end/node_modules/
+      - run:
+          name: Set envs and build
+          command: |
+            cd front-end/
             . ./prebuild.sh
             npm run build
       - run:

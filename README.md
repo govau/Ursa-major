@@ -45,7 +45,7 @@ The `api/src/schema.js` file contains custom graphQL data structures for the que
 Once in the `observatory-front-end` directory run the following commands:
 
 ```
-$ EXPORT GATSBY_API_URL="http://localhost:3000/api"
+$ export GATSBY_API_URL="http://localhost:3000/api"
 $ npm i
 $ npm run start
 ```
@@ -117,3 +117,5 @@ menuLinks: [
       },
     ],
 ```
+
+The footer links can be updated in a similar way using the `footerLinks` key in the `front-end/gatsby-config.js` file.

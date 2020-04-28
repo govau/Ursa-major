@@ -2,8 +2,12 @@
 id: hero
 alt: true
 ---
+## We’re helping make data transparent to improve government digital services. 
 
-# gov.au Observatory
+The data we use is anonymous and privacy-preserving. It is collated from:
 
-We’re helping make data transparent to improve government digital services. All data used is completely anonymous and privacy-preserving. To learn about how we source data, see the [About page](/about).
+<h3 class = "au-display-xl mt-hero" > 74 </h3>
+ participating agencies
 
+<h3 class = "au-display-xl mt-hero"> 673 </h3>  
+gov.au digital services*

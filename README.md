@@ -13,7 +13,7 @@ To ensure the server works correctly you will need to add service account key in
 
 ### Service account key
 
-Add a file in the `/api` directory named `.env`. Then follow these steps
+Add a file in the `/api/src` directory named `.env`. Then follow these steps
 
 1. Vist [google cloud platform landing page](https://console.cloud.google.com/)
 2. Open the sidebar and then click `APIs & Services` > `Credentials`

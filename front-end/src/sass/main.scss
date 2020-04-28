@@ -69,11 +69,16 @@ h1 {
   @include AU-fontgrid(xs);
   background-color: rgba(1, 1, 1, 0.9);
   color: $AU-colordark-foreground-text;
-  @include AU-space(padding, 0.35rem);
-  @include AU-space(max-width, 8rem);
+  @include AU-space(padding, 0.35unit);
+  @include AU-space(max-width, 8unit);
   border-radius: $AU-border-radius;
 
   p + p {
-    @include AU-space(margin-top, 0.25rem);
+    @include AU-space(margin-top, 0.25unit);
   }
+}
+
+.mt-hero {
+  margin-top: 24px !important;
+  margin-top: 1.5rem !important;
 }

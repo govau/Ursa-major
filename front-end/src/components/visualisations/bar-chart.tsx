@@ -14,7 +14,7 @@ import {
   LabelProps,
   ResponsiveContainer,
 } from "recharts";
-import CustomTooltipContent from "./custom-tooltip";
+import CustomTooltipContent from "./unique-users-tooltip";
 
 interface Props extends BarProps {
   margin?: Partial<Margin>;

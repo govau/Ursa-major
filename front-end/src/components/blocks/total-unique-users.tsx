@@ -6,17 +6,17 @@ import { number } from "prop-types";
 import LineGraph from "../visualisations/line-chart";
 import scaleFormatter from "../visualisations/y-axis-formatter";
 import formatDate from "../visualisations/date-tick-formatter";
+import AxisTickRotate from "../visualisations/angle-axis-tick";
+import UniqueUsersToolTip from "../visualisations/unique-users-tooltip";
 
-interface Props {}
+interface Props {
+  isTabletOrMobile: Boolean;
+}
 
-const UniqueUsersLineGraph: React.FC<Props> = (pro: any) => {
+const UniqueUsersLineGraph: React.FC<Props> = ({ isTabletOrMobile }) => {
   const graphData = useFetch({
     initialState: "",
     query: "{total_unique {total_unique_users_scale visit_date}}",
-  });
-
-  const isTabletOrMobile: Boolean = useMediaQuery({
-    query: "(max-width: 768px)",
   });
 
   const initialState: any = {};
@@ -68,9 +68,9 @@ const UniqueUsersLineGraph: React.FC<Props> = (pro: any) => {
     ? [50, 350]
     : [0, 30];
 
-  const props = {
+  const lineGraphProps = {
     data: isTabletOrMobile ? state.data : graphData.data.total_unique,
-    yKey: "total_unique_users_scale",
+    yKeys: ["total_unique_users_scale"],
     x_key: "visit_date",
     yDomain,
     type: number,
@@ -88,11 +88,13 @@ const UniqueUsersLineGraph: React.FC<Props> = (pro: any) => {
     yTickFormatter: scaleFormatter,
     xTickFormatter: formatDate,
     isTabletOrMobile,
+    Tick: AxisTickRotate,
+    CustomToolTip: UniqueUsersToolTip,
   };
 
   return (
     <div className="container-fluid">
-      {!graphData.loading && <LineGraph {...props} />}
+      {!graphData.loading && <LineGraph {...lineGraphProps} />}
     </div>
   );
 };

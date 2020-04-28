@@ -6,9 +6,9 @@ interface Props extends TooltipProps {
   isTabletOrMobile?: Boolean;
 }
 
-let CustomTooltip: (props: Props) => JSX.Element;
+let UniqueUsersToolTip: (props: Props) => JSX.Element;
 
-CustomTooltip = ({ active, payload, label, isTabletOrMobile }) => {
+UniqueUsersToolTip = ({ active, payload, label, isTabletOrMobile }) => {
   let totalVal: string | number = "";
   let date: string = "";
 
@@ -33,4 +33,4 @@ CustomTooltip = ({ active, payload, label, isTabletOrMobile }) => {
   );
 };
 
-export default CustomTooltip;
+export default UniqueUsersToolTip;

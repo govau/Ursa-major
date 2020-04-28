@@ -4,6 +4,8 @@ import DefaultLayout from "../components/layouts/default-layout";
 import { useStaticQuery, graphql } from "gatsby";
 import Section from "../components/layouts/section";
 import UniqueUsersLineGraph from "../components/blocks/total-unique-users";
+import DeviceCategoryVisualisation from "../components/blocks/device-category";
+import { useMediaQuery } from "react-responsive";
 
 const IndexPage = () => {
   //get MD content
@@ -33,6 +35,10 @@ const IndexPage = () => {
     (page: any) => page.frontmatter.id === "hero"
   );
 
+  const isTabletOrMobile: Boolean = useMediaQuery({
+    query: "(max-width: 768px)",
+  });
+
   return (
     <DefaultLayout>
       <>
@@ -47,7 +53,12 @@ const IndexPage = () => {
         </Section>
         <Section>
           <>
-            <UniqueUsersLineGraph />
+            <UniqueUsersLineGraph isTabletOrMobile={isTabletOrMobile} />
+          </>
+        </Section>
+        <Section>
+          <>
+            <DeviceCategoryVisualisation isTabletOrMobile={isTabletOrMobile} />
           </>
         </Section>
         <Section alt={tech.frontmatter.alt}>

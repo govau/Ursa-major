@@ -110,6 +110,7 @@ const LineGraph: React.FC<Props> = ({
             <Legend
               // REFACTOR THIS, shouldn't be hard-coded in
               wrapperStyle={{ bottom: "-10px" }}
+              iconType="rect"
             />
           )}
           {yKeys.map((key: string, i: number) => (

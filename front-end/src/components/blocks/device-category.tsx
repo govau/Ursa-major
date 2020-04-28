@@ -111,7 +111,7 @@ const DeviceCategoryVisualisation: React.FC<Props> = ({ isTabletOrMobile }) => {
 
   return (
     <div className="container-fluid">
-      <LineGraph {...lineGraphProps} />
+      {!deviceData.loading && <LineGraph {...lineGraphProps} />}
     </div>
   );
 };

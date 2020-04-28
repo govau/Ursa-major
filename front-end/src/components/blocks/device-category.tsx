@@ -4,6 +4,7 @@ import LineGraph from "../visualisations/line-chart";
 import { AxisDomain } from "recharts";
 import AxisTickRotate from "../visualisations/angle-axis-tick";
 import PercentageFormatter from "../visualisations/percentage-formatter";
+import DeviceCategoryToolTip from "../visualisations/devices-tooltip";
 
 interface Props {
   isTabletOrMobile: Boolean;
@@ -23,28 +24,44 @@ const DeviceCategoryVisualisation: React.FC<Props> = ({ isTabletOrMobile }) => {
           `,
   });
 
+  interface DeviceCategoryType {
+    device_category: string;
+    device_category_count: string;
+    month_year: string;
+    percent_month: number;
+  }
+
+  interface LineGraphDataType {
+    month_yr: string;
+    desktop: string;
+    tablet: string;
+    mobile: string;
+  }
+
   const initialState: any = {};
   const [state, setState] = useState(initialState);
 
   useLayoutEffect(() => {
-    let months: Array<any> = [];
-    let finalData: Array<any> = [];
+    let months: Array<string> = [];
+    let finalData: Array<LineGraphDataType> = [];
     let xTicks: Array<any> = [];
     if (!deviceData.loading) {
-      deviceData.data.device_catogories.forEach((a: any) => {
-        if (!months.includes(a.month_year)) {
-          months.push(a.month_year);
+      // REFACTOR, the data should have this structure out of the box
+      deviceData.data.device_catogories.forEach((row: DeviceCategoryType) => {
+        if (!months.includes(row.month_year)) {
+          months.push(row.month_year);
         }
       });
 
       months.forEach((month: string, i: number) => {
         i !== 0 && i % 1 === 0 && xTicks.push(month);
         var flattened = "";
+
         const monthData = deviceData.data.device_catogories.filter(
-          (row: any) => row.month_year === month
+          (row: DeviceCategoryType) => row.month_year === month
         );
 
-        monthData.forEach((row: any, i: Number) => {
+        monthData.forEach((row: DeviceCategoryType, i: Number) => {
           var devData = `"${[row.device_category]}":"${row.percent_month}"${
             i < 2 ? "," : ""
           }`;
@@ -65,7 +82,7 @@ const DeviceCategoryVisualisation: React.FC<Props> = ({ isTabletOrMobile }) => {
 
   const lineGraphProps = {
     data: state.data,
-    yKeys: ["mobile", "tablet", "desktop"],
+    yKeys: ["desktop", "mobile", "tablet"],
     x_key: "month_yr",
     yDomain,
     // type: number,
@@ -87,7 +104,7 @@ const DeviceCategoryVisualisation: React.FC<Props> = ({ isTabletOrMobile }) => {
       ? { top: 20, right: 10, bottom: 40, left: 0 }
       : { top: 20, right: 10, bottom: 40, left: -10 },
     legend: true,
-    // xTickFormatter: formatDate,
+    CustomToolTip: DeviceCategoryToolTip,
   };
 
   return (

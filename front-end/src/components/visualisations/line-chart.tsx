@@ -74,9 +74,6 @@ const LineGraph: React.FC<Props> = ({
   }
 
   const fills: Array<string | number> = ["#0077ff", "#002957", "#00ECB8"];
-  {
-    console.log(CustomTooltip);
-  }
 
   return (
     <>

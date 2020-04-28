@@ -56,7 +56,7 @@ const UniqueUsersLineGraph: React.FC<Props> = ({ isTabletOrMobile }) => {
         }
       }
 
-      [13, 27, 41, 55, 69, 83].map((index) => {
+      [6, 13, 20, 27, 34, 41, 48, 55, 62, 69, 76, 83].map((index: number) => {
         xTicksDesktop.push(graphData.data.total_unique[index].visit_date);
       });
     }

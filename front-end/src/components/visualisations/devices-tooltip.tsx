@@ -24,8 +24,8 @@ DeviceCategoryToolTip = ({ active, payload, label }) => {
         <div className="custom-tooltip au-body">
           <p>{date}</p>
           <p>{desktop}</p>
+          <p>{mobile}</p>
           <p>{tablet}</p>
-          <p>{desktop}</p>
         </div>
       )}
     </>

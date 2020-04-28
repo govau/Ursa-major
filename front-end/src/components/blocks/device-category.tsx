@@ -47,6 +47,8 @@ const DeviceCategoryVisualisation: React.FC<Props> = ({ isTabletOrMobile }) => {
     let xTicks: Array<any> = [];
     if (!deviceData.loading) {
       // REFACTOR, the data should have this structure out of the box
+      //the following code restructures the JSON object from the API into suitable format
+      //for the recharts API
       deviceData.data.device_catogories.forEach((row: DeviceCategoryType) => {
         if (!months.includes(row.month_year)) {
           months.push(row.month_year);
@@ -91,7 +93,7 @@ const DeviceCategoryVisualisation: React.FC<Props> = ({ isTabletOrMobile }) => {
     xTickSize: 10,
     xTickMargin: 5,
     Heading: {
-      text: "Device categories",
+      text: "Desktop vs Mobile vs Tablet usage",
       className: "au-display-md bar-chart-title",
       level: "h3",
     },

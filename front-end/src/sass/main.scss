@@ -67,7 +67,7 @@ h1 {
 
 .custom-tooltip {
   @include AU-fontgrid(xs);
-  background-color: rgba(1, 1, 1, 0.8);
+  background-color: rgba(1, 1, 1, 0.9);
   color: $AU-colordark-foreground-text;
   @include AU-space(padding, 0.35rem);
   @include AU-space(max-width, 8rem);

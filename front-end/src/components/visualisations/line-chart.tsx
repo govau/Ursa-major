@@ -73,7 +73,7 @@ const LineGraph: React.FC<Props> = ({
       : { top: 20, right: 10, bottom: 40, left: -15 };
   }
 
-  const fills: Array<string | number> = ["#0077ff", "#002957", "#00ECB8"];
+  const fills: Array<string | number> = ["#0077ff", "#002957", "#008568"];
 
   return (
     <>

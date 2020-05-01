@@ -51,16 +51,26 @@ const IndexPage = () => {
             />
           </>
         </Section>
-        <Section>
-          <>
-            <UniqueUsersLineGraph isTabletOrMobile={isTabletOrMobile} />
-          </>
-        </Section>
-        <Section>
-          <>
-            <DeviceCategoryVisualisation isTabletOrMobile={isTabletOrMobile} />
-          </>
-        </Section>
+        <div className="container-fluid">
+          <div className="row">
+            <div className="col-md-6">
+              <Section>
+                <>
+                  <UniqueUsersLineGraph isTabletOrMobile={isTabletOrMobile} />
+                </>
+              </Section>
+            </div>
+            <div className="col-md-6">
+              <Section>
+                <>
+                  <DeviceCategoryVisualisation
+                    isTabletOrMobile={isTabletOrMobile}
+                  />
+                </>
+              </Section>
+            </div>
+          </div>
+        </div>
         <Section alt={tech.frontmatter.alt}>
           <div
             className="container-fluid"

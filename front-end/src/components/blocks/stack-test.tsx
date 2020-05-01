@@ -5,13 +5,14 @@ import { AxisDomain } from "recharts";
 import AxisTickRotate from "../visualisations/formatters/angle-axis-tick";
 import PercentageFormatter from "../visualisations/formatters/percentage-formatter";
 import DeviceCategoryToolTip from "../visualisations/formatters/devices-tooltip";
-import LineLabel from "../visualisations/formatters/line-label";
+import StackedBarGraph from "../visualisations/stacked-chart";
+import StackedAreaGraph from "../visualisations/area-chart";
 
 interface Props {
   isTabletOrMobile: Boolean;
 }
 
-const DeviceCategoryVisualisation: React.FC<Props> = ({ isTabletOrMobile }) => {
+const StackTest: React.FC<Props> = ({ isTabletOrMobile }) => {
   const deviceData = useFetch({
     initialState: "",
     query: `{
@@ -47,6 +48,7 @@ const DeviceCategoryVisualisation: React.FC<Props> = ({ isTabletOrMobile }) => {
     let finalData: Array<LineGraphDataType> = [];
     let xTicks: Array<any> = [];
     if (!deviceData.loading) {
+      //   console.log(deviceData);
       // REFACTOR, the data should have this structure out of the box
       //the following code restructures the JSON object from the API into suitable format
       //for the recharts API
@@ -59,7 +61,6 @@ const DeviceCategoryVisualisation: React.FC<Props> = ({ isTabletOrMobile }) => {
       months.forEach((month: string, i: number) => {
         i !== 0 && i % 1 === 0 && xTicks.push(month);
         var flattened = "";
-
         const monthData = deviceData.data.device_catogories.filter(
           (row: DeviceCategoryType) => row.month_year === month
         );
@@ -86,36 +87,31 @@ const DeviceCategoryVisualisation: React.FC<Props> = ({ isTabletOrMobile }) => {
   const lineGraphProps = {
     data: state.data,
     yKeys: ["desktop", "mobile", "tablet"],
-    x_key: "month_yr",
+    dataKey: "month_yr",
     yDomain,
     // type: number,
-    // yTicks: [100, 200, 300] : [10, 20, 30, 40],
+    yTicks: [0, 25, 50, 75, 100],
     xTicks: state.xTicks,
     xTickSize: 10,
     xTickMargin: 5,
+    Tick: AxisTickRotate,
     Heading: {
       text: "Desktop vs Mobile vs Tablet usage",
       className: "au-display-md bar-chart-title",
       level: "h3",
     },
-    fill: "#0077ff",
     isTabletOrMobile,
-    Tick: AxisTickRotate,
+    // Tick: AxisTickRotate,
     // dot:false,
     yTickFormatter: PercentageFormatter,
     margin: isTabletOrMobile
       ? { top: 20, right: 10, bottom: 40, left: 0 }
       : { top: 20, right: 10, bottom: 40, left: -10 },
-    legend: true,
-    CustomToolTip: DeviceCategoryToolTip,
-    CustomLabel: LineLabel,
+    // legend: true,
+    // CustomToolTip: DeviceCategoryToolTip,
   };
 
-  return (
-    <div className="container-fluid">
-      {!deviceData.loading && <LineGraph {...lineGraphProps} />}
-    </div>
-  );
+  return <>{!deviceData.loading && <StackedBarGraph {...lineGraphProps} />}</>;
 };
 
-export default DeviceCategoryVisualisation;
+export default StackTest;

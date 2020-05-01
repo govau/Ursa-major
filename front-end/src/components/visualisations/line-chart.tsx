@@ -1,4 +1,4 @@
-import React from "react";
+import React, { PureComponent } from "react";
 import {
   LineChart,
   Line,
@@ -15,8 +15,9 @@ import {
   TickFormatterFunction,
   LegendType,
   Legend,
+  Label,
 } from "recharts";
-import CustomTooltip from "./unique-users-tooltip";
+import LineLabel from "./formatters/line-label";
 
 interface Props extends LineChartProps {
   xInterval?: AxisInterval;
@@ -41,6 +42,7 @@ interface Props extends LineChartProps {
   isTabletOrMobile: Boolean;
   Tick?: any;
   CustomToolTip?: any;
+  CustomLabel?: any;
   margin?: Object;
   legend?: Boolean;
 }
@@ -61,6 +63,7 @@ const LineGraph: React.FC<Props> = ({
   yTicks,
   dot = false,
   CustomToolTip,
+  CustomLabel,
   fill = "#489cba",
   yTickFormatter,
   isTabletOrMobile,
@@ -121,7 +124,12 @@ const LineGraph: React.FC<Props> = ({
               stroke={fills[i]}
               strokeWidth={3}
               key={i}
-            />
+              label={
+                CustomLabel && (
+                  <CustomLabel length={data?.length} dataKey={key} />
+                )
+              }
+            ></Line>
           ))}
         </LineChart>
       </ResponsiveContainer>

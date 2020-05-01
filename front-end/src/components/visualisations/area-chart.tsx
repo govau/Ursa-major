@@ -13,22 +13,28 @@ import {
   AxisInterval,
   LabelProps,
   ResponsiveContainer,
+  TickFormatterFunction,
+  Legend,
+  AreaChart,
+  Area,
 } from "recharts";
-import CustomTooltipContent from "./formatters/unique-users-tooltip";
 
 interface Props extends BarProps {
   margin?: Partial<Margin>;
   fill?: string;
-  yKey: string;
+  yKeys: Array<string>;
   yScale?: ScaleType;
   yLabel?: LabelProps;
   yDomain: [AxisDomain, AxisDomain];
   yTicks?: Array<number>;
   xInterval?: AxisInterval;
-  xLabel?: LabelProps;
   xTicks?: Array<string>;
   xTickSize?: number;
   xTickMargin?: number;
+  Tick?: any;
+  yTickFormatter?: TickFormatterFunction;
+  xTickFormatter?: TickFormatterFunction;
+  dataKey: string;
   Heading: {
     text: string;
     className: string;
@@ -36,32 +42,33 @@ interface Props extends BarProps {
   };
 }
 
-const BarGraph: React.FC<Props> = ({
+const StackedAreaGraph: React.FC<Props> = ({
   data,
-  margin = { top: 20, right: 20, bottom: 20, left: 20 },
+  margin,
   dataKey,
   xInterval,
   yTicks,
   xTicks,
   xTickSize,
   xTickMargin,
-  xLabel,
-  yAxis,
-  yKey,
-  yLabel,
+  yKeys,
   yScale,
+  yTickFormatter,
+  Tick,
+  xTickFormatter,
   yDomain,
   Heading,
-  fill = "#489cba",
 }) => {
   const HeadingTag: any = Heading.level || "h3";
+  const fills: Array<string | undefined> = ["#0077ff", "#002957", "#008568"];
+
   return (
     <>
       <HeadingTag className={`bar-chart-title ${Heading.className}`}>
         {Heading.text}
       </HeadingTag>
       <ResponsiveContainer width="100%" height={300}>
-        <BarChart data={data} margin={margin}>
+        <AreaChart data={data} margin={margin}>
           <CartesianGrid strokeDasharray="3 3" />
           <XAxis
             dataKey={dataKey}
@@ -69,14 +76,31 @@ const BarGraph: React.FC<Props> = ({
             interval={xInterval}
             tickSize={xTickSize}
             tickMargin={xTickMargin}
+            tick={
+              Tick && <Tick formatFunction={xTickFormatter && xTickFormatter} />
+            }
           ></XAxis>
-          <YAxis domain={yDomain} ticks={yTicks} scale={yScale} />
-          <Tooltip content={CustomTooltipContent} />
-          <Bar dataKey={yKey} fill={fill} />
-        </BarChart>
+          <YAxis
+            domain={yDomain}
+            ticks={yTicks}
+            tickFormatter={yTickFormatter}
+            scale={yScale}
+          />
+          <Tooltip />
+          <Legend iconType="square" wrapperStyle={{ bottom: "-10px" }} />
+          {yKeys.map((key: string, i: number) => (
+            <Area
+              type="monotone"
+              dataKey={key}
+              key={i}
+              fill={fills[i]}
+              stroke={fills[i % 3]}
+            />
+          ))}
+        </AreaChart>
       </ResponsiveContainer>
     </>
   );
 };
 
-export default BarGraph;
+export default StackedAreaGraph;

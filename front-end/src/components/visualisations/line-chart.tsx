@@ -124,6 +124,7 @@ const LineGraph: React.FC<Props> = ({
               stroke={fills[i]}
               strokeWidth={3}
               key={i}
+              //Refactor
               label={
                 CustomLabel && (
                   <CustomLabel length={data?.length} dataKey={key} />

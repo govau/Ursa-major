@@ -24,6 +24,8 @@ Add a file in the `/api` directory named `.env`. Then follow these steps
 ```
 PRIVATE_KEY=[insert private key here]
 CLIENT_EMAIL=[insert client email here]
+SECRET=
+API_CREDS=
 ```
 
 Once this is done run the following commands from the `/api` directory to start the server:
@@ -46,6 +48,7 @@ Once in the `observatory-front-end` directory run the following commands:
 
 ```
 $ export GATSBY_API_URL="http://localhost:3000/api"
+$ export GATSBY_API_CREDS=[same as server]
 $ npm i
 $ npm run start
 ```

@@ -3,6 +3,7 @@ import { useState, useLayoutEffect } from "react";
 interface Props {
   initialState: any;
   query: string;
+  token: string;
 }
 
 export const useFetch = (props: Props) => {
@@ -17,6 +18,7 @@ export const useFetch = (props: Props) => {
       headers: {
         "Content-Type": "application/json",
         Accept: "application/json",
+        Authorization: `bearer ${props.token}`,
       },
       body: JSON.stringify({
         query: `${props.query}`,

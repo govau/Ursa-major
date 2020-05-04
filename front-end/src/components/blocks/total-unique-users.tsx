@@ -11,12 +11,14 @@ import UniqueUsersToolTip from "../visualisations/unique-users-tooltip";
 
 interface Props {
   isTabletOrMobile: Boolean;
+  token: string;
 }
 
-const UniqueUsersLineGraph: React.FC<Props> = ({ isTabletOrMobile }) => {
+const UniqueUsersLineGraph: React.FC<Props> = ({ isTabletOrMobile, token }) => {
   const graphData = useFetch({
     initialState: "",
     query: "{total_unique {total_unique_users_scale visit_date}}",
+    token,
   });
 
   const initialState: any = {};

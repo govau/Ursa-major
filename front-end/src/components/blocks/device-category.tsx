@@ -8,9 +8,13 @@ import DeviceCategoryToolTip from "../visualisations/devices-tooltip";
 
 interface Props {
   isTabletOrMobile: Boolean;
+  token: string;
 }
 
-const DeviceCategoryVisualisation: React.FC<Props> = ({ isTabletOrMobile }) => {
+const DeviceCategoryVisualisation: React.FC<Props> = ({
+  isTabletOrMobile,
+  token,
+}) => {
   const deviceData = useFetch({
     initialState: "",
     query: `{
@@ -22,6 +26,7 @@ const DeviceCategoryVisualisation: React.FC<Props> = ({ isTabletOrMobile }) => {
             }
           }
           `,
+    token,
   });
 
   interface DeviceCategoryType {

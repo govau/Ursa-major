@@ -7,14 +7,15 @@ import helmet from "helmet";
 
 const PORT: Number | string = process.env.PORT || 3000;
 const app: Application = express();
-app.use(cors());
+var env = process.env.NODE_ENV || "dev";
+env === "dev" && app.use(cors());
 app.use(helmet());
 
 app.use(
   "/api",
   graphqlHTTP({
     schema: Rschema,
-    graphiql: true,
+    graphiql: env === "dev",
   })
 );
 

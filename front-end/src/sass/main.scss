@@ -99,3 +99,19 @@ h1 {
   margin-top: 24px !important;
   margin-top: 1.5rem !important;
 }
+
+.hero-image {
+  border: solid 2px lightgrey;
+  @include AU-space(margin-top, 1unit);
+  background: white;
+  text-align: center;
+  @include AU-media(xs) {
+    margin-top: 0;
+  }
+
+  &__caption {
+    @include AU-space(margin-top, 0.5unit);
+    @include AU-space(padding, 0.5unit);
+    @include AU-fontgrid(xs);
+  }
+}

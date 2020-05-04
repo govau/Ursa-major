@@ -6,6 +6,7 @@ import Section from "../components/layouts/section";
 import UniqueUsersLineGraph from "../components/blocks/total-unique-users";
 import DeviceCategoryVisualisation from "../components/blocks/device-category";
 import { useMediaQuery } from "react-responsive";
+import Hero from "../components/layouts/hero";
 
 const IndexPage = () => {
   //get MD content
@@ -20,6 +21,9 @@ const IndexPage = () => {
             frontmatter {
               id
               alt
+              imgUrl
+              imgAlt
+              imgCaption
             }
           }
         }
@@ -43,34 +47,26 @@ const IndexPage = () => {
     <DefaultLayout>
       <>
         <SEO title="Home" />
-        <Section alt={hero.frontmatter.alt}>
+        <Hero
+          alt={hero.frontmatter.alt}
+          imgAlt={hero.frontmatter.imgAlt}
+          imgUrl={hero.frontmatter.imgUrl}
+          imgCaption={hero.frontmatter.imgCaption}
+        >
           <>
-            <div
-              className="container-fluid"
-              dangerouslySetInnerHTML={{ __html: hero.html! }}
-            />
+            <div dangerouslySetInnerHTML={{ __html: hero.html! }} />
+          </>
+        </Hero>
+        <Section>
+          <>
+            <UniqueUsersLineGraph isTabletOrMobile={isTabletOrMobile} />
           </>
         </Section>
-        <div className="container-fluid">
-          <div className="row">
-            <div className="col-md-6">
-              <Section>
-                <>
-                  <UniqueUsersLineGraph isTabletOrMobile={isTabletOrMobile} />
-                </>
-              </Section>
-            </div>
-            <div className="col-md-6">
-              <Section>
-                <>
-                  <DeviceCategoryVisualisation
-                    isTabletOrMobile={isTabletOrMobile}
-                  />
-                </>
-              </Section>
-            </div>
-          </div>
-        </div>
+        <Section>
+          <>
+            <DeviceCategoryVisualisation isTabletOrMobile={isTabletOrMobile} />
+          </>
+        </Section>
         <Section alt={tech.frontmatter.alt}>
           <div
             className="container-fluid"

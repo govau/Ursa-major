@@ -4,7 +4,9 @@ title: About
 createPage: true
 ---
 
-# What is analytics.service.gov.au?
+# What is the gov.au analytics service?
+
+
 
 This is a whole-of-government analytics dashboard. It displays aggregated metrics from [participating](https://dta.gov.au/our-projects/google-analytics-government/) Australian Government digital services.
 

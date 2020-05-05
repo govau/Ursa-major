@@ -7,6 +7,7 @@ import UniqueUsersLineGraph from "../components/blocks/total-unique-users";
 import DeviceCategoryVisualisation from "../components/blocks/device-category";
 import { useMediaQuery } from "react-responsive";
 import Hero from "../components/layouts/hero";
+import BrowserMonthly from "../components/blocks/browser-monthly";
 
 const IndexPage = () => {
   //get MD content
@@ -57,16 +58,21 @@ const IndexPage = () => {
             <div dangerouslySetInnerHTML={{ __html: hero.html! }} />
           </>
         </Hero>
-        <Section>
-          <>
-            <UniqueUsersLineGraph isTabletOrMobile={isTabletOrMobile} />
-          </>
-        </Section>
-        <Section>
-          <>
-            <DeviceCategoryVisualisation isTabletOrMobile={isTabletOrMobile} />
-          </>
-        </Section>
+        <div className="container-fluid au-body">
+          <div className="row">
+            <div className="col-md-6">
+              <UniqueUsersLineGraph isTabletOrMobile={isTabletOrMobile} />
+            </div>
+            <div className="col-md-6">
+              <DeviceCategoryVisualisation
+                isTabletOrMobile={isTabletOrMobile}
+              />
+            </div>
+            <div className="col-md-12">
+              <BrowserMonthly isTabletOrMobile={isTabletOrMobile} />
+            </div>
+          </div>
+        </div>
         <Section alt={tech.frontmatter.alt}>
           <div
             className="container-fluid"

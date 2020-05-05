@@ -111,11 +111,7 @@ const DeviceCategoryVisualisation: React.FC<Props> = ({ isTabletOrMobile }) => {
     CustomLabel: LineLabel,
   };
 
-  return (
-    <div className="container-fluid">
-      {!deviceData.loading && <LineGraph {...lineGraphProps} />}
-    </div>
-  );
+  return <>{!deviceData.loading && <LineGraph {...lineGraphProps} />}</>;
 };
 
 export default DeviceCategoryVisualisation;

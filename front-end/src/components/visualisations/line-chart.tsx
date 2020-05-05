@@ -36,7 +36,7 @@ interface Props extends LineChartProps {
     className?: string;
     level?: string;
   };
-  fill: string;
+  fill?: string;
   dot?: Boolean;
   yTickFormatter?: TickFormatterFunction;
   isTabletOrMobile: Boolean;
@@ -45,6 +45,7 @@ interface Props extends LineChartProps {
   CustomLabel?: any;
   margin?: Object;
   legend?: Boolean;
+  TooltipKeys?: any;
 }
 
 const LineGraph: React.FC<Props> = ({
@@ -63,6 +64,7 @@ const LineGraph: React.FC<Props> = ({
   yTicks,
   dot = false,
   CustomToolTip,
+  TooltipKeys,
   CustomLabel,
   fill = "#489cba",
   yTickFormatter,
@@ -76,7 +78,14 @@ const LineGraph: React.FC<Props> = ({
       : { top: 20, right: 10, bottom: 40, left: -15 };
   }
 
-  const fills: Array<string | number> = ["#0077ff", "#002957", "#008568"];
+  const fills: Array<string | undefined> = [
+    "#0077ff",
+    "#002957",
+    "#008568",
+    "#e69f00",
+    "#cc79a7",
+    "#eee12f",
+  ];
 
   return (
     <>
@@ -105,7 +114,10 @@ const LineGraph: React.FC<Props> = ({
           <Tooltip
             content={
               CustomToolTip && (
-                <CustomToolTip isTabletOrMobile={isTabletOrMobile} />
+                <CustomToolTip
+                  isTabletOrMobile={isTabletOrMobile}
+                  payloadKeys={yKeys}
+                />
               )
             }
           />

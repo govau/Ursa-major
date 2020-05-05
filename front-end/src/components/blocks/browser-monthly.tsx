@@ -4,33 +4,33 @@ import LineGraph from "../visualisations/line-chart";
 import { AxisDomain } from "recharts";
 import AxisTickRotate from "../visualisations/formatters/angle-axis-tick";
 import PercentageFormatter from "../visualisations/formatters/percentage-formatter";
-import DeviceCategoryToolTip from "../visualisations/formatters/devices-tooltip";
 import StackedBarGraph from "../visualisations/stacked-chart";
-import StackedAreaGraph from "../visualisations/area-chart";
+import BarGraph from "../visualisations/bar-chart";
+import BrowserToolTip from "../visualisations/formatters/browser-tooltip";
 
 interface Props {
   isTabletOrMobile: Boolean;
 }
 
-const StackTest: React.FC<Props> = ({ isTabletOrMobile }) => {
-  const deviceData = useFetch({
+const BrowserMonthly: React.FC<Props> = ({ isTabletOrMobile }) => {
+  const browserMonthlyData = useFetch({
     initialState: "",
     query: `{
-            device_catogories {
-              device_category
-              device_category_count
-              percent_month
-              month_year
-            }
-          }
-          `,
+      total_browser {
+        browser_count
+        device_browser
+        percent_month
+        month_year
+      }
+    }
+    `,
   });
 
-  interface DeviceCategoryType {
-    device_category: string;
-    device_category_count: string;
-    month_year: string;
+  interface BrowserMonthlyType {
+    browser_count: string;
+    device_browser: string;
     percent_month: number;
+    month_year: string;
   }
 
   interface LineGraphDataType {
@@ -45,29 +45,31 @@ const StackTest: React.FC<Props> = ({ isTabletOrMobile }) => {
 
   useLayoutEffect(() => {
     let months: Array<string> = [];
-    let finalData: Array<LineGraphDataType> = [];
+    let finalData: Array<any> = [];
     let xTicks: Array<any> = [];
-    if (!deviceData.loading) {
-      //   console.log(deviceData);
+    if (!browserMonthlyData.loading) {
+      //   console.log(browserMonthlyData);
       // REFACTOR, the data should have this structure out of the box
       //the following code restructures the JSON object from the API into suitable format
       //for the recharts API
-      deviceData.data.device_catogories.forEach((row: DeviceCategoryType) => {
-        if (!months.includes(row.month_year)) {
-          months.push(row.month_year);
+      browserMonthlyData.data.total_browser.forEach(
+        (row: BrowserMonthlyType) => {
+          if (!months.includes(row.month_year)) {
+            months.push(row.month_year);
+          }
         }
-      });
+      );
 
       months.forEach((month: string, i: number) => {
         i !== 0 && i % 1 === 0 && xTicks.push(month);
         var flattened = "";
-        const monthData = deviceData.data.device_catogories.filter(
-          (row: DeviceCategoryType) => row.month_year === month
+        const monthData = browserMonthlyData.data.total_browser.filter(
+          (row: BrowserMonthlyType) => row.month_year === month
         );
 
-        monthData.forEach((row: DeviceCategoryType, i: Number) => {
-          var devData = `"${[row.device_category]}":"${row.percent_month}"${
-            i < 2 ? "," : ""
+        monthData.forEach((row: BrowserMonthlyType, i: Number) => {
+          var devData = `"${[row.device_browser]}":"${row.percent_month}"${
+            i < 5 ? "," : ""
           }`;
           flattened += devData;
         });
@@ -80,23 +82,22 @@ const StackTest: React.FC<Props> = ({ isTabletOrMobile }) => {
         setState({ data: finalData, xTicks });
       });
     }
-  }, [deviceData.loading]);
+  }, [browserMonthlyData.loading]);
 
-  const yDomain: [AxisDomain, AxisDomain] = [0, 100];
+  const yDomain: [AxisDomain, AxisDomain] = [0, 55];
 
   const lineGraphProps = {
     data: state.data,
-    yKeys: ["desktop", "mobile", "tablet"],
-    dataKey: "month_yr",
+    yKeys: ["Safari", "Edge", "Internet Explorer", "Chrome", "Others"],
+    x_key: "month_yr",
     yDomain,
-    // type: number,
-    yTicks: [0, 25, 50, 75, 100],
+    yTicks: [0, 25, 50],
     xTicks: state.xTicks,
     xTickSize: 10,
     xTickMargin: 5,
     Tick: AxisTickRotate,
     Heading: {
-      text: "Desktop vs Mobile vs Tablet usage",
+      text: "Top browsers usage",
       className: "au-display-md bar-chart-title",
       level: "h3",
     },
@@ -107,11 +108,13 @@ const StackTest: React.FC<Props> = ({ isTabletOrMobile }) => {
     margin: isTabletOrMobile
       ? { top: 20, right: 10, bottom: 40, left: 0 }
       : { top: 20, right: 10, bottom: 40, left: -10 },
-    // legend: true,
-    // CustomToolTip: DeviceCategoryToolTip,
+    legend: true,
+    CustomToolTip: BrowserToolTip,
   };
 
-  return <>{!deviceData.loading && <StackedBarGraph {...lineGraphProps} />}</>;
+  return (
+    <>{!browserMonthlyData.loading && <LineGraph {...lineGraphProps} />}</>
+  );
 };
 
-export default StackTest;
+export default BrowserMonthly;

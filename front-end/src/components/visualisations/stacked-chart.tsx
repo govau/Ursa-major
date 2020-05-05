@@ -58,7 +58,14 @@ const StackedBarGraph: React.FC<Props> = ({
   Heading,
 }) => {
   const HeadingTag: any = Heading.level || "h3";
-  const fills: Array<string | undefined> = ["#0077ff", "#002957", "#008568"];
+  const fills: Array<string | undefined> = [
+    "#0077ff",
+    "#002957",
+    "#008568",
+    "#e69f00",
+    "#cc79a7",
+    "#eee12f",
+  ];
 
   return (
     <>
@@ -88,7 +95,7 @@ const StackedBarGraph: React.FC<Props> = ({
 
           <Legend wrapperStyle={{ bottom: "-10px" }} />
           {yKeys.map((key: string, i: number) => (
-            <Bar dataKey={key} key={i} fill={fills[i % 3]} />
+            <Bar dataKey={key} key={i} fill={fills[i % yKeys.length]} />
           ))}
         </BarChart>
       </ResponsiveContainer>

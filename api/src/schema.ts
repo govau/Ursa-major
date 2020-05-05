@@ -18,6 +18,8 @@ import OperatingSystemDataType from "./graphQL_types/operating_sys";
 import DeviceCategoryType from "./graphQL_types/device_category";
 import OperatingSystemVersionType from "./graphQL_types/opsys_version";
 import DeviceBrandType from "./graphQL_types/device_brand";
+import ScreenResType from "./graphQL_types/screen_res";
+import BrowserVersionType from "./graphQL_types/browser_version";
 
 const RootQuery = new GraphQLObjectType({
   name: "RootQueryType",
@@ -48,7 +50,7 @@ const RootQuery = new GraphQLObjectType({
         return data;
       },
     },
-    operating_system_views: {
+    operating_system_total: {
       type: new GraphQLList(OperatingSystemDataType),
       async resolve(parentValue: any, args: any) {
         const data: Array<Object> = await fetchGCdata(
@@ -64,7 +66,7 @@ const RootQuery = new GraphQLObjectType({
         return data;
       },
     },
-    operating_sys_version: {
+    opsys_version_total: {
       type: new GraphQLList(OperatingSystemVersionType),
       async resolve(parentValue: any, args: any) {
         const data: Array<Object> = await fetchGCdata(files.opsys_version);
@@ -75,6 +77,20 @@ const RootQuery = new GraphQLObjectType({
       type: new GraphQLList(DeviceBrandType),
       async resolve(parentValue: any, args: any) {
         const data: Array<Object> = await fetchGCdata(files.device_brand);
+        return data;
+      },
+    },
+    total_screen_res: {
+      type: new GraphQLList(ScreenResType),
+      async resolve(parentValue: any, args: any) {
+        const data: Array<Object> = await fetchGCdata(files.screen_res);
+        return data;
+      },
+    },
+    total_browser_version: {
+      type: new GraphQLList(BrowserVersionType),
+      async resolve(parentValue: any, args: any) {
+        const data: Array<Object> = await fetchGCdata(files.browser_version);
         return data;
       },
     },

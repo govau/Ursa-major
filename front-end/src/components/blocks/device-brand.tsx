@@ -4,51 +4,51 @@ import LineGraph from "../visualisations/line-chart";
 import { AxisDomain } from "recharts";
 import AxisTickRotate from "../visualisations/formatters/angle-axis-tick";
 import PercentageFormatter from "../visualisations/formatters/percentage-formatter";
-import DeviceCategoryToolTip from "../visualisations/formatters/devices-tooltip";
-import LineLabel from "../visualisations/formatters/line-label";
+import CategoryTooltip from "../visualisations/formatters/category-tooltip";
 
 interface Props {
   isTabletOrMobile: Boolean;
 }
 
-const DeviceCategoryVisualisation: React.FC<Props> = ({ isTabletOrMobile }) => {
-  const deviceData = useFetch({
+const DeviceBrandVisualisation: React.FC<Props> = ({ isTabletOrMobile }) => {
+  const DeviceBrandData = useFetch({
     initialState: "",
     query: `{
-            device_catogories {
-              device_category
-              percent_month
-              month_year
-            }
-          }
-          `,
+        device_brand {
+          device_brand
+          percent_month
+          month_year
+        }
+      }    
+    `,
   });
 
-  interface DeviceCategoryType {
-    device_category: string;
-    month_year: string;
+  interface DeviceBrandType {
+    device_brand: string;
     percent_month: number;
+    month_year: string;
   }
 
-  interface LineGraphDataType {
-    month_yr: string;
-    desktop: string;
-    tablet: string;
-    mobile: string;
-  }
-
+  const yKeys: Array<string> = [
+    "Apple",
+    "Samsung",
+    "Microsoft",
+    "OPPO",
+    "Huawei",
+  ];
   const initialState: any = {};
   const [state, setState] = useState(initialState);
 
   useLayoutEffect(() => {
     let months: Array<string> = [];
-    let finalData: Array<LineGraphDataType> = [];
+    let finalData: Array<any> = [];
     let xTicks: Array<any> = [];
-    if (!deviceData.loading) {
+    if (!DeviceBrandData.loading) {
+      //   console.log(DeviceBrandData);
       // REFACTOR, the data should have this structure out of the box
       //the following code restructures the JSON object from the API into suitable format
       //for the recharts API
-      deviceData.data.device_catogories.forEach((row: DeviceCategoryType) => {
+      DeviceBrandData.data.device_brand.forEach((row: DeviceBrandType) => {
         if (!months.includes(row.month_year)) {
           months.push(row.month_year);
         }
@@ -58,13 +58,13 @@ const DeviceCategoryVisualisation: React.FC<Props> = ({ isTabletOrMobile }) => {
         i !== 0 && i % 1 === 0 && xTicks.push(month);
         var flattened = "";
 
-        const monthData = deviceData.data.device_catogories.filter(
-          (row: DeviceCategoryType) => row.month_year === month
+        const monthData = DeviceBrandData.data.device_brand.filter(
+          (row: DeviceBrandType) => row.month_year === month
         );
 
-        monthData.forEach((row: DeviceCategoryType, i: Number) => {
-          var devData = `"${[row.device_category]}":"${row.percent_month}"${
-            i < 2 ? "," : ""
+        monthData.forEach((row: DeviceBrandType, i: Number) => {
+          var devData = `"${[row.device_brand]}":"${row.percent_month}"${
+            i < 5 ? "," : ""
           }`;
           flattened += devData;
         });
@@ -77,39 +77,37 @@ const DeviceCategoryVisualisation: React.FC<Props> = ({ isTabletOrMobile }) => {
         setState({ data: finalData, xTicks });
       });
     }
-  }, [deviceData.loading]);
+  }, [DeviceBrandData.loading]);
 
-  const yDomain: [AxisDomain, AxisDomain] = [0, 100];
+  const yDomain: [AxisDomain, AxisDomain] = [0, 55];
 
   const lineGraphProps = {
     data: state.data,
-    yKeys: ["desktop", "mobile", "tablet"],
+    yKeys,
     x_key: "month_yr",
     yDomain,
-    // type: number,
-    // yTicks: [100, 200, 300] : [10, 20, 30, 40],
+    yTicks: [0, 25, 50],
     xTicks: state.xTicks,
     xTickSize: 10,
     xTickMargin: 5,
+    Tick: AxisTickRotate,
     Heading: {
-      text: "Desktop vs Mobile vs Tablet usage",
+      text: "Popular device brands",
       className: "au-display-md bar-chart-title",
       level: "h3",
     },
-    fill: "#0077ff",
     isTabletOrMobile,
-    Tick: AxisTickRotate,
+    // Tick: AxisTickRotate,
     // dot:false,
     yTickFormatter: PercentageFormatter,
     margin: isTabletOrMobile
       ? { top: 20, right: 10, bottom: 40, left: 0 }
       : { top: 20, right: 10, bottom: 40, left: -10 },
     legend: true,
-    CustomToolTip: DeviceCategoryToolTip,
-    CustomLabel: LineLabel,
+    CustomToolTip: CategoryTooltip,
   };
 
-  return <>{!deviceData.loading && <LineGraph {...lineGraphProps} />}</>;
+  return <>{!DeviceBrandData.loading && <LineGraph {...lineGraphProps} />}</>;
 };
 
-export default DeviceCategoryVisualisation;
+export default DeviceBrandVisualisation;

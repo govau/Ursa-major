@@ -4,67 +4,70 @@ import LineGraph from "../visualisations/line-chart";
 import { AxisDomain } from "recharts";
 import AxisTickRotate from "../visualisations/formatters/angle-axis-tick";
 import PercentageFormatter from "../visualisations/formatters/percentage-formatter";
-import DeviceCategoryToolTip from "../visualisations/formatters/devices-tooltip";
-import LineLabel from "../visualisations/formatters/line-label";
+import CategoryTooltip from "../visualisations/formatters/category-tooltip";
 
 interface Props {
   isTabletOrMobile: Boolean;
 }
 
-const DeviceCategoryVisualisation: React.FC<Props> = ({ isTabletOrMobile }) => {
-  const deviceData = useFetch({
+const OperatingSysVersionVisualisation: React.FC<Props> = ({
+  isTabletOrMobile,
+}) => {
+  const operatingSysVersionData = useFetch({
     initialState: "",
     query: `{
-            device_catogories {
-              device_category
-              percent_month
-              month_year
-            }
-          }
-          `,
+      opsys_version_total {
+        device_opsys_ver
+        month_year
+        percent_month
+      }
+    }    
+    `,
   });
 
-  interface DeviceCategoryType {
-    device_category: string;
-    month_year: string;
+  interface ScreenResMonthlyType {
+    device_opsys_ver: string;
     percent_month: number;
+    month_year: string;
   }
 
-  interface LineGraphDataType {
-    month_yr: string;
-    desktop: string;
-    tablet: string;
-    mobile: string;
-  }
-
+  const yKeys: Array<string> = [
+    "Others",
+    "Windows_10",
+    "Android_9",
+    "Windows_7",
+  ];
   const initialState: any = {};
   const [state, setState] = useState(initialState);
 
   useLayoutEffect(() => {
     let months: Array<string> = [];
-    let finalData: Array<LineGraphDataType> = [];
+    let finalData: Array<any> = [];
     let xTicks: Array<any> = [];
-    if (!deviceData.loading) {
+    if (!operatingSysVersionData.loading) {
+      //   console.log(operatingSysVersionData);
       // REFACTOR, the data should have this structure out of the box
       //the following code restructures the JSON object from the API into suitable format
       //for the recharts API
-      deviceData.data.device_catogories.forEach((row: DeviceCategoryType) => {
-        if (!months.includes(row.month_year)) {
-          months.push(row.month_year);
+      operatingSysVersionData.data.opsys_version_total.forEach(
+        (row: ScreenResMonthlyType) => {
+          if (!months.includes(row.month_year)) {
+            months.push(row.month_year);
+          }
         }
-      });
+      );
 
       months.forEach((month: string, i: number) => {
         i !== 0 && i % 1 === 0 && xTicks.push(month);
         var flattened = "";
 
-        const monthData = deviceData.data.device_catogories.filter(
-          (row: DeviceCategoryType) => row.month_year === month
+        const monthData = operatingSysVersionData.data.opsys_version_total.filter(
+          (row: ScreenResMonthlyType) => row.month_year === month
         );
 
-        monthData.forEach((row: DeviceCategoryType, i: Number) => {
-          var devData = `"${[row.device_category]}":"${row.percent_month}"${
-            i < 2 ? "," : ""
+        monthData.forEach((row: ScreenResMonthlyType, i: Number) => {
+          var devData = `"${[row.device_opsys_ver]}":"${row.percent_month}"${
+            i < 5 ? "," : ""
           }`;
           flattened += devData;
         });
@@ -77,39 +80,39 @@ const DeviceCategoryVisualisation: React.FC<Props> = ({ isTabletOrMobile }) => {
         setState({ data: finalData, xTicks });
       });
     }
-  }, [deviceData.loading]);
+  }, [operatingSysVersionData.loading]);
 
-  const yDomain: [AxisDomain, AxisDomain] = [0, 100];
+  const yDomain: [AxisDomain, AxisDomain] = [0, 55];
 
   const lineGraphProps = {
     data: state.data,
-    yKeys: ["desktop", "mobile", "tablet"],
+    yKeys,
     x_key: "month_yr",
     yDomain,
-    // type: number,
-    // yTicks: [100, 200, 300] : [10, 20, 30, 40],
+    yTicks: [0, 25, 50],
     xTicks: state.xTicks,
     xTickSize: 10,
     xTickMargin: 5,
+    Tick: AxisTickRotate,
     Heading: {
-      text: "Desktop vs Mobile vs Tablet usage",
+      text: "Popular operating systems",
       className: "au-display-md bar-chart-title",
       level: "h3",
     },
-    fill: "#0077ff",
     isTabletOrMobile,
-    Tick: AxisTickRotate,
+    // Tick: AxisTickRotate,
     // dot:false,
     yTickFormatter: PercentageFormatter,
     margin: isTabletOrMobile
       ? { top: 20, right: 10, bottom: 40, left: 0 }
       : { top: 20, right: 10, bottom: 40, left: -10 },
     legend: true,
-    CustomToolTip: DeviceCategoryToolTip,
-    CustomLabel: LineLabel,
+    CustomToolTip: CategoryTooltip,
   };
 
-  return <>{!deviceData.loading && <LineGraph {...lineGraphProps} />}</>;
+  return (
+    <>{!operatingSysVersionData.loading && <LineGraph {...lineGraphProps} />}</>
+  );
 };
 
-export default DeviceCategoryVisualisation;
+export default OperatingSysVersionVisualisation;

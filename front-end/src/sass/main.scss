@@ -67,14 +67,31 @@ h1 {
 
 .custom-tooltip {
   @include AU-fontgrid(xs);
-  background-color: rgba(1, 1, 1, 0.9);
-  color: $AU-colordark-foreground-text;
+  background-color: rgba(255, 255, 255, 1);
+  color: $AU-color-foreground-text;
+  border: solid 2px $AU-color-foreground-alt-hint;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
   @include AU-space(padding, 0.35unit);
-  @include AU-space(max-width, 8unit);
+  @include AU-space(max-width, 9unit);
   border-radius: $AU-border-radius;
 
   p + p {
     @include AU-space(margin-top, 0.25unit);
+  }
+
+  &__text {
+    position: relative;
+
+    .color-square {
+      border: solid 1px #636363;
+      border-radius: 2px;
+      vertical-align: bottom;
+      @include AU-space(height, 0.75unit);
+      @include AU-space(width, 0.75unit);
+      display: inline-block;
+      margin-right: 5px;
+      vertical-align: middle;
+    }
   }
 }
 
@@ -96,5 +113,22 @@ h1 {
     @include AU-space(margin-top, 0.5unit);
     @include AU-space(padding, 0.5unit);
     @include AU-fontgrid(xs);
+  }
+}
+
+#dashboard {
+  @include AU-space(padding-top, 4unit);
+  .row + .row {
+    @include AU-space(margin-top, 4unit);
+  }
+
+  .col-md-6 + .col-md-6 {
+    @include AU-space(margin-top, 4unit);
+  }
+
+  @include AU-media(md) {
+    .col-md-6 + .col-md-6 {
+      margin-top: 0;
+    }
   }
 }

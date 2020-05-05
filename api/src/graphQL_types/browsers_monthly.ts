@@ -6,6 +6,7 @@ const BrowserTotalType = new GraphQLObjectType({
     device_browser: { type: GraphQLString },
     month_year: { type: GraphQLString },
     browser_count: { type: GraphQLFloat },
+    percent_month: { type: GraphQLFloat },
   }),
 });
 

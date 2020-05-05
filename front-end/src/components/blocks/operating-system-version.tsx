@@ -4,33 +4,39 @@ import LineGraph from "../visualisations/line-chart";
 import { AxisDomain } from "recharts";
 import AxisTickRotate from "../visualisations/formatters/angle-axis-tick";
 import PercentageFormatter from "../visualisations/formatters/percentage-formatter";
-import StackedBarGraph from "../visualisations/stacked-chart";
-import BarGraph from "../visualisations/bar-chart";
 import CategoryTooltip from "../visualisations/formatters/category-tooltip";
 
 interface Props {
   isTabletOrMobile: Boolean;
 }
 
-const BrowserMonthly: React.FC<Props> = ({ isTabletOrMobile }) => {
-  const browserMonthlyData = useFetch({
+const OperatingSysVersionVisualisation: React.FC<Props> = ({
+  isTabletOrMobile,
+}) => {
+  const operatingSysVersionData = useFetch({
     initialState: "",
     query: `{
-      total_browser {
-        device_browser
-        percent_month
+      opsys_version_total {
+        device_opsys_ver
         month_year
+        percent_month
       }
-    }
+    }    
     `,
   });
 
-  interface BrowserMonthlyType {
-    device_browser: string;
+  interface ScreenResMonthlyType {
+    device_opsys_ver: string;
     percent_month: number;
     month_year: string;
   }
 
+  const yKeys: Array<string> = [
+    "Others",
+    "Windows_10",
+    "Android_9",
+    "Windows_7",
+  ];
   const initialState: any = {};
   const [state, setState] = useState(initialState);
 
@@ -38,13 +44,13 @@ const BrowserMonthly: React.FC<Props> = ({ isTabletOrMobile }) => {
     let months: Array<string> = [];
     let finalData: Array<any> = [];
     let xTicks: Array<any> = [];
-    if (!browserMonthlyData.loading) {
-      //   console.log(browserMonthlyData);
+    if (!operatingSysVersionData.loading) {
+      //   console.log(operatingSysVersionData);
       // REFACTOR, the data should have this structure out of the box
       //the following code restructures the JSON object from the API into suitable format
       //for the recharts API
-      browserMonthlyData.data.total_browser.forEach(
-        (row: BrowserMonthlyType) => {
+      operatingSysVersionData.data.opsys_version_total.forEach(
+        (row: ScreenResMonthlyType) => {
           if (!months.includes(row.month_year)) {
             months.push(row.month_year);
           }
@@ -55,12 +61,12 @@ const BrowserMonthly: React.FC<Props> = ({ isTabletOrMobile }) => {
         i !== 0 && i % 1 === 0 && xTicks.push(month);
         var flattened = "";
 
-        const monthData = browserMonthlyData.data.total_browser.filter(
-          (row: BrowserMonthlyType) => row.month_year === month
+        const monthData = operatingSysVersionData.data.opsys_version_total.filter(
+          (row: ScreenResMonthlyType) => row.month_year === month
         );
 
-        monthData.forEach((row: BrowserMonthlyType, i: Number) => {
-          var devData = `"${[row.device_browser]}":"${row.percent_month}"${
+        monthData.forEach((row: ScreenResMonthlyType, i: Number) => {
+          var devData = `"${[row.device_opsys_ver]}":"${row.percent_month}"${
             i < 5 ? "," : ""
           }`;
           flattened += devData;
@@ -74,13 +80,13 @@ const BrowserMonthly: React.FC<Props> = ({ isTabletOrMobile }) => {
         setState({ data: finalData, xTicks });
       });
     }
-  }, [browserMonthlyData.loading]);
+  }, [operatingSysVersionData.loading]);
 
   const yDomain: [AxisDomain, AxisDomain] = [0, 55];
 
   const lineGraphProps = {
     data: state.data,
-    yKeys: ["Chrome", "Safari", "Internet Explorer", "Edge", "Others"],
+    yKeys,
     x_key: "month_yr",
     yDomain,
     yTicks: [0, 25, 50],
@@ -89,7 +95,7 @@ const BrowserMonthly: React.FC<Props> = ({ isTabletOrMobile }) => {
     xTickMargin: 5,
     Tick: AxisTickRotate,
     Heading: {
-      text: "Popular browsers",
+      text: "Popular operating systems",
       className: "au-display-md bar-chart-title",
       level: "h3",
     },
@@ -105,8 +111,8 @@ const BrowserMonthly: React.FC<Props> = ({ isTabletOrMobile }) => {
   };
 
   return (
-    <>{!browserMonthlyData.loading && <LineGraph {...lineGraphProps} />}</>
+    <>{!operatingSysVersionData.loading && <LineGraph {...lineGraphProps} />}</>
   );
 };
 
-export default BrowserMonthly;
+export default OperatingSysVersionVisualisation;

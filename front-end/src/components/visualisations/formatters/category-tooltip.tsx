@@ -18,11 +18,13 @@ CategoryTooltip = ({ active, payload, label, payloadKeys }) => {
   let date: string = "";
 
   if (payload && payload[0]) {
-    payloadKeys.map((category: any, i: any) =>
-      tooltipData.push({
-        category: `${category}: ${payload[0].payload[category]}%`,
-        color: payload[i] && payload[i].color,
-      })
+    payloadKeys.map(
+      (category: any, i: any) =>
+        payload[0].payload[category] &&
+        tooltipData.push({
+          category: `${category}: ${payload[0].payload[category]}%`,
+          color: payload[i] && payload[i].color,
+        })
     );
 
     date = `${payload[0].payload.month_yr}`;

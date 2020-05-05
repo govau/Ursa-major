@@ -6,6 +6,7 @@ const OperatingSystemDataType = new GraphQLObjectType({
     device_opsys: { type: GraphQLString },
     month_year: { type: GraphQLString },
     opsys_count: { type: GraphQLString },
+    percent_month: { type: GraphQLString },
   }),
 });
 

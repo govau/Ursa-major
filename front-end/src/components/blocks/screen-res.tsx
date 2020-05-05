@@ -30,7 +30,13 @@ const ScreenResVisualisation: React.FC<Props> = ({ isTabletOrMobile }) => {
     month_year: string;
   }
 
-  const yKeys: Array<string> = ["Others", "1920x1080", "1366x768", "375x667"];
+  const yKeys: Array<string> = [
+    "Others",
+    "1920x1080",
+    "1366x768",
+    "375x667",
+    "1440x900",
+  ];
   const initialState: any = {};
   const [state, setState] = useState(initialState);
 

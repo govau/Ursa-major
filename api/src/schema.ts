@@ -66,7 +66,7 @@ const RootQuery = new GraphQLObjectType({
         return data;
       },
     },
-    operating_sys_version: {
+    opsys_version_total: {
       type: new GraphQLList(OperatingSystemVersionType),
       async resolve(parentValue: any, args: any) {
         const data: Array<Object> = await fetchGCdata(files.opsys_version);

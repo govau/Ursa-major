@@ -17,7 +17,6 @@ const DeviceCategoryVisualisation: React.FC<Props> = ({ isTabletOrMobile }) => {
     query: `{
             device_catogories {
               device_category
-              device_category_count
               percent_month
               month_year
             }
@@ -27,7 +26,6 @@ const DeviceCategoryVisualisation: React.FC<Props> = ({ isTabletOrMobile }) => {
 
   interface DeviceCategoryType {
     device_category: string;
-    device_category_count: string;
     month_year: string;
     percent_month: number;
   }

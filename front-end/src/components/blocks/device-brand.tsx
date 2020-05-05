@@ -4,7 +4,7 @@ import LineGraph from "../visualisations/line-chart";
 import { AxisDomain } from "recharts";
 import AxisTickRotate from "../visualisations/formatters/angle-axis-tick";
 import PercentageFormatter from "../visualisations/formatters/percentage-formatter";
-import BrowserToolTip from "../visualisations/formatters/browser-tooltip";
+import CategoryTooltip from "../visualisations/formatters/category-tooltip";
 
 interface Props {
   isTabletOrMobile: Boolean;
@@ -104,7 +104,7 @@ const DeviceBrandVisualisation: React.FC<Props> = ({ isTabletOrMobile }) => {
       ? { top: 20, right: 10, bottom: 40, left: 0 }
       : { top: 20, right: 10, bottom: 40, left: -10 },
     legend: true,
-    CustomToolTip: BrowserToolTip,
+    CustomToolTip: CategoryTooltip,
   };
 
   return <>{!DeviceBrandData.loading && <LineGraph {...lineGraphProps} />}</>;

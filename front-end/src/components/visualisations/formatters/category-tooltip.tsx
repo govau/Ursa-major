@@ -10,10 +10,10 @@ interface ToolTipData {
   category: string;
 }
 
-//REFACTOR, should rename this to something more generic
-let BrowserToolTip: (props: Props) => JSX.Element;
+// reads through the categories of the data and auto generates tooltip based off payload and stroke colours
+let CategoryTooltip: (props: Props) => JSX.Element;
 
-BrowserToolTip = ({ active, payload, label, payloadKeys }) => {
+CategoryTooltip = ({ active, payload, label, payloadKeys }) => {
   let tooltipData: any = [];
   let date: string = "";
 
@@ -48,4 +48,4 @@ BrowserToolTip = ({ active, payload, label, payloadKeys }) => {
   );
 };
 
-export default BrowserToolTip;
+export default CategoryTooltip;

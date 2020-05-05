@@ -4,7 +4,7 @@ import LineGraph from "../visualisations/line-chart";
 import { AxisDomain } from "recharts";
 import AxisTickRotate from "../visualisations/formatters/angle-axis-tick";
 import PercentageFormatter from "../visualisations/formatters/percentage-formatter";
-import BrowserToolTip from "../visualisations/formatters/browser-tooltip";
+import CategoryTooltip from "../visualisations/formatters/category-tooltip";
 
 interface Props {
   isTabletOrMobile: Boolean;
@@ -17,7 +17,6 @@ const ScreenResVisualisation: React.FC<Props> = ({ isTabletOrMobile }) => {
         total_screen_res {
           device_screen_res
           month_year
-          screen_res_count
           percent_month
         }
       }
@@ -26,7 +25,6 @@ const ScreenResVisualisation: React.FC<Props> = ({ isTabletOrMobile }) => {
   });
 
   interface ScreenResMonthlyType {
-    screen_res_count: string;
     device_screen_res: string;
     percent_month: number;
     month_year: string;
@@ -103,7 +101,7 @@ const ScreenResVisualisation: React.FC<Props> = ({ isTabletOrMobile }) => {
       ? { top: 20, right: 10, bottom: 40, left: 0 }
       : { top: 20, right: 10, bottom: 40, left: -10 },
     legend: true,
-    CustomToolTip: BrowserToolTip,
+    CustomToolTip: CategoryTooltip,
   };
 
   return (

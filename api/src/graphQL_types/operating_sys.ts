@@ -1,4 +1,4 @@
-import { GraphQLObjectType, GraphQLString } from "graphql";
+import { GraphQLObjectType, GraphQLString, GraphQLFloat } from "graphql";
 
 const OperatingSystemDataType = new GraphQLObjectType({
   name: "op_system_total",

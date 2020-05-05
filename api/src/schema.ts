@@ -50,7 +50,7 @@ const RootQuery = new GraphQLObjectType({
         return data;
       },
     },
-    operating_system_views: {
+    operating_system_total: {
       type: new GraphQLList(OperatingSystemDataType),
       async resolve(parentValue: any, args: any) {
         const data: Array<Object> = await fetchGCdata(

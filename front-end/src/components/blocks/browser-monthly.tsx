@@ -6,7 +6,7 @@ import AxisTickRotate from "../visualisations/formatters/angle-axis-tick";
 import PercentageFormatter from "../visualisations/formatters/percentage-formatter";
 import StackedBarGraph from "../visualisations/stacked-chart";
 import BarGraph from "../visualisations/bar-chart";
-import BrowserToolTip from "../visualisations/formatters/browser-tooltip";
+import CategoryTooltip from "../visualisations/formatters/category-tooltip";
 
 interface Props {
   isTabletOrMobile: Boolean;
@@ -17,7 +17,6 @@ const BrowserMonthly: React.FC<Props> = ({ isTabletOrMobile }) => {
     initialState: "",
     query: `{
       total_browser {
-        browser_count
         device_browser
         percent_month
         month_year
@@ -27,7 +26,6 @@ const BrowserMonthly: React.FC<Props> = ({ isTabletOrMobile }) => {
   });
 
   interface BrowserMonthlyType {
-    browser_count: string;
     device_browser: string;
     percent_month: number;
     month_year: string;
@@ -117,7 +115,7 @@ const BrowserMonthly: React.FC<Props> = ({ isTabletOrMobile }) => {
       ? { top: 20, right: 10, bottom: 40, left: 0 }
       : { top: 20, right: 10, bottom: 40, left: -10 },
     legend: true,
-    CustomToolTip: BrowserToolTip,
+    CustomToolTip: CategoryTooltip,
   };
 
   return (

@@ -10,6 +10,7 @@ interface ToolTipData {
   category: string;
 }
 
+//REFACTOR, should rename this to something more generic
 let BrowserToolTip: (props: Props) => JSX.Element;
 
 BrowserToolTip = ({ active, payload, label, payloadKeys }) => {

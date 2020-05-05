@@ -19,6 +19,7 @@ import DeviceCategoryType from "./graphQL_types/device_category";
 import OperatingSystemVersionType from "./graphQL_types/opsys_version";
 import DeviceBrandType from "./graphQL_types/device_brand";
 import ScreenResType from "./graphQL_types/screen_res";
+import BrowserVersionType from "./graphQL_types/browser_version";
 
 const RootQuery = new GraphQLObjectType({
   name: "RootQueryType",
@@ -83,6 +84,13 @@ const RootQuery = new GraphQLObjectType({
       type: new GraphQLList(ScreenResType),
       async resolve(parentValue: any, args: any) {
         const data: Array<Object> = await fetchGCdata(files.screen_res);
+        return data;
+      },
+    },
+    total_browser_version: {
+      type: new GraphQLList(BrowserVersionType),
+      async resolve(parentValue: any, args: any) {
+        const data: Array<Object> = await fetchGCdata(files.browser_version);
         return data;
       },
     },

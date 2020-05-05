@@ -1,4 +1,4 @@
-import React from "react";
+import React, { PureComponent } from "react";
 import {
   LineChart,
   Line,
@@ -15,8 +15,9 @@ import {
   TickFormatterFunction,
   LegendType,
   Legend,
+  Label,
 } from "recharts";
-import CustomTooltip from "./unique-users-tooltip";
+import LineLabel from "./formatters/line-label";
 
 interface Props extends LineChartProps {
   xInterval?: AxisInterval;
@@ -35,14 +36,16 @@ interface Props extends LineChartProps {
     className?: string;
     level?: string;
   };
-  fill: string;
+  fill?: string;
   dot?: Boolean;
   yTickFormatter?: TickFormatterFunction;
   isTabletOrMobile: Boolean;
   Tick?: any;
   CustomToolTip?: any;
+  CustomLabel?: any;
   margin?: Object;
   legend?: Boolean;
+  TooltipKeys?: any;
 }
 
 const LineGraph: React.FC<Props> = ({
@@ -61,6 +64,8 @@ const LineGraph: React.FC<Props> = ({
   yTicks,
   dot = false,
   CustomToolTip,
+  TooltipKeys,
+  CustomLabel,
   fill = "#489cba",
   yTickFormatter,
   isTabletOrMobile,
@@ -73,7 +78,15 @@ const LineGraph: React.FC<Props> = ({
       : { top: 20, right: 10, bottom: 40, left: -15 };
   }
 
-  const fills: Array<string | number> = ["#0077ff", "#002957", "#008568"];
+  //REFACTOR, should be in a global settings
+  const fills: Array<string | undefined> = [
+    "#0077ff",
+    "#002957",
+    "#008568",
+    "#e69f00",
+    "#cc79a7",
+    "#eee12f",
+  ];
 
   return (
     <>
@@ -102,7 +115,10 @@ const LineGraph: React.FC<Props> = ({
           <Tooltip
             content={
               CustomToolTip && (
-                <CustomToolTip isTabletOrMobile={isTabletOrMobile} />
+                <CustomToolTip
+                  isTabletOrMobile={isTabletOrMobile}
+                  payloadKeys={yKeys}
+                />
               )
             }
           />
@@ -121,7 +137,13 @@ const LineGraph: React.FC<Props> = ({
               stroke={fills[i]}
               strokeWidth={3}
               key={i}
-            />
+              //Refactor
+              label={
+                CustomLabel && (
+                  <CustomLabel length={data?.length} dataKey={key} />
+                )
+              }
+            ></Line>
           ))}
         </LineChart>
       </ResponsiveContainer>

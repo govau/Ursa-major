@@ -1,4 +1,4 @@
-import { GraphQLObjectType, GraphQLString } from "graphql";
+import { GraphQLObjectType, GraphQLString, GraphQLFloat } from "graphql";
 
 const OperatingSystemDataType = new GraphQLObjectType({
   name: "op_system_total",
@@ -6,6 +6,7 @@ const OperatingSystemDataType = new GraphQLObjectType({
     device_opsys: { type: GraphQLString },
     month_year: { type: GraphQLString },
     opsys_count: { type: GraphQLString },
+    percent_month: { type: GraphQLString },
   }),
 });
 

@@ -3,10 +3,9 @@ import SEO from "../components/seo";
 import DefaultLayout from "../components/layouts/default-layout";
 import { useStaticQuery, graphql } from "gatsby";
 import Section from "../components/layouts/section";
-import UniqueUsersLineGraph from "../components/blocks/total-unique-users";
-import DeviceCategoryVisualisation from "../components/blocks/device-category";
 import { useMediaQuery } from "react-responsive";
 import Hero from "../components/layouts/hero";
+import DashboardHomePage from "../components/blocks/dashboard";
 
 const IndexPage = () => {
   //get MD content
@@ -57,16 +56,7 @@ const IndexPage = () => {
             <div dangerouslySetInnerHTML={{ __html: hero.html! }} />
           </>
         </Hero>
-        <Section>
-          <>
-            <UniqueUsersLineGraph isTabletOrMobile={isTabletOrMobile} />
-          </>
-        </Section>
-        <Section>
-          <>
-            <DeviceCategoryVisualisation isTabletOrMobile={isTabletOrMobile} />
-          </>
-        </Section>
+        <DashboardHomePage isTabletOrMobile={isTabletOrMobile} />
         <Section alt={tech.frontmatter.alt}>
           <div
             className="container-fluid"

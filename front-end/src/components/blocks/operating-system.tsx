@@ -10,32 +10,33 @@ interface Props {
   isTabletOrMobile: Boolean;
 }
 
-const OperatingSysVersionVisualisation: React.FC<Props> = ({
+const OperatingSystemVisualisation: React.FC<Props> = ({
   isTabletOrMobile,
 }) => {
   const operatingSysVersionData = useFetch({
     initialState: "",
     query: `{
-      opsys_version_total {
-        device_opsys_ver
-        month_year
-        percent_month
-      }
-    }    
+        operating_system_total {
+          device_opsys
+          percent_month
+          month_year
+        }
+      }       
     `,
   });
 
   interface ScreenResMonthlyType {
-    device_opsys_ver: string;
+    device_opsys: string;
     percent_month: number;
     month_year: string;
   }
 
   const yKeys: Array<string> = [
-    "Others",
-    "Windows_10",
-    "Android_9",
-    "Windows_7",
+    "Windows",
+    "iOS",
+    "Android",
+    "Macintosh",
+    "Linux",
   ];
   const initialState: any = {};
   const [state, setState] = useState(initialState);
@@ -49,7 +50,7 @@ const OperatingSysVersionVisualisation: React.FC<Props> = ({
       // REFACTOR, the data should have this structure out of the box
       //the following code restructures the JSON object from the API into suitable format
       //for the recharts API
-      operatingSysVersionData.data.opsys_version_total.forEach(
+      operatingSysVersionData.data.operating_system_total.forEach(
         (row: ScreenResMonthlyType) => {
           if (!months.includes(row.month_year)) {
             months.push(row.month_year);
@@ -61,12 +62,12 @@ const OperatingSysVersionVisualisation: React.FC<Props> = ({
         i !== 0 && i % 1 === 0 && xTicks.push(month);
         var flattened = "";
 
-        const monthData = operatingSysVersionData.data.opsys_version_total.filter(
+        const monthData = operatingSysVersionData.data.operating_system_total.filter(
           (row: ScreenResMonthlyType) => row.month_year === month
         );
 
         monthData.forEach((row: ScreenResMonthlyType, i: Number) => {
-          var devData = `"${[row.device_opsys_ver]}":"${row.percent_month}"${
+          var devData = `"${[row.device_opsys]}":"${row.percent_month}"${
             i < 5 ? "," : ""
           }`;
           flattened += devData;
@@ -95,7 +96,7 @@ const OperatingSysVersionVisualisation: React.FC<Props> = ({
     xTickMargin: 5,
     Tick: AxisTickRotate,
     Heading: {
-      text: "Popular operating system versions",
+      text: "Popular operating systems",
       className: "au-display-md bar-chart-title",
       level: "h3",
     },
@@ -115,4 +116,4 @@ const OperatingSysVersionVisualisation: React.FC<Props> = ({
   );
 };
 
-export default OperatingSysVersionVisualisation;
+export default OperatingSystemVisualisation;

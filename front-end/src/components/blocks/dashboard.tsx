@@ -5,6 +5,7 @@ import BrowserMonthly from "./browser-monthly";
 import ScreenResVisualisation from "./screen-res";
 import DeviceBrandVisualisation from "./device-brand";
 import OperatingSysVersionVisualisation from "./operating-system-version";
+import OperatingSystemVisualisation from "./operating-system";
 
 interface Props {
   isTabletOrMobile: Boolean;
@@ -32,12 +33,17 @@ const DashboardHomePage: React.FC<Props> = ({ isTabletOrMobile }) => {
         </div>
         <div className="row">
           <div className="col-md-6">
-            <DeviceBrandVisualisation isTabletOrMobile={isTabletOrMobile} />
+            <OperatingSystemVisualisation isTabletOrMobile={isTabletOrMobile} />
           </div>
           <div className="col-md-6">
             <OperatingSysVersionVisualisation
               isTabletOrMobile={isTabletOrMobile}
             />
+          </div>
+        </div>
+        <div className="row">
+          <div className="col-md-6">
+            <DeviceBrandVisualisation isTabletOrMobile={isTabletOrMobile} />
           </div>
         </div>
       </div>

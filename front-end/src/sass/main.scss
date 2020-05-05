@@ -115,3 +115,19 @@ h1 {
     @include AU-fontgrid(xs);
   }
 }
+
+#dashboard {
+  .row + .row {
+    @include AU-space(margin-top, 4unit);
+  }
+
+  .col-md-6 + .col-md-6 {
+    @include AU-space(margin-top, 4unit);
+  }
+
+  @include AU-media(md) {
+    .col-md-6 + .col-md-6 {
+      margin-top: 0;
+    }
+  }
+}

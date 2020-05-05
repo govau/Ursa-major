@@ -18,6 +18,7 @@ import OperatingSystemDataType from "./graphQL_types/operating_sys";
 import DeviceCategoryType from "./graphQL_types/device_category";
 import OperatingSystemVersionType from "./graphQL_types/opsys_version";
 import DeviceBrandType from "./graphQL_types/device_brand";
+import ScreenResType from "./graphQL_types/screen_res";
 
 const RootQuery = new GraphQLObjectType({
   name: "RootQueryType",
@@ -75,6 +76,13 @@ const RootQuery = new GraphQLObjectType({
       type: new GraphQLList(DeviceBrandType),
       async resolve(parentValue: any, args: any) {
         const data: Array<Object> = await fetchGCdata(files.device_brand);
+        return data;
+      },
+    },
+    total_screen_res: {
+      type: new GraphQLList(ScreenResType),
+      async resolve(parentValue: any, args: any) {
+        const data: Array<Object> = await fetchGCdata(files.screen_res);
         return data;
       },
     },

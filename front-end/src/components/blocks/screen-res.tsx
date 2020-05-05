@@ -4,49 +4,35 @@ import LineGraph from "../visualisations/line-chart";
 import { AxisDomain } from "recharts";
 import AxisTickRotate from "../visualisations/formatters/angle-axis-tick";
 import PercentageFormatter from "../visualisations/formatters/percentage-formatter";
-import StackedBarGraph from "../visualisations/stacked-chart";
-import BarGraph from "../visualisations/bar-chart";
 import BrowserToolTip from "../visualisations/formatters/browser-tooltip";
 
 interface Props {
   isTabletOrMobile: Boolean;
 }
 
-const BrowserMonthly: React.FC<Props> = ({ isTabletOrMobile }) => {
-  const browserMonthlyData = useFetch({
+const ScreenResVisualisation: React.FC<Props> = ({ isTabletOrMobile }) => {
+  const screenResMonthlyData = useFetch({
     initialState: "",
     query: `{
-      total_browser {
-        browser_count
-        device_browser
-        percent_month
-        month_year
+        total_screen_res {
+          device_screen_res
+          month_year
+          screen_res_count
+          percent_month
+        }
       }
-    }
+      
     `,
   });
 
-  interface BrowserMonthlyType {
-    browser_count: string;
-    device_browser: string;
+  interface ScreenResMonthlyType {
+    screen_res_count: string;
+    device_screen_res: string;
     percent_month: number;
     month_year: string;
   }
 
-  interface LineGraphDataType {
-    month_yr: string;
-    desktop: string;
-    tablet: string;
-    mobile: string;
-  }
-
-  const yKeys: Array<String> = [
-    "Safari",
-    "Edge",
-    "Internet Explorer",
-    "Chrome",
-    "Others",
-  ];
+  const yKeys: Array<string> = ["Others", "1920x1080", "1366x768", "375x667"];
   const initialState: any = {};
   const [state, setState] = useState(initialState);
 
@@ -54,13 +40,13 @@ const BrowserMonthly: React.FC<Props> = ({ isTabletOrMobile }) => {
     let months: Array<string> = [];
     let finalData: Array<any> = [];
     let xTicks: Array<any> = [];
-    if (!browserMonthlyData.loading) {
-      //   console.log(browserMonthlyData);
+    if (!screenResMonthlyData.loading) {
+      //   console.log(screenResMonthlyData);
       // REFACTOR, the data should have this structure out of the box
       //the following code restructures the JSON object from the API into suitable format
       //for the recharts API
-      browserMonthlyData.data.total_browser.forEach(
-        (row: BrowserMonthlyType) => {
+      screenResMonthlyData.data.total_screen_res.forEach(
+        (row: ScreenResMonthlyType) => {
           if (!months.includes(row.month_year)) {
             months.push(row.month_year);
           }
@@ -71,12 +57,12 @@ const BrowserMonthly: React.FC<Props> = ({ isTabletOrMobile }) => {
         i !== 0 && i % 1 === 0 && xTicks.push(month);
         var flattened = "";
 
-        const monthData = browserMonthlyData.data.total_browser.filter(
-          (row: BrowserMonthlyType) => row.month_year === month
+        const monthData = screenResMonthlyData.data.total_screen_res.filter(
+          (row: ScreenResMonthlyType) => row.month_year === month
         );
 
-        monthData.forEach((row: BrowserMonthlyType, i: Number) => {
-          var devData = `"${[row.device_browser]}":"${row.percent_month}"${
+        monthData.forEach((row: ScreenResMonthlyType, i: Number) => {
+          var devData = `"${[row.device_screen_res]}":"${row.percent_month}"${
             i < 5 ? "," : ""
           }`;
           flattened += devData;
@@ -90,13 +76,13 @@ const BrowserMonthly: React.FC<Props> = ({ isTabletOrMobile }) => {
         setState({ data: finalData, xTicks });
       });
     }
-  }, [browserMonthlyData.loading]);
+  }, [screenResMonthlyData.loading]);
 
   const yDomain: [AxisDomain, AxisDomain] = [0, 55];
 
   const lineGraphProps = {
     data: state.data,
-    yKeys: ["Chrome", "Safari", "Internet Explorer", "Edge", "Others"],
+    yKeys,
     x_key: "month_yr",
     yDomain,
     yTicks: [0, 25, 50],
@@ -105,7 +91,7 @@ const BrowserMonthly: React.FC<Props> = ({ isTabletOrMobile }) => {
     xTickMargin: 5,
     Tick: AxisTickRotate,
     Heading: {
-      text: "Popular browsers",
+      text: "Popular screen resolutions",
       className: "au-display-md bar-chart-title",
       level: "h3",
     },
@@ -121,8 +107,8 @@ const BrowserMonthly: React.FC<Props> = ({ isTabletOrMobile }) => {
   };
 
   return (
-    <>{!browserMonthlyData.loading && <LineGraph {...lineGraphProps} />}</>
+    <>{!screenResMonthlyData.loading && <LineGraph {...lineGraphProps} />}</>
   );
 };
 
-export default BrowserMonthly;
+export default ScreenResVisualisation;

@@ -6,6 +6,7 @@ import ScreenResVisualisation from "./screen-res";
 import DeviceBrandVisualisation from "./device-brand";
 import OperatingSysVersionVisualisation from "./operating-system-version";
 import OperatingSystemVisualisation from "./operating-system";
+import HourlyViewsVisualisation from "./hourly-views";
 
 interface Props {
   isTabletOrMobile: Boolean;
@@ -20,7 +21,7 @@ const DashboardHomePage: React.FC<Props> = ({ isTabletOrMobile }) => {
             <UniqueUsersLineGraph isTabletOrMobile={isTabletOrMobile} />
           </div>
           <div className="col-md-6">
-            <BrowserMonthly isTabletOrMobile={isTabletOrMobile} />
+            <HourlyViewsVisualisation isTabletOrMobile={isTabletOrMobile} />
           </div>
         </div>
         <div className="row">
@@ -44,6 +45,9 @@ const DashboardHomePage: React.FC<Props> = ({ isTabletOrMobile }) => {
         <div className="row">
           <div className="col-md-6">
             <DeviceBrandVisualisation isTabletOrMobile={isTabletOrMobile} />
+          </div>
+          <div className="col-md-6">
+            <BrowserMonthly isTabletOrMobile={isTabletOrMobile} />
           </div>
         </div>
       </div>

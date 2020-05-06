@@ -6,7 +6,7 @@ import AxisTickRotate from "../visualisations/formatters/angle-axis-tick";
 import PercentageFormatter from "../visualisations/formatters/percentage-formatter";
 import StackedBarGraph from "../visualisations/stacked-chart";
 import BarGraph from "../visualisations/bar-chart";
-import CategoryTooltip from "../visualisations/formatters/category-tooltip";
+import { CategoryTooltip } from "../visualisations/formatters/category-tooltip";
 
 interface Props {
   isTabletOrMobile: Boolean;

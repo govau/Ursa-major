@@ -1,6 +1,6 @@
 import { TooltipProps } from "recharts";
 import React from "react";
-import formatDate from "./date-tick-formatter";
+import { formatDate } from "./date-tick-formatter";
 
 interface Props extends TooltipProps {
   isTabletOrMobile?: Boolean;

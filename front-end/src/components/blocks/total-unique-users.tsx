@@ -1,11 +1,10 @@
 import React, { useState, useLayoutEffect } from "react";
 import { useFetch } from "../hooks/use-fetch";
-import { useMediaQuery } from "react-responsive";
 import { AxisDomain } from "recharts";
 import { number } from "prop-types";
 import LineGraph from "../visualisations/line-chart";
-import scaleFormatter from "../visualisations/formatters/y-axis-formatter";
-import formatDate from "../visualisations/formatters/date-tick-formatter";
+import { scaleFormatter } from "../visualisations/formatters/y-axis-formatter";
+import { formatDate } from "../visualisations/formatters/date-tick-formatter";
 import AxisTickRotate from "../visualisations/formatters/angle-axis-tick";
 import UniqueUsersToolTip from "../visualisations/formatters/unique-users-tooltip";
 

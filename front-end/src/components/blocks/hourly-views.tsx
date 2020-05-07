@@ -3,7 +3,7 @@ import { useFetch } from "../hooks/use-fetch";
 import LineGraph from "../visualisations/line-chart";
 import { AxisDomain } from "recharts";
 import AxisTickRotate from "../visualisations/formatters/angle-axis-tick";
-import { HourlyDataToolTip } from "../visualisations/formatters/category-tooltip";
+import { UsersDataTooltip } from "../visualisations/formatters/category-tooltip";
 import { formatHour } from "../visualisations/formatters/date-tick-formatter";
 import { millionthFormatter } from "../visualisations/formatters/y-axis-formatter";
 
@@ -112,7 +112,7 @@ const HourlyViewsVisualisation: React.FC<Props> = ({ isTabletOrMobile }) => {
     xTickMargin: 5,
     Tick: AxisTickRotate,
     Heading: {
-      text: "Unique users on an hourly basis, last 90 days",
+      text: "Total unique users on an hourly basis, last 90 days",
       className: "au-display-md bar-chart-title",
       level: "h3",
     },
@@ -125,7 +125,7 @@ const HourlyViewsVisualisation: React.FC<Props> = ({ isTabletOrMobile }) => {
       : { top: 20, right: 10, bottom: 40, left: -10 },
     legend: true,
     xTickFormatter: formatHour,
-    CustomToolTip: HourlyDataToolTip,
+    CustomToolTip: UsersDataTooltip,
   };
 
   return <>{!HourlyViewsData.loading && <LineGraph {...lineGraphProps} />}</>;

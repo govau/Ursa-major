@@ -14,7 +14,7 @@ interface ToolTipData {
 
 // reads through the categories of the data and auto generates tooltip based off payload and stroke colours
 let CategoryTooltip: (props: Props) => JSX.Element;
-let HourlyDataToolTip: (props: Props) => JSX.Element;
+let UsersDataTooltip: (props: Props) => JSX.Element;
 
 CategoryTooltip = ({ active, payload, label, payloadKeys }) => {
   let tooltipData: any = [];
@@ -53,7 +53,7 @@ CategoryTooltip = ({ active, payload, label, payloadKeys }) => {
   );
 };
 
-HourlyDataToolTip = ({ active, payload, label, payloadKeys }) => {
+UsersDataTooltip = ({ active, payload, label, payloadKeys }) => {
   let tooltipData: any = [];
   let time: string | number = "";
 
@@ -64,19 +64,23 @@ HourlyDataToolTip = ({ active, payload, label, payloadKeys }) => {
         tooltipData.push({
           category: `${category}: ${(
             payload[0].payload[category] / 1000000
-          ).toFixed(2)}M`,
+          ).toFixed(2)}M users`,
           color: payload[i] && payload[i].color,
         })
     );
 
-    time = `${formatHour(payload[0].payload.visit_hour)}`;
+    time = `${
+      formatHour(payload[0].payload.visit_hour)
+        ? "Time: " + formatHour(payload[0].payload.visit_hour)
+        : payload[0].payload.month_yr
+    }`;
   }
 
   return (
     <>
       {active && (
         <div className="custom-tooltip au-body">
-          <p>Time: {time}</p>
+          <p>{time}</p>
           {tooltipData.map((row: ToolTipData, i: any) => (
             <p className="custom-tooltip__text" key={i}>
               <span
@@ -92,4 +96,4 @@ HourlyDataToolTip = ({ active, payload, label, payloadKeys }) => {
   );
 };
 
-export { CategoryTooltip, HourlyDataToolTip };
+export { CategoryTooltip, UsersDataTooltip };

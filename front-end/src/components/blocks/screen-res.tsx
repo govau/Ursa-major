@@ -4,7 +4,11 @@ import LineGraph from "../visualisations/line-chart";
 import { AxisDomain } from "recharts";
 import AxisTickRotate from "../visualisations/formatters/angle-axis-tick";
 import PercentageFormatter from "../visualisations/formatters/percentage-formatter";
-import { CategoryTooltip } from "../visualisations/formatters/category-tooltip";
+import {
+  CategoryTooltip,
+  UsersDataTooltip,
+} from "../visualisations/formatters/category-tooltip";
+import { millionthFormatter } from "../visualisations/formatters/y-axis-formatter";
 
 interface Props {
   isTabletOrMobile: Boolean;
@@ -17,7 +21,7 @@ const ScreenResVisualisation: React.FC<Props> = ({ isTabletOrMobile }) => {
         total_screen_res {
           device_screen_res
           month_year
-          percent_month
+          screen_res_count
         }
       }
       
@@ -26,17 +30,11 @@ const ScreenResVisualisation: React.FC<Props> = ({ isTabletOrMobile }) => {
 
   interface ScreenResMonthlyType {
     device_screen_res: string;
-    percent_month: number;
+    screen_res_count: number;
     month_year: string;
   }
 
-  const yKeys: Array<string> = [
-    "Others",
-    "1920x1080",
-    "1366x768",
-    "375x667",
-    "1440x900",
-  ];
+  const yKeys: Array<string> = ["1920x1080", "1366x768", "375x667", "1440x900"];
   const initialState: any = {};
   const [state, setState] = useState(initialState);
 
@@ -66,15 +64,15 @@ const ScreenResVisualisation: React.FC<Props> = ({ isTabletOrMobile }) => {
         );
 
         monthData.forEach((row: ScreenResMonthlyType, i: Number) => {
-          var devData = `"${[row.device_screen_res]}":"${row.percent_month}"${
-            i < 5 ? "," : ""
-          }`;
+          var devData = `"${[row.device_screen_res]}":"${
+            row.screen_res_count
+          }",`;
           flattened += devData;
         });
 
         var month_yr: string = `"month_yr":"${month}"`;
 
-        var final: string = `{${month_yr},${flattened}}`;
+        var final: string = `{${flattened}${month_yr}}`;
 
         finalData.push(JSON.parse(final));
         setState({ data: finalData, xTicks });
@@ -82,14 +80,14 @@ const ScreenResVisualisation: React.FC<Props> = ({ isTabletOrMobile }) => {
     }
   }, [screenResMonthlyData.loading]);
 
-  const yDomain: [AxisDomain, AxisDomain] = [0, 55];
+  const yDomain: [AxisDomain, AxisDomain] = [0, 6000000];
 
   const lineGraphProps = {
     data: state.data,
     yKeys,
     x_key: "month_yr",
     yDomain,
-    yTicks: [0, 25, 50],
+    yTicks: [0, 2500000, 5000000],
     xTicks: state.xTicks,
     xTickSize: 10,
     xTickMargin: 5,
@@ -102,12 +100,12 @@ const ScreenResVisualisation: React.FC<Props> = ({ isTabletOrMobile }) => {
     isTabletOrMobile,
     // Tick: AxisTickRotate,
     // dot:false,
-    yTickFormatter: PercentageFormatter,
+    yTickFormatter: millionthFormatter,
     margin: isTabletOrMobile
       ? { top: 20, right: 10, bottom: 40, left: 0 }
       : { top: 20, right: 10, bottom: 40, left: -10 },
     legend: true,
-    CustomToolTip: CategoryTooltip,
+    CustomToolTip: UsersDataTooltip,
   };
 
   return (

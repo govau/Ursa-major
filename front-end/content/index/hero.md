@@ -1,6 +1,7 @@
 ---
 id: hero
 alt: true
+imgClickUrl: ../../gov-au_observatory-funtional-behaviour.png
 imgUrl: ../../hero-jellyfish--white.png
 imgAlt: A network graph of 38 nodes showing the connections of government web sites and services.
 imgCaption: "The Jelly Fish: Graphic visualisation of two weeks of user traffic across 38 gov.au websites from May 2019."

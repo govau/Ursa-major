@@ -20,6 +20,7 @@ const IndexPage = () => {
             frontmatter {
               id
               alt
+              imgClickUrl
               imgUrl
               imgAlt
               imgCaption
@@ -49,6 +50,7 @@ const IndexPage = () => {
         <Hero
           alt={hero.frontmatter.alt}
           imgAlt={hero.frontmatter.imgAlt}
+          imgClickUrl={hero.frontmatter.imgClickUrl}
           imgUrl={hero.frontmatter.imgUrl}
           imgCaption={hero.frontmatter.imgCaption}
         >

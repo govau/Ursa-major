@@ -103,10 +103,12 @@ h1 {
 .hero-image {
   border: solid 2px lightgrey;
   @include AU-space(margin-top, 1unit);
+  @include AU-space(max-width, 500px);
   background: white;
   text-align: center;
-  @include AU-media(xs) {
+  @include AU-media(md) {
     margin-top: 0;
+    @include AU-space(max-width, 100%);
   }
 
   &__caption {

@@ -37,13 +37,15 @@ const Footer: React.FC<Props> = () => {
           <div className="container-fluid">
             <FooterNav>
               <div className="row">
-                <ul className="au-link-list au-link-list--inline">
-                  {Links.map((item: any, i: number) => (
-                    <li key={i}>
-                      <a href={item.link}>{item.text}</a>
-                    </li>
-                  ))}
-                </ul>
+                <div className="col-md-12">
+                  <ul className="au-link-list au-link-list--inline">
+                    {Links.map((item: any, i: number) => (
+                      <li key={i}>
+                        <a href={item.link}>{item.text}</a>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
               </div>
             </FooterNav>
             <div className="row">

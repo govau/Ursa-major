@@ -87,7 +87,7 @@ const ScreenResVisualisation: React.FC<Props> = ({ isTabletOrMobile }) => {
     yKeys,
     x_key: "month_yr",
     yDomain,
-    yTicks: [0, 2500000, 5000000],
+    yTicks: [2500000, 5000000],
     xTicks: state.xTicks,
     xTickSize: 10,
     xTickMargin: 5,

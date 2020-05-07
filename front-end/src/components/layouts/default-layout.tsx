@@ -6,6 +6,7 @@ import { useStaticQuery, graphql } from "gatsby";
 import MainNav from "../navigation/main-nav";
 import SEO from "../seo";
 import { Location } from "@reach/router";
+import { AlphaHeader } from "../navigation/alpha-header";
 
 interface Props {
   children: React.ReactElement;
@@ -24,6 +25,7 @@ const DefaultLayout: React.FC<Props> = ({ children }) => {
 
   return (
     <>
+      <AlphaHeader />
       <Header siteTitle={data.site.siteMetadata.title} />
       <SEO title={data.site.siteMetadata.title} />
       <Location>

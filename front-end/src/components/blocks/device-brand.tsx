@@ -63,15 +63,13 @@ const DeviceBrandVisualisation: React.FC<Props> = ({ isTabletOrMobile }) => {
         );
 
         monthData.forEach((row: DeviceBrandType, i: Number) => {
-          var devData = `"${[row.device_brand]}":"${row.percent_month}"${
-            i < 5 ? "," : ""
-          }`;
+          var devData = `"${[row.device_brand]}":"${row.percent_month}",`;
           flattened += devData;
         });
 
         var month_yr: string = `"month_yr":"${month}"`;
 
-        var final: string = `{${month_yr},${flattened}}`;
+        var final: string = `{${flattened}${month_yr}}`;
 
         finalData.push(JSON.parse(final));
         setState({ data: finalData, xTicks });
@@ -92,7 +90,7 @@ const DeviceBrandVisualisation: React.FC<Props> = ({ isTabletOrMobile }) => {
     xTickMargin: 5,
     Tick: AxisTickRotate,
     Heading: {
-      text: "Popular device brands",
+      text: "Popular mobile device brands",
       className: "au-display-md bar-chart-title",
       level: "h3",
     },

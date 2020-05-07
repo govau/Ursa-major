@@ -6,13 +6,11 @@ createPage: true
 
 # What is the gov.au analytics service?
 
-
-
-This is a whole-of-government analytics dashboard. It displays aggregated metrics from [participating](https://dta.gov.au/our-projects/google-analytics-government/) Australian Government digital services.
+This is a whole-of-government analytics dashboard. It currently displays aggregated Google Analytics 360 metrics from [participating Australian Government digital services](https://dta.gov.au/our-projects/google-analytics-government/). We combine this data to make a unified view of government services.
 
 ## Where does the data come from?
 
-Australian Government digital services. Using government websites or apps creates anonymous data. We combine that data to make a unified view of government services. 
+This data comes from Australian Government digital services. When users access government websites or apps, anonymous data is collected by an analytics service running in the background.
 
 ## Who created this?
 

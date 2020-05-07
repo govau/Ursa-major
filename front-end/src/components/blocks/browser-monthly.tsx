@@ -4,8 +4,6 @@ import LineGraph from "../visualisations/line-chart";
 import { AxisDomain } from "recharts";
 import AxisTickRotate from "../visualisations/formatters/angle-axis-tick";
 import PercentageFormatter from "../visualisations/formatters/percentage-formatter";
-import StackedBarGraph from "../visualisations/stacked-chart";
-import BarGraph from "../visualisations/bar-chart";
 import { CategoryTooltip } from "../visualisations/formatters/category-tooltip";
 
 interface Props {
@@ -60,15 +58,13 @@ const BrowserMonthly: React.FC<Props> = ({ isTabletOrMobile }) => {
         );
 
         monthData.forEach((row: BrowserMonthlyType, i: Number) => {
-          var devData = `"${[row.device_browser]}":"${row.percent_month}"${
-            i < 5 ? "," : ""
-          }`;
+          var devData = `"${[row.device_browser]}":"${row.percent_month}",`;
           flattened += devData;
         });
 
         var month_yr: string = `"month_yr":"${month}"`;
 
-        var final: string = `{${month_yr},${flattened}}`;
+        var final: string = `{${flattened}${month_yr}}`;
 
         finalData.push(JSON.parse(final));
         setState({ data: finalData, xTicks });

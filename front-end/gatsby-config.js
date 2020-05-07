@@ -34,6 +34,14 @@ module.exports = {
         text: "Privacy",
         link: "/privacy",
       },
+      {
+        text: "Github for this site",
+        link: "https://github.com/govau/ursa-major",
+      },
+      {
+        text: "Github for our projects",
+        link: "https://github.com/govau/galileo",
+      },
     ],
   },
   plugins: [

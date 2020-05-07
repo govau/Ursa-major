@@ -1,7 +1,6 @@
 import React from "react";
 
 import AUfooter, { AUfooterNav, AUfooterEnd } from "../../auds/react/footer";
-import { Link } from "gatsby";
 import { useStaticQuery, graphql } from "gatsby";
 
 interface Props {}
@@ -38,11 +37,11 @@ const Footer: React.FC<Props> = () => {
           <div className="container-fluid">
             <FooterNav>
               <div className="row">
-                <div className="col-md-3 col-sm-6">
+                <div className="col-md-12">
                   <ul className="au-link-list au-link-list--inline">
                     {Links.map((item: any, i: number) => (
                       <li key={i}>
-                        <Link to={item.link}>{item.text}</Link>
+                        <a href={item.link}>{item.text}</a>
                       </li>
                     ))}
                   </ul>

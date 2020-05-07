@@ -6,7 +6,7 @@ imgAlt: A network graph of 38 nodes showing the connections of government web si
 imgCaption: "The Jelly Fish: Graphic visualisation of two weeks of user traffic across 38 gov.au websites from May 2019."
 ---
 
-## We’re helping make data transparent to improve government digital services.
+## We’re helping make data transparent to improve government digital services
 
 The data we use is anonymous and privacy-preserving. It is collated from:
 

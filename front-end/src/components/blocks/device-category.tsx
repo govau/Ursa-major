@@ -63,15 +63,13 @@ const DeviceCategoryVisualisation: React.FC<Props> = ({ isTabletOrMobile }) => {
         );
 
         monthData.forEach((row: DeviceCategoryType, i: Number) => {
-          var devData = `"${[row.device_category]}":"${row.percent_month}"${
-            i < 2 ? "," : ""
-          }`;
+          var devData = `"${[row.device_category]}":"${row.percent_month}",`;
           flattened += devData;
         });
 
         var month_yr: string = `"month_yr":"${month}"`;
 
-        var final: string = `{${month_yr},${flattened}}`;
+        var final: string = `{${flattened}${month_yr}}`;
 
         finalData.push(JSON.parse(final));
         setState({ data: finalData, xTicks });

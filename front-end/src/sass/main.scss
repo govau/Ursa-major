@@ -103,10 +103,12 @@ h1 {
 .hero-image {
   border: solid 2px lightgrey;
   @include AU-space(margin-top, 1unit);
+  @include AU-space(max-width, 500px);
   background: white;
   text-align: center;
-  @include AU-media(xs) {
+  @include AU-media(md) {
     margin-top: 0;
+    @include AU-space(max-width, 100%);
   }
 
   &__caption {
@@ -130,5 +132,21 @@ h1 {
     .col-md-6 + .col-md-6 {
       margin-top: 0;
     }
+  }
+}
+
+#alpha-banner {
+  @include AU-space(padding, 0.5unit 0unit);
+  background: #c64710;
+  color: #fff;
+  font-weight: bold;
+
+  .alpha-pill {
+    display: inline-block;
+    font-weight: normal;
+    @include AU-space(margin, 0 0.75unit 0 0);
+    border: solid 1px white;
+    border-radius: 16px;
+    @include AU-space(padding, 0 0.5unit);
   }
 }

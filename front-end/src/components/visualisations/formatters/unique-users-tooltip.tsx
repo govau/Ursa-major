@@ -25,8 +25,8 @@ UniqueUsersToolTip = ({ active, payload, label, isTabletOrMobile }) => {
     <>
       {active && (
         <div className="custom-tooltip au-body">
-          <p>{`${totalVal.toLocaleString()} views`}</p>
           <p>{date}</p>
+          <p>{`${totalVal.toLocaleString()} users`}</p>
         </div>
       )}
     </>

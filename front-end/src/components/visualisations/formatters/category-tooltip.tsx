@@ -64,7 +64,7 @@ HourlyDataToolTip = ({ active, payload, label, payloadKeys }) => {
         tooltipData.push({
           category: `${category}: ${(
             payload[0].payload[category] / 1000000
-          ).toFixed(2)}M`,
+          ).toFixed(2)}M users`,
           color: payload[i] && payload[i].color,
         })
     );

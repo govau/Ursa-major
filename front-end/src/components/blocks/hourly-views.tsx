@@ -112,7 +112,7 @@ const HourlyViewsVisualisation: React.FC<Props> = ({ isTabletOrMobile }) => {
     xTickMargin: 5,
     Tick: AxisTickRotate,
     Heading: {
-      text: "Views on an hourly basis",
+      text: "Unique users on an hourly basis, last 90 days",
       className: "au-display-md bar-chart-title",
       level: "h3",
     },

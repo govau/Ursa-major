@@ -6,7 +6,7 @@ const HourlyUniqueViewsType = new GraphQLObjectType({
     total_unique_users: { type: GraphQLString },
     total_unique_users_scale: { type: GraphQLString },
     visit_hour: { type: GraphQLString },
-    visit_weekday: { type: GraphQLString },
+    day_type: { type: GraphQLString },
   }),
 });
 

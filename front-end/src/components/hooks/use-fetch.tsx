@@ -1,4 +1,5 @@
 import { useState, useLayoutEffect } from "react";
+import axios from "axios";
 
 interface Props {
   initialState: any;
@@ -12,21 +13,18 @@ export const useFetch = (props: Props) => {
   });
 
   useLayoutEffect(() => {
-    fetch(`${process.env.GATSBY_API_URL}`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json",
+    axios({
+      url: process.env.GATSBY_API_URL,
+      method: "post",
+      data: {
+        query: props.query,
       },
-      body: JSON.stringify({
-        query: `${props.query}`,
-      }),
     })
-      .then((res) => res.json())
+      .then((res: any) => res)
       .then(({ errors, data }) => {
         if (errors) {
         } else {
-          setState({ data: data, loading: false });
+          setState({ data: data.data, loading: false });
         }
       });
   }, [props.query]);

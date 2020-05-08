@@ -33,7 +33,7 @@ const files: { [key: string]: string } = {
   bucket: "us-east1-dta-airflow-b3415db4-bucket",
   browser_total_monthly: `${directory}/browser_12months_daily_snapshot_doi.json`,
   uniqueViews: `${directory}/uniquevisitors_90days_daily_snapshot_doi.json`,
-  hourly_unique_views: `${directory}/uniquevisitors_90days_hourly_snapshot_doi.json`,
+  hourly_unique_views: `${directory}/uniquevisitors_90days_hourly_weeksplit_snapshot_doi.json`,
   operating_system_views: `${directory}/opsys_12months_daily_snapshot_doi.json`,
   device_category: `${directory}/device_category_12months_daily_snapshot_doi.json`,
   opsys_version: `${directory}/opsys_version_12months_daily_snapshot_doi.json`,

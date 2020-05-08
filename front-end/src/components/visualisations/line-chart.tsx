@@ -81,8 +81,8 @@ const LineGraph: React.FC<Props> = ({
   //REFACTOR, should be in a global settings
   const fills: Array<string | undefined> = [
     "#0077ff",
-    "#002957",
     "#008568",
+    "#002957",
     "#e69f00",
     "#cc79a7",
     "#eee12f",

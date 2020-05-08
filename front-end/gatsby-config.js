@@ -6,7 +6,7 @@ module.exports = {
   siteMetadata: {
     title: `analytics.service.gov.au`,
     description: `The Observatory’s goal is to measure how people interact with government services. It empowers and supports teams to provide better services and outcomes for everyone.`,
-    author: `@gatsbyjs`,
+    author: `Digital Transformation Agency`,
     menuLinks: [
       {
         text: "Home",
@@ -71,8 +71,8 @@ module.exports = {
         name: `gov.au Analytics platform`,
         short_name: `starter`,
         start_url: `/`,
-        background_color: `#663399`,
-        theme_color: `#663399`,
+        background_color: `#61daff`,
+        theme_color: `#61daff`,
         display: `minimal-ui`,
         icon: `src/images/favicon.png`, // This path is relative to the root of the site.
       },

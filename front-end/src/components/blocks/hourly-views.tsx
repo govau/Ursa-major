@@ -17,7 +17,7 @@ const HourlyViewsVisualisation: React.FC<Props> = ({ isTabletOrMobile }) => {
     query: `{
         hourly_unique_views {
           visit_hour
-          visit_weekday
+          day_type
           total_unique_users
         }
       }
@@ -26,19 +26,11 @@ const HourlyViewsVisualisation: React.FC<Props> = ({ isTabletOrMobile }) => {
 
   interface HourlyDataType {
     visit_hour: string;
-    visit_weekday: number;
+    day_type: string;
     total_unique_users: string;
   }
 
-  const yKeys: Array<string> = [
-    "Monday",
-    "Tuesday",
-    "Wednesday",
-    "Thursday",
-    "Friday",
-    "Saturday",
-    "Sunday",
-  ];
+  const yKeys: Array<string> = ["weekday", "weekend"];
   const initialState: any = {};
   const [state, setState] = useState(initialState);
 
@@ -88,7 +80,8 @@ const HourlyViewsVisualisation: React.FC<Props> = ({ isTabletOrMobile }) => {
         );
 
         hourlyData.forEach((row: HourlyDataType, i: Number) => {
-          var devData = `"${[row.visit_weekday]}":"${row.total_unique_users}",`;
+          var devData;
+          devData = `"${[row.day_type]}":"${row.total_unique_users}",`;
           flattened += devData;
         });
         var hour_data: string = `"visit_hour":"${hour}"`;
@@ -112,7 +105,7 @@ const HourlyViewsVisualisation: React.FC<Props> = ({ isTabletOrMobile }) => {
     xTickMargin: 5,
     Tick: AxisTickRotate,
     Heading: {
-      text: "Total unique users on an hourly basis, last 90 days",
+      text: "Average unique users on an hourly basis, last 90 days",
       className: "au-display-md bar-chart-title",
       level: "h3",
     },

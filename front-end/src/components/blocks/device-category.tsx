@@ -15,7 +15,7 @@ const DeviceCategoryVisualisation: React.FC<Props> = ({ isTabletOrMobile }) => {
   const deviceData = useFetch({
     initialState: "",
     query: `{
-            device_catogories {
+            device_catogories(id:"dc") {
               device_category
               percent_month
               month_year

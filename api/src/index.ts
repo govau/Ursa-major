@@ -44,7 +44,11 @@ app.use(
 );
 
 app.get("/redis_test", (req, res) => {
-  res.send(port);
+  res.send(hostname);
+});
+
+app.get("/env", (req, res) => {
+  res.send(env);
 });
 
 app.listen(PORT, () => `Server started on port ${PORT}`);

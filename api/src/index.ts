@@ -22,8 +22,6 @@ const redis_client =
     ? redis.createClient({ port: 6379 })
     : redis.createClient({ host: hostname, port, password, url });
 
-redis_client.set("message", "hell0 world");
-
 const app: Application = express();
 
 env === "dev" && app.use(cors());
@@ -42,15 +40,5 @@ app.use(
     },
   })
 );
-
-app.get("/redis_test", (req, res) => {
-  redis_client.get("message", (err, data) => {
-    if (data !== null) {
-      res.send(data);
-    } else {
-      res.send("not found key");
-    }
-  });
-});
 
 app.listen(PORT, () => `Server started on port ${PORT}`);

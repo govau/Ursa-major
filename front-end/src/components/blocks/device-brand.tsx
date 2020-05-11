@@ -14,7 +14,7 @@ const DeviceBrandVisualisation: React.FC<Props> = ({ isTabletOrMobile }) => {
   const DeviceBrandData = useFetch({
     initialState: "",
     query: `{
-        device_brand(id:"db") {
+        device_brand {
           device_brand
           percent_month
           month_year

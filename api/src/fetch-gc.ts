@@ -11,7 +11,7 @@ const sampleBucket = gc.bucket(files.bucket);
 const fetchGCdata: any = async (
   filePath: String,
   client: RedisClient,
-  id: any
+  id: string
 ) => {
   const getAsync: any = promisify(client.get).bind(client);
   const file = sampleBucket.file(filePath);

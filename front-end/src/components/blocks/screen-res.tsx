@@ -18,7 +18,7 @@ const ScreenResVisualisation: React.FC<Props> = ({ isTabletOrMobile }) => {
   const screenResMonthlyData = useFetch({
     initialState: "",
     query: `{
-        total_screen_res(id:"sr") {
+        total_screen_res {
           device_screen_res
           month_year
           screen_res_count

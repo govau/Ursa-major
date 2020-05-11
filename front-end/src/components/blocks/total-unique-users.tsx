@@ -15,7 +15,7 @@ interface Props {
 const UniqueUsersLineGraph: React.FC<Props> = ({ isTabletOrMobile }) => {
   const graphData = useFetch({
     initialState: "",
-    query: `{total_unique(id:"tu") {total_unique_users_scale visit_date}}`,
+    query: `{total_unique {total_unique_users_scale visit_date}}`,
   });
 
   const initialState: any = {};

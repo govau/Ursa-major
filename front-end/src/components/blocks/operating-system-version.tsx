@@ -16,7 +16,7 @@ const OperatingSysVersionVisualisation: React.FC<Props> = ({
   const operatingSysVersionData = useFetch({
     initialState: "",
     query: `{
-      opsys_version_total(id:"ovt") {
+      opsys_version_total {
         device_opsys_ver
         month_year
         percent_month

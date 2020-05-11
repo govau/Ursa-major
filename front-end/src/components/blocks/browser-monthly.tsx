@@ -14,7 +14,7 @@ const BrowserMonthly: React.FC<Props> = ({ isTabletOrMobile }) => {
   const browserMonthlyData = useFetch({
     initialState: "",
     query: `{
-      total_browser(id:"tbm") {
+      total_browser {
         device_browser
         percent_month
         month_year

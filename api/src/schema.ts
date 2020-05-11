@@ -27,9 +27,6 @@ const RootQuery = new GraphQLObjectType({
   fields: {
     total_unique: {
       type: new GraphQLList(UniqueUserType),
-      args: {
-        id: { type: GraphQLString },
-      },
       async resolve(
         parentValue: any,
         args: any,
@@ -38,7 +35,7 @@ const RootQuery = new GraphQLObjectType({
         const data: Array<Object> = await fetchGCdata(
           files.uniqueViews,
           context.client,
-          args.id
+          "total_unique"
         );
         const sorted: Array<Object> = data.sort(sortDate);
         return sorted;
@@ -46,9 +43,6 @@ const RootQuery = new GraphQLObjectType({
     },
     total_browser: {
       type: new GraphQLList(BrowserTotalType),
-      args: {
-        id: { type: GraphQLString },
-      },
       async resolve(
         parentValue: any,
         args: any,
@@ -57,16 +51,13 @@ const RootQuery = new GraphQLObjectType({
         const data: Array<Object> = await fetchGCdata(
           files.browser_total_monthly,
           context.client,
-          args.id
+          "total_browser"
         );
         return data;
       },
     },
     hourly_unique_views: {
       type: new GraphQLList(HourlyUniqueViewsType),
-      args: {
-        id: { type: GraphQLString },
-      },
       async resolve(
         parentValue: any,
         args: any,
@@ -75,16 +66,13 @@ const RootQuery = new GraphQLObjectType({
         const data: Array<Object> = await fetchGCdata(
           files.hourly_unique_views,
           context.client,
-          args.id
+          "hourly_unique"
         );
         return data;
       },
     },
     operating_system_total: {
       type: new GraphQLList(OperatingSystemDataType),
-      args: {
-        id: { type: GraphQLString },
-      },
       async resolve(
         parentValue: any,
         args: any,
@@ -93,16 +81,13 @@ const RootQuery = new GraphQLObjectType({
         const data: Array<Object> = await fetchGCdata(
           files.operating_system_views,
           context.client,
-          args.id
+          "opsys"
         );
         return data;
       },
     },
     device_catogories: {
       type: new GraphQLList(DeviceCategoryType),
-      args: {
-        id: { type: GraphQLString },
-      },
       async resolve(
         parentValue: any,
         args: any,
@@ -111,16 +96,13 @@ const RootQuery = new GraphQLObjectType({
         const data: Array<Object> = await fetchGCdata(
           files.device_category,
           context.client,
-          args.id
+          "device_categories"
         );
         return data;
       },
     },
     opsys_version_total: {
       type: new GraphQLList(OperatingSystemVersionType),
-      args: {
-        id: { type: GraphQLString },
-      },
       async resolve(
         parentValue: any,
         args: any,
@@ -129,16 +111,13 @@ const RootQuery = new GraphQLObjectType({
         const data: Array<Object> = await fetchGCdata(
           files.opsys_version,
           context.client,
-          args.id
+          "opsys_version"
         );
         return data;
       },
     },
     device_brand: {
       type: new GraphQLList(DeviceBrandType),
-      args: {
-        id: { type: GraphQLString },
-      },
       async resolve(
         parentValue: any,
         args: any,
@@ -147,16 +126,13 @@ const RootQuery = new GraphQLObjectType({
         const data: Array<Object> = await fetchGCdata(
           files.device_brand,
           context.client,
-          args.id
+          "device_brand"
         );
         return data;
       },
     },
     total_screen_res: {
       type: new GraphQLList(ScreenResType),
-      args: {
-        id: { type: GraphQLString },
-      },
       async resolve(
         parentValue: any,
         args: any,
@@ -165,16 +141,13 @@ const RootQuery = new GraphQLObjectType({
         const data: Array<Object> = await fetchGCdata(
           files.screen_res,
           context.client,
-          args.id
+          "screen_res"
         );
         return data;
       },
     },
     total_browser_version: {
       type: new GraphQLList(BrowserVersionType),
-      args: {
-        id: { type: GraphQLString },
-      },
       async resolve(
         parentValue: any,
         args: any,
@@ -183,7 +156,7 @@ const RootQuery = new GraphQLObjectType({
         const data: Array<Object> = await fetchGCdata(
           files.browser_version,
           context.client,
-          args.id
+          "browser_version"
         );
         return data;
       },

@@ -15,7 +15,7 @@ const HourlyViewsVisualisation: React.FC<Props> = ({ isTabletOrMobile }) => {
   const HourlyViewsData = useFetch({
     initialState: "",
     query: `{
-        hourly_unique_views(id:"huv") {
+        hourly_unique_views {
           visit_hour
           day_type
           total_unique_users

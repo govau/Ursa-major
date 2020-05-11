@@ -17,6 +17,8 @@
   "license": "ISC",
   "dependencies": {
     "@google-cloud/storage": "^4.7.0",
+    "@types/redis": "^2.8.20",
+    "body-parser": "^1.19.0",
     "cfenv": "^1.2.2",
     "cors": "^2.8.5",
     "express": "^4.17.1",
@@ -24,6 +26,7 @@
     "graphql": "^15.0.0",
     "helmet": "^3.22.0",
     "ndjson": "^1.5.0",
+    "redis": "^3.0.2",
     "ts-node": "^8.9.0"
   },
   "devDependencies": {

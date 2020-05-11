@@ -20,77 +20,144 @@ import OperatingSystemVersionType from "./graphQL_types/opsys_version";
 import DeviceBrandType from "./graphQL_types/device_brand";
 import ScreenResType from "./graphQL_types/screen_res";
 import BrowserVersionType from "./graphQL_types/browser_version";
+import { RedisClient } from "redis";
 
 const RootQuery = new GraphQLObjectType({
   name: "RootQueryType",
   fields: {
     total_unique: {
       type: new GraphQLList(UniqueUserType),
-      async resolve(parentValue: any, args: any) {
-        const data: Array<Object> = await fetchGCdata(files.uniqueViews);
+      async resolve(
+        parentValue: any,
+        args: any,
+        context: { client: RedisClient; req: Request }
+      ) {
+        const data: Array<Object> = await fetchGCdata(
+          files.uniqueViews,
+          context.client,
+          "total_unique"
+        );
         const sorted: Array<Object> = data.sort(sortDate);
         return sorted;
       },
     },
     total_browser: {
       type: new GraphQLList(BrowserTotalType),
-      async resolve(parentValue: any, args: any) {
+      async resolve(
+        parentValue: any,
+        args: any,
+        context: { client: RedisClient; req: Request }
+      ) {
         const data: Array<Object> = await fetchGCdata(
-          files.browser_total_monthly
+          files.browser_total_monthly,
+          context.client,
+          "total_browser"
         );
         return data;
       },
     },
     hourly_unique_views: {
       type: new GraphQLList(HourlyUniqueViewsType),
-      async resolve(parentValue: any, args: any) {
+      async resolve(
+        parentValue: any,
+        args: any,
+        context: { client: RedisClient; req: Request }
+      ) {
         const data: Array<Object> = await fetchGCdata(
-          files.hourly_unique_views
+          files.hourly_unique_views,
+          context.client,
+          "hourly_unique"
         );
         return data;
       },
     },
     operating_system_total: {
       type: new GraphQLList(OperatingSystemDataType),
-      async resolve(parentValue: any, args: any) {
+      async resolve(
+        parentValue: any,
+        args: any,
+        context: { client: RedisClient; req: Request }
+      ) {
         const data: Array<Object> = await fetchGCdata(
-          files.operating_system_views
+          files.operating_system_views,
+          context.client,
+          "opsys"
         );
         return data;
       },
     },
     device_catogories: {
       type: new GraphQLList(DeviceCategoryType),
-      async resolve(parentValue: any, args: any) {
-        const data: Array<Object> = await fetchGCdata(files.device_category);
+      async resolve(
+        parentValue: any,
+        args: any,
+        context: { client: RedisClient; req: Request }
+      ) {
+        const data: Array<Object> = await fetchGCdata(
+          files.device_category,
+          context.client,
+          "device_categories"
+        );
         return data;
       },
     },
     opsys_version_total: {
       type: new GraphQLList(OperatingSystemVersionType),
-      async resolve(parentValue: any, args: any) {
-        const data: Array<Object> = await fetchGCdata(files.opsys_version);
+      async resolve(
+        parentValue: any,
+        args: any,
+        context: { client: RedisClient; req: Request }
+      ) {
+        const data: Array<Object> = await fetchGCdata(
+          files.opsys_version,
+          context.client,
+          "opsys_version"
+        );
         return data;
       },
     },
     device_brand: {
       type: new GraphQLList(DeviceBrandType),
-      async resolve(parentValue: any, args: any) {
-        const data: Array<Object> = await fetchGCdata(files.device_brand);
+      async resolve(
+        parentValue: any,
+        args: any,
+        context: { client: RedisClient; req: Request }
+      ) {
+        const data: Array<Object> = await fetchGCdata(
+          files.device_brand,
+          context.client,
+          "device_brand"
+        );
         return data;
       },
     },
     total_screen_res: {
       type: new GraphQLList(ScreenResType),
-      async resolve(parentValue: any, args: any) {
-        const data: Array<Object> = await fetchGCdata(files.screen_res);
+      async resolve(
+        parentValue: any,
+        args: any,
+        context: { client: RedisClient; req: Request }
+      ) {
+        const data: Array<Object> = await fetchGCdata(
+          files.screen_res,
+          context.client,
+          "screen_res"
+        );
         return data;
       },
     },
     total_browser_version: {
       type: new GraphQLList(BrowserVersionType),
-      async resolve(parentValue: any, args: any) {
-        const data: Array<Object> = await fetchGCdata(files.browser_version);
+      async resolve(
+        parentValue: any,
+        args: any,
+        context: { client: RedisClient; req: Request }
+      ) {
+        const data: Array<Object> = await fetchGCdata(
+          files.browser_version,
+          context.client,
+          "browser_version"
+        );
         return data;
       },
     },

@@ -44,11 +44,13 @@ app.use(
 );
 
 app.get("/redis_test", (req, res) => {
-  res.send(hostname);
-});
-
-app.get("/env", (req, res) => {
-  res.send(env);
+  redis_client.get("message", (err, data) => {
+    if (data !== null) {
+      res.send(data);
+    } else {
+      res.send("not found key");
+    }
+  });
 });
 
 app.listen(PORT, () => `Server started on port ${PORT}`);

@@ -10,5 +10,6 @@ applications:
       - ANALYTICS_REDIS_DEV
     routes:
       - route: ursa-major-front-end.apps.y.cld.gov.au/api
+      - route: ursa-major-api.apps.y.cld.gov.au
 ---
 

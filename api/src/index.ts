@@ -9,7 +9,9 @@ import bodyParser from "body-parser";
 var env = process.env.NODE_ENV || "dev";
 
 const appEnv: any = cfenv.getAppEnv();
-const { hostname, port, password } = appEnv.services["redis"][0].credentials;
+
+const { hostname, port, password } =
+  env !== "dev" && appEnv.services["redis"][0].credentials;
 
 const PORT: Number | string = process.env.PORT || 3000;
 

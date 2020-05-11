@@ -7,6 +7,7 @@ applications:
     command: node dist/index.js
     services:
       - ursa-major-service-prod
+      - ANALYTICS_REDIS_PROD
     routes:
       - route: analytics.service.gov.au/api
 ---

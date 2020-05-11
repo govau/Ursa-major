@@ -12,7 +12,7 @@ var appEnv: any;
 if (env !== "dev") {
   appEnv = cfenv.getAppEnv();
 }
-const { hostname, port, password } =
+const { hostname, port, password, url } =
   env !== "dev" && appEnv.services["redis"][0].credentials;
 
 const PORT: Number | string = process.env.PORT || 3000;
@@ -20,7 +20,7 @@ const PORT: Number | string = process.env.PORT || 3000;
 const redis_client =
   env === "dev"
     ? redis.createClient({ port: 6379 })
-    : redis.createClient({ host: hostname, port, password });
+    : redis.createClient({ host: hostname, port, password, url });
 
 redis_client.set("message", "hell0 world");
 

@@ -10,10 +10,10 @@ const sampleBucket = gc.bucket(files.bucket);
 
 const fetchGCdata: any = async (
   filePath: String,
-  client: RedisClient,
+  redis_client: RedisClient,
   id: string
 ) => {
-  const getAsync: any = promisify(client.get).bind(client);
+  const getAsync: any = promisify(redis_client.get).bind(redis_client);
   const file = sampleBucket.file(filePath);
   let buffer: Array<Object> = [];
 
@@ -45,7 +45,7 @@ const fetchGCdata: any = async (
               })
               .on("end", () => {
                 resolve(buffer);
-                client.setex(id, cacheExpiry, JSON.stringify(buffer));
+                redis_client.setex(id, cacheExpiry, JSON.stringify(buffer));
               });
           } catch (error) {
             console.error(error);

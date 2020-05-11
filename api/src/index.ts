@@ -15,10 +15,12 @@ const { hostname, port, password } =
 
 const PORT: Number | string = process.env.PORT || 3000;
 
-const client =
+const redis_client =
   env === "dev"
     ? redis.createClient({ port: 6379 })
     : redis.createClient({ host: hostname, port, password });
+
+redis_client.set("message", "hell0 world");
 
 const app: Application = express();
 
@@ -34,10 +36,20 @@ app.use(
     schema: Rschema,
     graphiql: env === "dev",
     context: {
-      client,
+      redis_client,
       req,
     },
   }))
 );
+
+app.get("/redis_test", (req, res) => {
+  redis_client.get("message", (err, data) => {
+    if (data !== null) {
+      res.send(data);
+    } else {
+      res.send("key not found");
+    }
+  });
+});
 
 app.listen(PORT, () => `Server started on port ${PORT}`);

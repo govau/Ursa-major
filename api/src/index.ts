@@ -44,13 +44,7 @@ app.use(
 );
 
 app.get("/redis_test", (req, res) => {
-  redis_client.get("message", (err, data) => {
-    if (data !== null) {
-      res.send(data);
-    } else {
-      res.send("key not found");
-    }
-  });
+  res.send(port);
 });
 
 app.listen(PORT, () => `Server started on port ${PORT}`);

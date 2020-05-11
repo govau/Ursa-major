@@ -7,6 +7,7 @@ applications:
     command: node dist/index.js
     services:
       - ursa-major-service
+      - ANALYTICS_REDIS_DEV
     routes:
       - route: ursa-major-front-end.apps.y.cld.gov.au/api
 ---

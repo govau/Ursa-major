@@ -8,8 +8,10 @@ import cfenv from "cfenv";
 import bodyParser from "body-parser";
 var env = process.env.NODE_ENV || "dev";
 
-const appEnv: any = cfenv.getAppEnv();
-
+var appEnv: any;
+if (env !== "dev") {
+  appEnv = cfenv.getAppEnv();
+}
 const { hostname, port, password } =
   env !== "dev" && appEnv.services["redis"][0].credentials;
 
@@ -32,14 +34,13 @@ app.use(helmet());
 
 app.use(
   "/api",
-  graphqlHTTP((req) => ({
+  graphqlHTTP({
     schema: Rschema,
     graphiql: env === "dev",
     context: {
       redis_client,
-      req,
     },
-  }))
+  })
 );
 
 app.get("/redis_test", (req, res) => {

@@ -26,6 +26,18 @@ PRIVATE_KEY=[insert private key here]
 CLIENT_EMAIL=[insert client email here]
 ```
 
+### Redis
+
+Redis is used to cache requests from google cloud storage. This helps retrieve data quicker and reduces the amount of requests made to google cloud storage. Download redis from the [doc site](https://redis.io/download). Mac users may run `brew install redis`.
+
+First start the redis server on port 6379
+
+`$ redis-server --port 6379`
+
+**Optional:** once the server has started, you can use the redis-cli in another terminal window.
+
+`$ redis-cli -p 6379`
+
 Once this is done run the following commands from the `/api` directory to start the server:
 
 ```

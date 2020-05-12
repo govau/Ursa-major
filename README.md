@@ -3,9 +3,12 @@
 ## Contents
 
 - [Start server](#start-server)
+- [Redis](#redis)
 - [Start front end](#start-front-end)
 - [Edit content](#edit-content)
 - [Creating new pages](#creating-new-pages)
+
+**Note: To make content changes go straight to [Edit content](#edit-content)**
 
 ## Start server
 

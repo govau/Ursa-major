@@ -3,8 +3,8 @@ import { useFetch } from "../hooks/use-fetch";
 import LineGraph from "../visualisations/line-chart";
 import { AxisDomain } from "recharts";
 import AxisTickRotate from "../visualisations/formatters/angle-axis-tick";
-import PercentageFormatter from "../visualisations/formatters/percentage-formatter";
-import { CategoryTooltip } from "../visualisations/formatters/category-tooltip";
+import { UsersDataTooltip } from "../visualisations/formatters/category-tooltip";
+import { millionthFormatter } from "../visualisations/formatters/y-axis-formatter";
 
 interface Props {
   isTabletOrMobile: Boolean;
@@ -19,7 +19,7 @@ const OperatingSysVersionVisualisation: React.FC<Props> = ({
       opsys_version_total {
         device_opsys_ver
         month_year
-        percent_month
+        opsys_version_count
       }
     }    
     `,
@@ -27,15 +27,16 @@ const OperatingSysVersionVisualisation: React.FC<Props> = ({
 
   interface ScreenResMonthlyType {
     device_opsys_ver: string;
-    percent_month: number;
+    opsys_version_count: string;
     month_year: string;
   }
 
   const yKeys: Array<string> = [
-    "Others",
     "Windows_10",
     "Android_9",
     "Windows_7",
+    "iOS_13.3",
+    "iOS_13.3.1",
   ];
   const initialState: any = {};
   const [state, setState] = useState(initialState);
@@ -66,7 +67,9 @@ const OperatingSysVersionVisualisation: React.FC<Props> = ({
         );
 
         monthData.forEach((row: ScreenResMonthlyType, i: Number) => {
-          var devData = `"${[row.device_opsys_ver]}":"${row.percent_month}",`;
+          var devData = `"${[row.device_opsys_ver]}":"${
+            row.opsys_version_count
+          }",`;
           flattened += devData;
         });
 
@@ -80,14 +83,14 @@ const OperatingSysVersionVisualisation: React.FC<Props> = ({
     }
   }, [operatingSysVersionData.loading]);
 
-  const yDomain: [AxisDomain, AxisDomain] = [0, 55];
+  const yDomain: [AxisDomain, AxisDomain] = [0, 13000000];
 
   const lineGraphProps = {
     data: state.data,
     yKeys,
     x_key: "month_yr",
     yDomain,
-    yTicks: [0, 25, 50],
+    yTicks: [0, 5000000, 10000000],
     xTicks: state.xTicks,
     xTickSize: 10,
     xTickMargin: 5,
@@ -100,12 +103,12 @@ const OperatingSysVersionVisualisation: React.FC<Props> = ({
     isTabletOrMobile,
     // Tick: AxisTickRotate,
     // dot:false,
-    yTickFormatter: PercentageFormatter,
+    yTickFormatter: millionthFormatter,
     margin: isTabletOrMobile
       ? { top: 20, right: 10, bottom: 40, left: 0 }
       : { top: 20, right: 10, bottom: 40, left: -10 },
     legend: true,
-    CustomToolTip: CategoryTooltip,
+    CustomToolTip: UsersDataTooltip,
   };
 
   return (

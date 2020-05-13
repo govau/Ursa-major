@@ -7,6 +7,8 @@
 - [Edit content](#edit-content)
 - [Creating new pages](#creating-new-pages)
 
+**Note: To make content changes go straight to [Edit content](#edit-content)**
+
 ## Start server
 
 To ensure the server works correctly you will need to add service account key in the root directory.

@@ -35,8 +35,8 @@ const OperatingSysVersionVisualisation: React.FC<Props> = ({
     "Windows_10",
     "Android_9",
     "Windows_7",
-    "iOS_13.3",
-    "iOS_13.3.1",
+    "iOS_13",
+    "iOS_12",
   ];
   const initialState: any = {};
   const [state, setState] = useState(initialState);

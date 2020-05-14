@@ -5,11 +5,6 @@ jobs:
       - image: circleci/node:12.16.2
     working_directory: ~/app-server
     steps:
-      - run:
-          name: Set environment variables for build
-          command: |
-            echo 'export NODE_ENV=$CIRCLE_BRANCH' >> $BASH_ENV
-            source $BASH_ENV
       - checkout
       - restore_cache:
           name: Restore node_modules from cache

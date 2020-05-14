@@ -3,6 +3,8 @@ jobs:
   build-and-test-server:
     docker:
       - image: circleci/node:12.16.2
+      - image: circleci/redis
+        command: redis-server
     working_directory: ~/app-server
     steps:
       - checkout
@@ -20,8 +22,8 @@ jobs:
           command: |
             cd api/
             npm i
-            npm run build
             npm run coverage
+            npm run build
       - save_cache:
           name: Save node_modules to cache
           key: v3-dependency-cache-{{ checksum "api/package.json" }}

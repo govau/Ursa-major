@@ -16,11 +16,12 @@ jobs:
           keys:
             - v3-dependency-cache-{{ checksum "api/package.json" }}
       - run:
-          name: Install dependencies
+          name: Install dependencies, run tests
           command: |
             cd api/
             npm i
             npm run build
+            npm run coverage
       - save_cache:
           name: Save node_modules to cache
           key: v3-dependency-cache-{{ checksum "api/package.json" }}

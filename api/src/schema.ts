@@ -9,7 +9,6 @@ import {
 
 import { files } from "./gc-config";
 import fetchGCdata from "./fetch-gc";
-import { sortDate } from "./helper/helper";
 
 import UniqueUserType from "./graphQL_types/total_unique_users";
 import BrowserTotalType from "./graphQL_types/browsers_monthly";
@@ -37,8 +36,7 @@ const RootQuery = new GraphQLObjectType({
           context.redis_client,
           "total_unique"
         );
-        const sorted: Array<Object> = data.sort(sortDate);
-        return sorted;
+        return data;
       },
     },
     total_browser: {

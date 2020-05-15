@@ -105,10 +105,7 @@ const ScreenResVisualisation: React.FC<Props> = ({ isTabletOrMobile }) => {
   };
 
   return (
-    <>
-      {!screenResMonthlyData.loading && <LineGraph {...lineGraphProps} />}
-      <button role="button">hello</button>
-    </>
+    <>{!screenResMonthlyData.loading && <LineGraph {...lineGraphProps} />}</>
   );
 };
 

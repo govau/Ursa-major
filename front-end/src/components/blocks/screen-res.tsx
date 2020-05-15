@@ -32,7 +32,7 @@ const ScreenResVisualisation: React.FC<Props> = ({ isTabletOrMobile }) => {
 
   const yKeys: Array<string> = ["1920x1080", "1366x768", "375x667", "1440x900"];
   const initialState: any = {};
-  let [state, setState] = useState(initialState);
+  const [state, setState] = useState(initialState);
 
   useLayoutEffect(() => {
     const months: Array<string> = [];
@@ -105,7 +105,10 @@ const ScreenResVisualisation: React.FC<Props> = ({ isTabletOrMobile }) => {
   };
 
   return (
-    <>{!screenResMonthlyData.loading && <LineGraph {...lineGraphProps} />}</>
+    <>
+      {!screenResMonthlyData.loading && <LineGraph {...lineGraphProps} />}
+      <button role="button">hello</button>
+    </>
   );
 };
 

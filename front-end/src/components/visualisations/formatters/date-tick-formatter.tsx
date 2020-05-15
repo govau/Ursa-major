@@ -1,6 +1,6 @@
 import { TickFormatterFunction } from "recharts";
 
-let months: Array<String> = [
+const months: Array<string> = [
   "Jan",
   "Feb",
   "Mar",
@@ -15,7 +15,7 @@ let months: Array<String> = [
   "Dec",
 ];
 
-let times: Array<string> = [
+const times: Array<string> = [
   "12am",
   "1am",
   "2am",
@@ -43,16 +43,14 @@ let times: Array<string> = [
 ];
 
 //REFACTOR May become redundant once data stream is updated
-let formatDate: TickFormatterFunction;
-let formatHour: TickFormatterFunction;
 
-formatDate = (date) => {
-  let date_obj: Date = new Date(date);
-  let month: any = date_obj.getMonth();
+const formatDate: TickFormatterFunction = (date) => {
+  const date_obj: Date = new Date(date);
+  const month: any = date_obj.getMonth();
   return `${date_obj.getDate()} ${months[month]}`;
 };
 
-formatHour = (hour) => {
+const formatHour: TickFormatterFunction = (hour) => {
   return times[hour];
 };
 

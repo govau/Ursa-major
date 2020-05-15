@@ -32,7 +32,7 @@ const ScreenResVisualisation: React.FC<Props> = ({ isTabletOrMobile }) => {
 
   const yKeys: Array<string> = ["1920x1080", "1366x768", "375x667", "1440x900"];
   const initialState: any = {};
-  const [state, setState] = useState(initialState);
+  let [state, setState] = useState(initialState);
 
   useLayoutEffect(() => {
     const months: Array<string> = [];

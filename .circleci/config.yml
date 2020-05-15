@@ -95,10 +95,11 @@ jobs:
           paths:
             - front-end/node_modules/
       - run:
-          name: Set envs and build
+          name: Set envs, test and build
           command: |
             cd front-end/
             . ./prebuild.sh
+            npm run lint
             npm run build
       - run:
           name: Make deploy directory

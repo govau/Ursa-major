@@ -6,16 +6,16 @@ import helmet from "helmet";
 import redis from "redis";
 import cfenv from "cfenv";
 import bodyParser from "body-parser";
-var env = process.env.NODE_ENV || "dev";
+const env = process.env.NODE_ENV || "dev";
 
-var appEnv: any;
+let appEnv: any;
 if (env !== "dev") {
   appEnv = cfenv.getAppEnv();
 }
 const { hostname, port, password, url } =
   env !== "dev" && appEnv.services["redis"][0].credentials;
 
-const PORT: Number | string = process.env.PORT || 3000;
+const PORT: number | string = process.env.PORT || 3000;
 
 const redis_client =
   env === "dev"

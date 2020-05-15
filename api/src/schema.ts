@@ -1,11 +1,4 @@
-import {
-  GraphQLObjectType,
-  GraphQLInt,
-  GraphQLString,
-  GraphQLBoolean,
-  GraphQLList,
-  GraphQLSchema,
-} from "graphql";
+import { GraphQLObjectType, GraphQLList, GraphQLSchema } from "graphql";
 
 import { files } from "./gc-config";
 import fetchGCdata from "./fetch-gc";
@@ -26,12 +19,8 @@ const RootQuery = new GraphQLObjectType({
   fields: {
     total_unique: {
       type: new GraphQLList(UniqueUserType),
-      async resolve(
-        parentValue: any,
-        args: any,
-        context: { redis_client: RedisClient; req: Request }
-      ) {
-        const data: Array<Object> = await fetchGCdata(
+      async resolve(context: { redis_client: RedisClient; req: Request }) {
+        const data: Array<any> = await fetchGCdata(
           files.uniqueViews,
           context.redis_client,
           "total_unique"
@@ -41,12 +30,8 @@ const RootQuery = new GraphQLObjectType({
     },
     total_browser: {
       type: new GraphQLList(BrowserTotalType),
-      async resolve(
-        parentValue: any,
-        args: any,
-        context: { redis_client: RedisClient; req: Request }
-      ) {
-        const data: Array<Object> = await fetchGCdata(
+      async resolve(context: { redis_client: RedisClient; req: Request }) {
+        const data: Array<any> = await fetchGCdata(
           files.browser_total_monthly,
           context.redis_client,
           "total_browser"
@@ -56,12 +41,8 @@ const RootQuery = new GraphQLObjectType({
     },
     hourly_unique_views: {
       type: new GraphQLList(HourlyUniqueViewsType),
-      async resolve(
-        parentValue: any,
-        args: any,
-        context: { redis_client: RedisClient; req: Request }
-      ) {
-        const data: Array<Object> = await fetchGCdata(
+      async resolve(context: { redis_client: RedisClient; req: Request }) {
+        const data: Array<any> = await fetchGCdata(
           files.hourly_unique_views,
           context.redis_client,
           "hourly_unique"
@@ -71,12 +52,8 @@ const RootQuery = new GraphQLObjectType({
     },
     operating_system_total: {
       type: new GraphQLList(OperatingSystemDataType),
-      async resolve(
-        parentValue: any,
-        args: any,
-        context: { redis_client: RedisClient; req: Request }
-      ) {
-        const data: Array<Object> = await fetchGCdata(
+      async resolve(context: { redis_client: RedisClient; req: Request }) {
+        const data: Array<any> = await fetchGCdata(
           files.operating_system_views,
           context.redis_client,
           "opsys"
@@ -86,12 +63,8 @@ const RootQuery = new GraphQLObjectType({
     },
     device_catogories: {
       type: new GraphQLList(DeviceCategoryType),
-      async resolve(
-        parentValue: any,
-        args: any,
-        context: { redis_client: RedisClient; req: Request }
-      ) {
-        const data: Array<Object> = await fetchGCdata(
+      async resolve(context: { redis_client: RedisClient; req: Request }) {
+        const data: Array<any> = await fetchGCdata(
           files.device_category,
           context.redis_client,
           "device_categories"
@@ -101,12 +74,8 @@ const RootQuery = new GraphQLObjectType({
     },
     opsys_version_total: {
       type: new GraphQLList(OperatingSystemVersionType),
-      async resolve(
-        parentValue: any,
-        args: any,
-        context: { redis_client: RedisClient; req: Request }
-      ) {
-        const data: Array<Object> = await fetchGCdata(
+      async resolve(context: { redis_client: RedisClient; req: Request }) {
+        const data: Array<any> = await fetchGCdata(
           files.opsys_version,
           context.redis_client,
           "opsys_version"
@@ -116,12 +85,8 @@ const RootQuery = new GraphQLObjectType({
     },
     device_brand: {
       type: new GraphQLList(DeviceBrandType),
-      async resolve(
-        parentValue: any,
-        args: any,
-        context: { redis_client: RedisClient; req: Request }
-      ) {
-        const data: Array<Object> = await fetchGCdata(
+      async resolve(context: { redis_client: RedisClient; req: Request }) {
+        const data: Array<any> = await fetchGCdata(
           files.device_brand,
           context.redis_client,
           "device_brand"
@@ -131,12 +96,8 @@ const RootQuery = new GraphQLObjectType({
     },
     total_screen_res: {
       type: new GraphQLList(ScreenResType),
-      async resolve(
-        parentValue: any,
-        args: any,
-        context: { redis_client: RedisClient; req: Request }
-      ) {
-        const data: Array<Object> = await fetchGCdata(
+      async resolve(context: { redis_client: RedisClient; req: Request }) {
+        const data: Array<any> = await fetchGCdata(
           files.screen_res,
           context.redis_client,
           "screen_res"
@@ -146,12 +107,8 @@ const RootQuery = new GraphQLObjectType({
     },
     total_browser_version: {
       type: new GraphQLList(BrowserVersionType),
-      async resolve(
-        parentValue: any,
-        args: any,
-        context: { redis_client: RedisClient; req: Request }
-      ) {
-        const data: Array<Object> = await fetchGCdata(
+      async resolve(context: { redis_client: RedisClient; req: Request }) {
+        const data: Array<any> = await fetchGCdata(
           files.browser_version,
           context.redis_client,
           "browser_version"

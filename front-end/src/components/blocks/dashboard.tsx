@@ -9,7 +9,7 @@ import OperatingSystemVisualisation from "./operating-system";
 import HourlyViewsVisualisation from "./hourly-views";
 
 interface Props {
-  isTabletOrMobile: Boolean;
+  isTabletOrMobile: boolean;
 }
 
 const DashboardHomePage: React.FC<Props> = ({ isTabletOrMobile }) => {

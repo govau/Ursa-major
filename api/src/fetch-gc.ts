@@ -2,7 +2,7 @@ import ndjson from "ndjson";
 import { gcsJsonResponseHandler } from "./helper/helper";
 import { gc, files } from "./gc-config";
 import { RedisClient } from "redis";
-const { promisify } = require("util");
+import { promisify } from "util";
 
 const cacheExpiry = 14400;
 
@@ -33,6 +33,7 @@ const fetchGCdata: any = async (
       .then((data: any) => resolve(data))
       .catch((err: any) => {
         // If the data is not cached
+        console.log(err);
         if (file) {
           try {
             file

@@ -9,7 +9,7 @@
     "build": "tsc -p .",
     "test": "mocha -r ts-node/register test/**/*.ts --timeout 20000 --exit",
     "lint": "eslint --ext .ts ./src",
-    "test:lint:fix": "npm run test:lint -- --fix",
+    "lint:fix": "eslint --fix ./src --ext ts",
     "coverage": "nyc npm run test"
   },
   "engines": {

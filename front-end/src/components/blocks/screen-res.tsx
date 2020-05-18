@@ -5,12 +5,19 @@ import { AxisDomain } from "recharts";
 import AxisTickRotate from "../visualisations/formatters/angle-axis-tick";
 import { UsersDataTooltip } from "../visualisations/formatters/category-tooltip";
 import { millionthFormatter } from "../visualisations/formatters/y-axis-formatter";
+import AUtable, { AUtableResponsiveWrapper } from "../navigation/ds/table";
+import { TableCellRowSpanMonthly } from "../hooks/table-formatter";
 
+const AuTable: any = AUtable;
 interface Props {
   isTabletOrMobile: boolean;
+  chartView: boolean;
 }
 
-const ScreenResVisualisation: React.FC<Props> = ({ isTabletOrMobile }) => {
+const ScreenResVisualisation: React.FC<Props> = ({
+  isTabletOrMobile,
+  chartView,
+}) => {
   const screenResMonthlyData = useFetch({
     initialState: "",
     query: `{
@@ -104,9 +111,56 @@ const ScreenResVisualisation: React.FC<Props> = ({ isTabletOrMobile }) => {
     CustomToolTip: UsersDataTooltip,
   };
 
-  return (
-    <>{!screenResMonthlyData.loading && <LineGraph {...lineGraphProps} />}</>
-  );
+  const renderView = () => {
+    if (!screenResMonthlyData.loading) {
+      if (chartView) {
+        return <LineGraph {...lineGraphProps} />;
+      } else {
+        return (
+          <AUtableResponsiveWrapper>
+            <AuTable
+              caption={lineGraphProps.Heading.text}
+              rowSpanInterval={yKeys.length}
+              headers={[
+                {
+                  title: "Month Year",
+                  key: "month_year",
+                  renderCustom: (
+                    data: any,
+                    row: any,
+                    rowIndex: number,
+                    columnIndex: number
+                  ) => (
+                    <TableCellRowSpanMonthly
+                      data={data}
+                      rowIndex={rowIndex}
+                      colIndex={columnIndex}
+                      rowSpanSize={yKeys.length}
+                    />
+                  ),
+                },
+                {
+                  title: "Screen Resolution",
+                  key: "device_screen_res",
+                },
+                {
+                  title: "Total users (Millions)",
+                  key: "screen_res_count",
+                  type: "numeric",
+                  render: millionthFormatter,
+                },
+              ]}
+              data={screenResMonthlyData.data.total_screen_res}
+            />
+          </AUtableResponsiveWrapper>
+        );
+      }
+    } else {
+      return <p></p>;
+    }
+  };
+
+  return <>{renderView()}</>;
 };
 
 export default ScreenResVisualisation;

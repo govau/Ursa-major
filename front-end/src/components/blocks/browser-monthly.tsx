@@ -5,11 +5,21 @@ import { AxisDomain } from "recharts";
 import AxisTickRotate from "../visualisations/formatters/angle-axis-tick";
 import PercentageFormatter from "../visualisations/formatters/percentage-formatter";
 import { CategoryTooltip } from "../visualisations/formatters/category-tooltip";
+import AUtable, { AUtableResponsiveWrapper } from "../navigation/ds/table";
+import { TableCellRowSpanMonthly } from "../hooks/table-formatter";
+
+const AuTable: any = AUtable;
 
 interface Props {
   isTabletOrMobile: boolean;
+  chartView: boolean;
 }
-const BrowserMonthly: React.FC<Props> = ({ isTabletOrMobile }) => {
+
+interface Props {
+  isTabletOrMobile: boolean;
+  chartView: boolean;
+}
+const BrowserMonthly: React.FC<Props> = ({ isTabletOrMobile, chartView }) => {
   const browserMonthlyData = useFetch({
     initialState: "",
     query: `{
@@ -72,10 +82,16 @@ const BrowserMonthly: React.FC<Props> = ({ isTabletOrMobile }) => {
   }, [browserMonthlyData.loading]);
 
   const yDomain: [AxisDomain, AxisDomain] = [0, 55];
-
+  const yKeys: Array<string> = [
+    "Chrome",
+    "Safari",
+    "Internet Explorer",
+    "Edge",
+    "Others",
+  ];
   const lineGraphProps = {
     data: state.data,
-    yKeys: ["Chrome", "Safari", "Internet Explorer", "Edge", "Others"],
+    yKeys,
     x_key: "month_yr",
     yDomain,
     yTicks: [0, 25, 50],
@@ -99,9 +115,55 @@ const BrowserMonthly: React.FC<Props> = ({ isTabletOrMobile }) => {
     CustomToolTip: CategoryTooltip,
   };
 
-  return (
-    <>{!browserMonthlyData.loading && <LineGraph {...lineGraphProps} />}</>
-  );
+  const renderView = () => {
+    if (!browserMonthlyData.loading) {
+      if (chartView) {
+        return <LineGraph {...lineGraphProps} />;
+      } else {
+        return (
+          <AUtableResponsiveWrapper>
+            <AuTable
+              caption={lineGraphProps.Heading.text}
+              rowSpanInterval={yKeys.length}
+              headers={[
+                {
+                  title: "Time",
+                  key: "month_year",
+                  renderCustom: (
+                    data: any,
+                    row: any,
+                    rowIndex: number,
+                    columnIndex: number
+                  ) => (
+                    <TableCellRowSpanMonthly
+                      data={data}
+                      rowIndex={rowIndex}
+                      colIndex={columnIndex}
+                      rowSpanSize={yKeys.length}
+                    />
+                  ),
+                },
+                {
+                  title: "Device type",
+                  key: "device_browser",
+                },
+                {
+                  title: "Total users (%)",
+                  key: "percent_month",
+                  type: "numeric",
+                },
+              ]}
+              data={browserMonthlyData.data.total_browser}
+            />
+          </AUtableResponsiveWrapper>
+        );
+      }
+    } else {
+      return <p></p>;
+    }
+  };
+
+  return <>{renderView()}</>;
 };
 
 export default BrowserMonthly;

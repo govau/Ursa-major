@@ -1,3 +1,4 @@
+/* eslint-disable react/display-name */
 import React, { useState, useLayoutEffect } from "react";
 import { useFetch } from "../hooks/use-fetch";
 import LineGraph from "../visualisations/line-chart";
@@ -6,12 +7,20 @@ import AxisTickRotate from "../visualisations/formatters/angle-axis-tick";
 import PercentageFormatter from "../visualisations/formatters/percentage-formatter";
 import DeviceCategoryToolTip from "../visualisations/formatters/devices-tooltip";
 import LineLabel from "../visualisations/formatters/line-label";
+import AUtable, { AUtableResponsiveWrapper } from "../navigation/ds/table";
+import { TableCellRowSpanMonthly } from "../hooks/table-formatter";
+
+const AuTable: any = AUtable;
 
 interface Props {
   isTabletOrMobile: boolean;
+  chartView: boolean;
 }
 
-const DeviceCategoryVisualisation: React.FC<Props> = ({ isTabletOrMobile }) => {
+const DeviceCategoryVisualisation: React.FC<Props> = ({
+  isTabletOrMobile,
+  chartView,
+}) => {
   const deviceData = useFetch({
     initialState: "",
     query: `{
@@ -78,10 +87,11 @@ const DeviceCategoryVisualisation: React.FC<Props> = ({ isTabletOrMobile }) => {
   }, [deviceData.loading]);
 
   const yDomain: [AxisDomain, AxisDomain] = [0, 100];
+  const yKeys: Array<string> = ["desktop", "mobile", "tablet"];
 
   const lineGraphProps = {
     data: state.data,
-    yKeys: ["desktop", "mobile", "tablet"],
+    yKeys,
     x_key: "month_yr",
     yDomain,
     // type: number,
@@ -107,7 +117,55 @@ const DeviceCategoryVisualisation: React.FC<Props> = ({ isTabletOrMobile }) => {
     CustomLabel: LineLabel,
   };
 
-  return <>{!deviceData.loading && <LineGraph {...lineGraphProps} />}</>;
+  const renderView = () => {
+    if (!deviceData.loading) {
+      if (chartView) {
+        return <LineGraph {...lineGraphProps} />;
+      } else {
+        return (
+          <AUtableResponsiveWrapper>
+            <AuTable
+              caption={lineGraphProps.Heading.text}
+              rowSpanInterval={yKeys.length}
+              headers={[
+                {
+                  title: "Time",
+                  key: "month_year",
+                  renderCustom: (
+                    data: any,
+                    row: any,
+                    rowIndex: number,
+                    columnIndex: number
+                  ) => (
+                    <TableCellRowSpanMonthly
+                      data={data}
+                      rowIndex={rowIndex}
+                      colIndex={columnIndex}
+                      rowSpanSize={yKeys.length}
+                    />
+                  ),
+                },
+                {
+                  title: "Device type",
+                  key: "device_category",
+                },
+                {
+                  title: "Total users (%)",
+                  key: "percent_month",
+                  type: "numeric",
+                },
+              ]}
+              data={deviceData.data.device_catogories}
+            />
+          </AUtableResponsiveWrapper>
+        );
+      }
+    } else {
+      return <p></p>;
+    }
+  };
+
+  return <>{renderView()}</>;
 };
 
 export default DeviceCategoryVisualisation;

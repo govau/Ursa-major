@@ -5,13 +5,19 @@ import { AxisDomain } from "recharts";
 import AxisTickRotate from "../visualisations/formatters/angle-axis-tick";
 import PercentageFormatter from "../visualisations/formatters/percentage-formatter";
 import { CategoryTooltip } from "../visualisations/formatters/category-tooltip";
+import AUtable, { AUtableResponsiveWrapper } from "../navigation/ds/table";
+import { TableCellRowSpanMonthly } from "../hooks/table-formatter";
+
+const AuTable: any = AUtable;
 
 interface Props {
   isTabletOrMobile: boolean;
+  chartView: boolean;
 }
 
 const OperatingSystemVisualisation: React.FC<Props> = ({
   isTabletOrMobile,
+  chartView,
 }) => {
   const operatingSysVersionData = useFetch({
     initialState: "",
@@ -109,9 +115,55 @@ const OperatingSystemVisualisation: React.FC<Props> = ({
     CustomToolTip: CategoryTooltip,
   };
 
-  return (
-    <>{!operatingSysVersionData.loading && <LineGraph {...lineGraphProps} />}</>
-  );
+  const renderView = () => {
+    if (!operatingSysVersionData.loading) {
+      if (chartView) {
+        return <LineGraph {...lineGraphProps} />;
+      } else {
+        return (
+          <AUtableResponsiveWrapper>
+            <AuTable
+              caption={lineGraphProps.Heading.text}
+              rowSpanInterval={yKeys.length}
+              headers={[
+                {
+                  title: "Time",
+                  key: "month_year",
+                  renderCustom: (
+                    data: any,
+                    row: any,
+                    rowIndex: number,
+                    columnIndex: number
+                  ) => (
+                    <TableCellRowSpanMonthly
+                      data={data}
+                      rowIndex={rowIndex}
+                      colIndex={columnIndex}
+                      rowSpanSize={yKeys.length}
+                    />
+                  ),
+                },
+                {
+                  title: "Operating system",
+                  key: "device_opsys",
+                },
+                {
+                  title: "Total users (%)",
+                  key: "percent_month",
+                  type: "numeric",
+                },
+              ]}
+              data={operatingSysVersionData.data.operating_system_total}
+            />
+          </AUtableResponsiveWrapper>
+        );
+      }
+    } else {
+      return <p></p>;
+    }
+  };
+
+  return <>{renderView()}</>;
 };
 
 export default OperatingSystemVisualisation;

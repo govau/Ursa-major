@@ -24,7 +24,7 @@ const redis_client =
 
 const app: Application = express();
 
-env === "dev" && app.use(cors());
+app.use(cors());
 
 app.use(bodyParser.json());
 

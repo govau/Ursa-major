@@ -1,3 +1,4 @@
+/* eslint-disable react/display-name */
 import React, { useState, useLayoutEffect } from "react";
 import { useFetch } from "../hooks/use-fetch";
 import LineGraph from "../visualisations/line-chart";
@@ -6,12 +7,20 @@ import AxisTickRotate from "../visualisations/formatters/angle-axis-tick";
 import { UsersDataTooltip } from "../visualisations/formatters/category-tooltip";
 import { formatHour } from "../visualisations/formatters/date-tick-formatter";
 import { millionthFormatter } from "../visualisations/formatters/y-axis-formatter";
+import AUtable, { AUtableResponsiveWrapper } from "../navigation/ds/table";
+import { TableCellRowSpanHourly } from "../hooks/table-formatter";
+
+const AuTable: any = AUtable;
 
 interface Props {
   isTabletOrMobile: boolean;
+  chartView?: boolean;
 }
 
-const HourlyViewsVisualisation: React.FC<Props> = ({ isTabletOrMobile }) => {
+const HourlyViewsVisualisation: React.FC<Props> = ({
+  isTabletOrMobile,
+  chartView,
+}) => {
   const HourlyViewsData = useFetch({
     initialState: "",
     query: `{
@@ -120,7 +129,55 @@ const HourlyViewsVisualisation: React.FC<Props> = ({ isTabletOrMobile }) => {
     CustomToolTip: UsersDataTooltip,
   };
 
-  return <>{!HourlyViewsData.loading && <LineGraph {...lineGraphProps} />}</>;
+  const renderView = () => {
+    if (!HourlyViewsData.loading) {
+      if (chartView) {
+        return <LineGraph {...lineGraphProps} />;
+      } else {
+        return (
+          <AUtableResponsiveWrapper>
+            <AuTable
+              caption={lineGraphProps.Heading.text}
+              rowSpanInterval={yKeys.length}
+              headers={[
+                {
+                  title: "Visit hour",
+                  key: "visit_hour",
+                  renderCustom: (
+                    data: any,
+                    row: any,
+                    rowIndex: number,
+                    columnIndex: number
+                  ) => (
+                    <TableCellRowSpanHourly
+                      data={data}
+                      rowIndex={rowIndex}
+                      colIndex={columnIndex}
+                    />
+                  ),
+                },
+                {
+                  title: "Day type",
+                  key: "day_type",
+                },
+                {
+                  title: "Total users (millions)",
+                  key: "total_unique_users",
+                  type: "numeric",
+                  render: millionthFormatter,
+                },
+              ]}
+              data={HourlyViewsData.data.hourly_unique_views}
+            />
+          </AUtableResponsiveWrapper>
+        );
+      }
+    } else {
+      return <p></p>;
+    }
+  };
+
+  return <>{renderView()}</>;
 };
 
 export default HourlyViewsVisualisation;

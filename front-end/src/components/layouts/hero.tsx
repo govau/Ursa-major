@@ -3,6 +3,7 @@ import React from "react";
 interface Props {
   children: React.ReactElement;
   alt?: Boolean;
+  imgClickUrl: string;
   imgUrl: string;
   imgAlt: string;
   imgCaption: string;
@@ -10,6 +11,7 @@ interface Props {
 
 const Hero: React.FC<Props> = ({
   children,
+  imgClickUrl,
   imgUrl,
   imgAlt,
   imgCaption,
@@ -25,11 +27,13 @@ const Hero: React.FC<Props> = ({
 
           <div className="col-md-6 col-xs-12">
             <figure className="hero-image">
-              <img
-                className="au-responsive-media-img"
-                src={imgUrl}
-                alt={imgAlt}
-              />
+              <a href={imgClickUrl}>
+                <img
+                  className="au-responsive-media-img"
+                  src={imgUrl}
+                  alt={imgAlt}
+                />
+              </a>
               <figcaption className="hero-image__caption">
                 {imgCaption}
               </figcaption>

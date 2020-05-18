@@ -51,4 +51,13 @@ const TableCellRowSpanMonthly: (props: MonthlyProps) => any = ({
   );
 };
 
-export { TableCellRowSpanHourly, TableCellRowSpanMonthly };
+const TableMillionthFormatter: (numb: number) => string = (numb: any) => {
+  const scaled = numb / 1000000;
+  return scaled.toFixed(2) + "M";
+};
+
+export {
+  TableCellRowSpanHourly,
+  TableCellRowSpanMonthly,
+  TableMillionthFormatter,
+};

@@ -6,7 +6,10 @@ import AxisTickRotate from "../visualisations/formatters/angle-axis-tick";
 import { UsersDataTooltip } from "../visualisations/formatters/category-tooltip";
 import { millionthFormatter } from "../visualisations/formatters/y-axis-formatter";
 import AUtable, { AUtableResponsiveWrapper } from "../navigation/ds/table";
-import { TableCellRowSpanMonthly } from "../hooks_helpers/table-formatter";
+import {
+  TableCellRowSpanMonthly,
+  TableMillionthFormatter,
+} from "../hooks_helpers/table-formatter";
 import { Table } from "../hooks_helpers/table";
 
 const AuTable: any = AUtable;
@@ -153,7 +156,7 @@ const OperatingSysVersionVisualisation: React.FC<Props> = ({
                 title: "Total users",
                 key: "opsys_version_count",
                 type: "numeric",
-                render: millionthFormatter,
+                render: TableMillionthFormatter,
               },
             ]}
             data={operatingSysVersionData.data.opsys_version_total}

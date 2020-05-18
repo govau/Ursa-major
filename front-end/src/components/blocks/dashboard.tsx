@@ -8,6 +8,9 @@ import OperatingSysVersionVisualisation from "./operating-system-version";
 import OperatingSystemVisualisation from "./operating-system";
 import HourlyViewsVisualisation from "./hourly-views";
 import { AUradio } from "../../auds/react/control-input";
+import { AUfieldset, AUlegend } from "../../auds/react/form";
+
+const AuFieldset: any = AUfieldset;
 
 interface Props {
   isTabletOrMobile: boolean;
@@ -21,25 +24,31 @@ const DashboardHomePage: React.FC<Props> = ({ isTabletOrMobile }) => {
 
   const [state, setstate] = useState(initialState);
 
+  const headingStyle: React.CSSProperties | undefined = { fontWeight: 400 };
   return (
     <>
       <div className="container-fluid au-body" id="dashboard">
         <div className="row">
-          <AuRadio
-            label="Chart"
-            name="radio-ex"
-            id="radio-chart"
-            onChange={() => setstate(() => ({ chartView: true }))}
-            defaultChecked
-          />
-          <AuRadio
-            label="Table"
-            name="radio-ex"
-            id="radio-table"
-            onChange={() => setstate(() => ({ chartView: false }))}
-          />
-
-          {console.log(state)}
+          <AuFieldset>
+            <AUlegend>
+              <h3 className="au-display-md" style={headingStyle}>
+                View as:
+              </h3>
+            </AUlegend>
+            <AuRadio
+              label="Chart"
+              name="radio-ex"
+              id="radio-chart"
+              onChange={() => setstate(() => ({ chartView: true }))}
+              defaultChecked
+            />
+            <AuRadio
+              label="Table"
+              name="radio-ex"
+              id="radio-table"
+              onChange={() => setstate(() => ({ chartView: false }))}
+            />
+          </AuFieldset>
         </div>
         <div className="row">
           <div className="col-md-6">

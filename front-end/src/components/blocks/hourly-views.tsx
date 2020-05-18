@@ -7,11 +7,11 @@ import AxisTickRotate from "../visualisations/formatters/angle-axis-tick";
 import { UsersDataTooltip } from "../visualisations/formatters/category-tooltip";
 import { formatHour } from "../visualisations/formatters/date-tick-formatter";
 import { millionthFormatter } from "../visualisations/formatters/y-axis-formatter";
-import AUtable, { AUtableResponsiveWrapper } from "../navigation/ds/table";
-import { TableCellRowSpanHourly } from "../hooks_helpers/table-formatter";
+import {
+  TableCellRowSpanHourly,
+  TableMillionthFormatter,
+} from "../hooks_helpers/table-formatter";
 import { Table } from "../hooks_helpers/table";
-
-const AuTable: any = AUtable;
 
 interface Props {
   isTabletOrMobile: boolean;
@@ -164,7 +164,7 @@ const HourlyViewsVisualisation: React.FC<Props> = ({
                 title: "Total users (millions)",
                 key: "total_unique_users",
                 type: "numeric",
-                render: millionthFormatter,
+                render: TableMillionthFormatter,
               },
             ]}
             data={HourlyViewsData.data.hourly_unique_views}

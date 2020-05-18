@@ -5,7 +5,10 @@ import { AxisDomain } from "recharts";
 import AxisTickRotate from "../visualisations/formatters/angle-axis-tick";
 import { UsersDataTooltip } from "../visualisations/formatters/category-tooltip";
 import { millionthFormatter } from "../visualisations/formatters/y-axis-formatter";
-import { TableCellRowSpanMonthly } from "../hooks_helpers/table-formatter";
+import {
+  TableCellRowSpanMonthly,
+  TableMillionthFormatter,
+} from "../hooks_helpers/table-formatter";
 import { Table } from "../hooks_helpers/table";
 
 interface Props {
@@ -142,10 +145,10 @@ const ScreenResVisualisation: React.FC<Props> = ({
                 key: "device_screen_res",
               },
               {
-                title: "Total users (Millions)",
+                title: "Total users (millions)",
                 key: "screen_res_count",
                 type: "numeric",
-                render: millionthFormatter,
+                render: TableMillionthFormatter,
               },
             ]}
             data={screenResMonthlyData.data.total_screen_res}

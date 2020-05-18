@@ -7,13 +7,7 @@ interface Props {
   formatFunction?: any;
 }
 
-const AxisTickRotate: React.FC<Props> = ({
-  x,
-  y,
-  stroke,
-  payload,
-  formatFunction,
-}) => {
+const AxisTickRotate: React.FC<Props> = ({ x, y, payload, formatFunction }) => {
   return (
     <g transform={`translate(${x},${y})`}>
       <text

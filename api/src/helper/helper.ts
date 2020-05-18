@@ -1,5 +1,3 @@
-import { Response } from "express";
-
 const gcsJsonResponseHandler = (response: any) => {
   console.debug(
     response.statusCode,
@@ -12,8 +10,4 @@ const gcsJsonResponseHandler = (response: any) => {
   }
 };
 
-const sortDate = (a: any, b: any) => {
-  return new Date(a.visit_date).getTime() - new Date(b.visit_date).getTime();
-};
-
-export { sortDate, gcsJsonResponseHandler };
+export { gcsJsonResponseHandler };

@@ -3,6 +3,7 @@ import { graphql } from "gatsby";
 import DefaultLayout from "./default-layout";
 import SEO from "../seo";
 
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
 interface Props {}
 
 const PageLayout: React.FC<Props> = (props: any) => {

@@ -2,20 +2,20 @@ import ndjson from "ndjson";
 import { gcsJsonResponseHandler } from "./helper/helper";
 import { gc, files } from "./gc-config";
 import { RedisClient } from "redis";
-const { promisify } = require("util");
+import { promisify } from "util";
 
-const cacheExpiry: number = 14400;
+const cacheExpiry = 14400;
 
 const sampleBucket = gc.bucket(files.bucket);
 
 const fetchGCdata: any = async (
-  filePath: String,
+  filePath: string,
   redis_client: RedisClient,
   id: string
 ) => {
   const getAsync: any = promisify(redis_client.get).bind(redis_client);
   const file = sampleBucket.file(filePath);
-  let buffer: Array<Object> = [];
+  const buffer: Array<any> = [];
 
   return new Promise((resolve, reject) => {
     getAsync(id)
@@ -33,6 +33,7 @@ const fetchGCdata: any = async (
       .then((data: any) => resolve(data))
       .catch((err: any) => {
         // If the data is not cached
+        console.log(err);
         if (file) {
           try {
             file

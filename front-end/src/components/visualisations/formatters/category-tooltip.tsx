@@ -1,7 +1,8 @@
+/* eslint-disable react/display-name */
+/* eslint-disable prefer-const */
 import { TooltipProps } from "recharts";
 import React from "react";
 import { formatHour } from "./date-tick-formatter";
-import { millionthFormatter } from "./y-axis-formatter";
 
 interface Props extends TooltipProps {
   payloadKeys: Array<string>;
@@ -16,8 +17,8 @@ interface ToolTipData {
 let CategoryTooltip: (props: Props) => JSX.Element;
 let UsersDataTooltip: (props: Props) => JSX.Element;
 
-CategoryTooltip = ({ active, payload, label, payloadKeys }) => {
-  let tooltipData: any = [];
+CategoryTooltip = ({ active, payload, payloadKeys }) => {
+  const tooltipData: any = [];
   let date: string | number = "";
 
   if (payload && payload[0]) {
@@ -53,8 +54,8 @@ CategoryTooltip = ({ active, payload, label, payloadKeys }) => {
   );
 };
 
-UsersDataTooltip = ({ active, payload, label, payloadKeys }) => {
-  let tooltipData: any = [];
+UsersDataTooltip = ({ active, payload, payloadKeys }) => {
+  const tooltipData: any = [];
   let time: string | number = "";
 
   if (payload && payload[0]) {

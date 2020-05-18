@@ -1,13 +1,11 @@
 import { TickFormatterFunction } from "recharts";
 
-let scaleFormatter: TickFormatterFunction;
-let millionthFormatter: TickFormatterFunction;
-
-scaleFormatter = (numb: any) => {
+const scaleFormatter: TickFormatterFunction = (numb: any) => {
   return numb / 10 + "M";
 };
 
-millionthFormatter = (numb: any) => {
+const millionthFormatter: TickFormatterFunction = (numb: any) => {
   return numb / 1000000 + "M";
 };
+
 export { scaleFormatter, millionthFormatter };

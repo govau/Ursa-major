@@ -3,14 +3,16 @@ import React from "react";
 import { formatDate } from "./date-tick-formatter";
 
 interface Props extends TooltipProps {
-  isTabletOrMobile?: Boolean;
+  isTabletOrMobile?: boolean;
 }
 
-let UniqueUsersToolTip: (props: Props) => JSX.Element;
-
-UniqueUsersToolTip = ({ active, payload, label, isTabletOrMobile }) => {
+const UniqueUsersToolTip: (props: Props) => JSX.Element = ({
+  active,
+  payload,
+  isTabletOrMobile,
+}) => {
   let totalVal: string | number = "";
-  let date: string = "";
+  let date = "";
 
   if (payload && payload[0]) {
     totalVal = payload[0].payload.total_unique_users_scale * 100000;

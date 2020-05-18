@@ -105,7 +105,7 @@ const UniqueUsersLineGraph: React.FC<Props> = ({
           <Table
             heading={lineGraphProps.Heading.text}
             headers={[
-              { title: "Date", key: "visit_date" },
+              { title: "Date", key: "visit_date", render: formatDate },
               {
                 title: "Total views (millions)",
                 key: "total_unique_users_scale",

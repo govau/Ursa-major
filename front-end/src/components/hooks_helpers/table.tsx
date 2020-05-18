@@ -24,6 +24,7 @@ export const Table: React.FC<Props> = ({
           rowSpanInterval={rowSpanInterval}
           headers={headers}
           data={data}
+          caption={heading}
         />
       </AUtableResponsiveWrapper>
     </>

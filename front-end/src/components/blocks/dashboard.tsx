@@ -40,6 +40,7 @@ const DashboardHomePage: React.FC<Props> = ({ isTabletOrMobile }) => {
                 label="Chart"
                 name="radio-ex"
                 id="radio-chart"
+                checked={state.chartView}
                 onChange={() => setstate(() => ({ chartView: true }))}
                 defaultChecked
               />
@@ -47,6 +48,7 @@ const DashboardHomePage: React.FC<Props> = ({ isTabletOrMobile }) => {
                 label="Table"
                 name="radio-ex"
                 id="radio-table"
+                checked={!state.chartView}
                 onChange={() => setstate(() => ({ chartView: false }))}
               />
             </AuFieldset>

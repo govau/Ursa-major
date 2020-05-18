@@ -10,7 +10,7 @@ interface MenuItems {
   map(
     arg0: (menuItem: any) => { text: any; link: any; active: boolean }
   ): MenuItems;
-  items: Array<Object>;
+  items: Array<any>;
 }
 
 const Nav: any = AUmainNav;

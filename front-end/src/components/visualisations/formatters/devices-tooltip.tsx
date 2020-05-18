@@ -1,20 +1,21 @@
 import { TooltipProps } from "recharts";
 import React from "react";
 
-interface Props extends TooltipProps {}
+type Props = TooltipProps;
 interface SquareProps {
   desktop: string | undefined;
   mobile: string | undefined;
   tablet: string | undefined;
 }
 
-let DeviceCategoryToolTip: (props: Props) => JSX.Element;
-
-DeviceCategoryToolTip = ({ active, payload, label }) => {
+const DeviceCategoryToolTip: (props: Props) => JSX.Element = ({
+  active,
+  payload,
+}) => {
   let mobile: string | number = "";
-  let tablet: string = "";
-  let desktop: string = "";
-  let date: string = "";
+  let tablet = "";
+  let desktop = "";
+  let date = "";
   let style: SquareProps = { desktop: "", mobile: "", tablet: "" };
 
   if (payload && payload[0]) {

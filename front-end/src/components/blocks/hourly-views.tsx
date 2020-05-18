@@ -8,7 +8,7 @@ import { formatHour } from "../visualisations/formatters/date-tick-formatter";
 import { millionthFormatter } from "../visualisations/formatters/y-axis-formatter";
 
 interface Props {
-  isTabletOrMobile: Boolean;
+  isTabletOrMobile: boolean;
 }
 
 const HourlyViewsVisualisation: React.FC<Props> = ({ isTabletOrMobile }) => {
@@ -35,7 +35,7 @@ const HourlyViewsVisualisation: React.FC<Props> = ({ isTabletOrMobile }) => {
   const [state, setState] = useState(initialState);
 
   useLayoutEffect(() => {
-    let hours: Array<string> = [
+    const hours: Array<string> = [
       "0",
       "1",
       "2",
@@ -60,8 +60,8 @@ const HourlyViewsVisualisation: React.FC<Props> = ({ isTabletOrMobile }) => {
       "22",
       "23",
     ];
-    let finalData: Array<any> = [];
-    let xTicks: Array<any> = [];
+    const finalData: Array<any> = [];
+    const xTicks: Array<any> = [];
     if (!HourlyViewsData.loading) {
       //   console.log(HourlyViewsData);
       // REFACTOR, the data should have this structure out of the box
@@ -74,18 +74,17 @@ const HourlyViewsVisualisation: React.FC<Props> = ({ isTabletOrMobile }) => {
       //   });
       hours.forEach((hour: string, i: number) => {
         i !== 0 && i % 2 === 0 && xTicks.push(hour);
-        var flattened = "";
+        let flattened = "";
         const hourlyData = HourlyViewsData.data.hourly_unique_views.filter(
           (row: HourlyDataType) => row.visit_hour === hour
         );
 
-        hourlyData.forEach((row: HourlyDataType, i: Number) => {
-          var devData;
-          devData = `"${[row.day_type]}":"${row.total_unique_users}",`;
+        hourlyData.forEach((row: HourlyDataType) => {
+          const devData = `"${[row.day_type]}":"${row.total_unique_users}",`;
           flattened += devData;
         });
-        var hour_data: string = `"visit_hour":"${hour}"`;
-        var final: string = `{${flattened}${hour_data}}`;
+        const hour_data = `"visit_hour":"${hour}"`;
+        const final = `{${flattened}${hour_data}}`;
         finalData.push(JSON.parse(final));
         setState({ data: finalData, xTicks });
       });

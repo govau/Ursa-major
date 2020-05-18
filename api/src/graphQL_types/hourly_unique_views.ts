@@ -1,4 +1,4 @@
-import { GraphQLObjectType, GraphQLString, GraphQLFloat } from "graphql";
+import { GraphQLObjectType, GraphQLString } from "graphql";
 
 const HourlyUniqueViewsType = new GraphQLObjectType({
   name: "hourly_unique_views",

@@ -2,8 +2,8 @@ import React from "react";
 import AUtable, { AUtableResponsiveWrapper } from "../auds/react/table";
 
 interface Props {
-  headers: Array<Object>;
-  data: Array<Object>;
+  headers: Array<any>;
+  data: Array<any>;
   caption: string;
   striped?: boolean;
 }

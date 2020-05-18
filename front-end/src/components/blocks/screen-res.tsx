@@ -3,15 +3,11 @@ import { useFetch } from "../hooks/use-fetch";
 import LineGraph from "../visualisations/line-chart";
 import { AxisDomain } from "recharts";
 import AxisTickRotate from "../visualisations/formatters/angle-axis-tick";
-import PercentageFormatter from "../visualisations/formatters/percentage-formatter";
-import {
-  CategoryTooltip,
-  UsersDataTooltip,
-} from "../visualisations/formatters/category-tooltip";
+import { UsersDataTooltip } from "../visualisations/formatters/category-tooltip";
 import { millionthFormatter } from "../visualisations/formatters/y-axis-formatter";
 
 interface Props {
-  isTabletOrMobile: Boolean;
+  isTabletOrMobile: boolean;
 }
 
 const ScreenResVisualisation: React.FC<Props> = ({ isTabletOrMobile }) => {
@@ -39,9 +35,9 @@ const ScreenResVisualisation: React.FC<Props> = ({ isTabletOrMobile }) => {
   const [state, setState] = useState(initialState);
 
   useLayoutEffect(() => {
-    let months: Array<string> = [];
-    let finalData: Array<any> = [];
-    let xTicks: Array<any> = [];
+    const months: Array<string> = [];
+    const finalData: Array<any> = [];
+    const xTicks: Array<any> = [];
     if (!screenResMonthlyData.loading) {
       //   console.log(screenResMonthlyData);
       // REFACTOR, the data should have this structure out of the box
@@ -57,22 +53,22 @@ const ScreenResVisualisation: React.FC<Props> = ({ isTabletOrMobile }) => {
 
       months.forEach((month: string, i: number) => {
         i !== 0 && i % 1 === 0 && xTicks.push(month);
-        var flattened = "";
+        let flattened = "";
 
         const monthData = screenResMonthlyData.data.total_screen_res.filter(
           (row: ScreenResMonthlyType) => row.month_year === month
         );
 
-        monthData.forEach((row: ScreenResMonthlyType, i: Number) => {
-          var devData = `"${[row.device_screen_res]}":"${
+        monthData.forEach((row: ScreenResMonthlyType) => {
+          const devData = `"${[row.device_screen_res]}":"${
             row.screen_res_count
           }",`;
           flattened += devData;
         });
 
-        var month_yr: string = `"month_yr":"${month}"`;
+        const month_yr = `"month_yr":"${month}"`;
 
-        var final: string = `{${flattened}${month_yr}}`;
+        const final = `{${flattened}${month_yr}}`;
 
         finalData.push(JSON.parse(final));
         setState({ data: finalData, xTicks });

@@ -7,7 +7,6 @@ import PercentageFormatter from "../visualisations/formatters/percentage-formatt
 import { CategoryTooltip } from "../visualisations/formatters/category-tooltip";
 import { TableCellRowSpanMonthly } from "../hooks_helpers/table-formatter";
 import { Table } from "../hooks_helpers/table";
-import _ from "lodash";
 
 interface Props {
   isTabletOrMobile: boolean;

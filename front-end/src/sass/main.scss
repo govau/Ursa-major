@@ -119,7 +119,6 @@ h1 {
 }
 
 #dashboard {
-  @include AU-space(padding-top, 4unit);
   .row + .row {
     @include AU-space(margin-top, 5unit);
   }

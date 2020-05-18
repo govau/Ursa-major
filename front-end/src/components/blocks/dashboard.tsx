@@ -27,7 +27,7 @@ const DashboardHomePage: React.FC<Props> = ({ isTabletOrMobile }) => {
   const headingStyle: React.CSSProperties | undefined = { fontWeight: 400 };
   return (
     <>
-      <div className="container-fluid au-body" id="dashboard">
+      <div className="container-fluid au-body">
         <div className="row">
           <div className="col-md-12">
             <AuFieldset>
@@ -54,6 +54,8 @@ const DashboardHomePage: React.FC<Props> = ({ isTabletOrMobile }) => {
             </AuFieldset>
           </div>
         </div>
+      </div>
+      <div className="container-fluid au-body" id="dashboard">
         <div className="row">
           <div className="col-md-6">
             <UniqueUsersLineGraph

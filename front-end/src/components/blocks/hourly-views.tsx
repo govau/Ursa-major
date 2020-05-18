@@ -73,15 +73,9 @@ const HourlyViewsVisualisation: React.FC<Props> = ({
     const finalData: Array<any> = [];
     const xTicks: Array<any> = [];
     if (!HourlyViewsData.loading) {
-      //   console.log(HourlyViewsData);
       // REFACTOR, the data should have this structure out of the box
       //the following code restructures the JSON object from the API into suitable format
       //for the recharts API
-      //   HourlyViewsData.data.hourly_unique_views.forEach((row: DeviceBrandType) => {
-      //     if (!months.includes(row.month_year)) {
-      //       months.push(row.month_year);
-      //     }
-      //   });
       hours.forEach((hour: string, i: number) => {
         i !== 0 && i % 2 === 0 && xTicks.push(hour);
         let flattened = "";
@@ -161,7 +155,7 @@ const HourlyViewsVisualisation: React.FC<Props> = ({
                 key: "day_type",
               },
               {
-                title: "Total users (millions)",
+                title: "Average users (millions)",
                 key: "total_unique_users",
                 type: "numeric",
                 render: TableMillionthFormatter,

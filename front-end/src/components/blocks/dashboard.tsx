@@ -29,26 +29,28 @@ const DashboardHomePage: React.FC<Props> = ({ isTabletOrMobile }) => {
     <>
       <div className="container-fluid au-body" id="dashboard">
         <div className="row">
-          <AuFieldset>
-            <AUlegend>
-              <h3 className="au-display-md" style={headingStyle}>
-                View as:
-              </h3>
-            </AUlegend>
-            <AuRadio
-              label="Chart"
-              name="radio-ex"
-              id="radio-chart"
-              onChange={() => setstate(() => ({ chartView: true }))}
-              defaultChecked
-            />
-            <AuRadio
-              label="Table"
-              name="radio-ex"
-              id="radio-table"
-              onChange={() => setstate(() => ({ chartView: false }))}
-            />
-          </AuFieldset>
+          <div className="col-md-12">
+            <AuFieldset>
+              <AUlegend>
+                <h3 className="au-display-md" style={headingStyle}>
+                  View as:
+                </h3>
+              </AUlegend>
+              <AuRadio
+                label="Chart"
+                name="radio-ex"
+                id="radio-chart"
+                onChange={() => setstate(() => ({ chartView: true }))}
+                defaultChecked
+              />
+              <AuRadio
+                label="Table"
+                name="radio-ex"
+                id="radio-table"
+                onChange={() => setstate(() => ({ chartView: false }))}
+              />
+            </AuFieldset>
+          </div>
         </div>
         <div className="row">
           <div className="col-md-6">

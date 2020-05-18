@@ -4,7 +4,7 @@ require("dotenv").config();
 
 const environment: string = process.env.NODE_ENV || "development";
 
-var appEnv: any;
+let appEnv: any;
 if (environment !== "development") {
   appEnv = cfenv.getAppEnv();
 }
@@ -27,7 +27,7 @@ const gc: any =
         },
       });
 
-const directory: string = "data/analytics/project_ursa_major";
+const directory = "data/analytics/project_ursa_major";
 
 const files: { [key: string]: string } = {
   bucket: "us-east1-dta-airflow-b3415db4-bucket",

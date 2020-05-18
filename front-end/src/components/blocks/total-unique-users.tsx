@@ -9,7 +9,7 @@ import AxisTickRotate from "../visualisations/formatters/angle-axis-tick";
 import UniqueUsersToolTip from "../visualisations/formatters/unique-users-tooltip";
 
 interface Props {
-  isTabletOrMobile: Boolean;
+  isTabletOrMobile: boolean;
 }
 
 const UniqueUsersLineGraph: React.FC<Props> = ({ isTabletOrMobile }) => {
@@ -23,12 +23,12 @@ const UniqueUsersLineGraph: React.FC<Props> = ({ isTabletOrMobile }) => {
 
   // use this to generate data for mobile view
   useLayoutEffect((): any => {
-    let count: number = 0;
-    let datePoint: string = "";
-    let mobileData: Array<Object> = [];
-    let xTicksMobile: Array<Object> = [];
-    let xTicksDesktop: Array<Object> = [];
-    var i: number = 0;
+    let count = 0;
+    let datePoint = "";
+    const mobileData: Array<any> = [];
+    const xTicksMobile: Array<any> = [];
+    const xTicksDesktop: Array<any> = [];
+    let i = 0;
 
     if (!graphData.loading) {
       for (i = 0; i < graphData.data.total_unique.length; i++) {

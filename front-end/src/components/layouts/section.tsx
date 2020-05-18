@@ -2,7 +2,7 @@ import React from "react";
 
 interface Props {
   children: React.ReactElement;
-  alt?: Boolean;
+  alt?: boolean;
 }
 
 const Section: React.FC<Props> = ({ children, alt = false }) => {

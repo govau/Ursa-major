@@ -1,12 +1,13 @@
 import React from "react";
-
 import AUfooter, { AUfooterNav, AUfooterEnd } from "../../auds/react/footer";
 import { useStaticQuery, graphql } from "gatsby";
 
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
 interface Props {}
+
 interface FooterLinks {
   map(arg0: (item: any, i: number) => JSX.Element): React.ReactNode;
-  items: Array<Object>;
+  items: Array<any>;
 }
 
 const AuFooter: any = AUfooter;

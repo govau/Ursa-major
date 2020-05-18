@@ -2,7 +2,7 @@ import React from "react";
 
 interface Props {
   children: React.ReactElement;
-  alt?: Boolean;
+  alt?: boolean;
   imgUrl: string;
   imgAlt: string;
   imgCaption: string;

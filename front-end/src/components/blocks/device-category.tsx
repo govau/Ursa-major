@@ -8,7 +8,7 @@ import DeviceCategoryToolTip from "../visualisations/formatters/devices-tooltip"
 import LineLabel from "../visualisations/formatters/line-label";
 
 interface Props {
-  isTabletOrMobile: Boolean;
+  isTabletOrMobile: boolean;
 }
 
 const DeviceCategoryVisualisation: React.FC<Props> = ({ isTabletOrMobile }) => {
@@ -41,9 +41,9 @@ const DeviceCategoryVisualisation: React.FC<Props> = ({ isTabletOrMobile }) => {
   const [state, setState] = useState(initialState);
 
   useLayoutEffect(() => {
-    let months: Array<string> = [];
-    let finalData: Array<LineGraphDataType> = [];
-    let xTicks: Array<any> = [];
+    const months: Array<string> = [];
+    const finalData: Array<LineGraphDataType> = [];
+    const xTicks: Array<any> = [];
     if (!deviceData.loading) {
       // REFACTOR, the data should have this structure out of the box
       //the following code restructures the JSON object from the API into suitable format
@@ -56,20 +56,20 @@ const DeviceCategoryVisualisation: React.FC<Props> = ({ isTabletOrMobile }) => {
 
       months.forEach((month: string, i: number) => {
         i !== 0 && i % 1 === 0 && xTicks.push(month);
-        var flattened = "";
+        let flattened = "";
 
         const monthData = deviceData.data.device_catogories.filter(
           (row: DeviceCategoryType) => row.month_year === month
         );
 
-        monthData.forEach((row: DeviceCategoryType, i: Number) => {
-          var devData = `"${[row.device_category]}":"${row.percent_month}",`;
+        monthData.forEach((row: DeviceCategoryType) => {
+          const devData = `"${[row.device_category]}":"${row.percent_month}",`;
           flattened += devData;
         });
 
-        var month_yr: string = `"month_yr":"${month}"`;
+        const month_yr = `"month_yr":"${month}"`;
 
-        var final: string = `{${flattened}${month_yr}}`;
+        const final = `{${flattened}${month_yr}}`;
 
         finalData.push(JSON.parse(final));
         setState({ data: finalData, xTicks });

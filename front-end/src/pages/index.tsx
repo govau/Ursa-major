@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-non-null-assertion */
 import React from "react";
 import SEO from "../components/seo";
 import DefaultLayout from "../components/layouts/default-layout";
@@ -30,15 +31,15 @@ const IndexPage = () => {
     `
   );
 
-  let tech = allMarkdownRemark.nodes.find(
+  const tech = allMarkdownRemark.nodes.find(
     (page: any) => page.frontmatter.id === "tech"
   );
 
-  let hero = allMarkdownRemark.nodes.find(
+  const hero = allMarkdownRemark.nodes.find(
     (page: any) => page.frontmatter.id === "hero"
   );
 
-  const isTabletOrMobile: Boolean = useMediaQuery({
+  const isTabletOrMobile: boolean = useMediaQuery({
     query: "(max-width: 768px)",
   });
 

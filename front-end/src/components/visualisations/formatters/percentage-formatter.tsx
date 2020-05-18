@@ -1,8 +1,6 @@
 import { TickFormatterFunction } from "recharts";
 
-let PercentageFormatter: TickFormatterFunction;
-
-PercentageFormatter = (numb: any) => {
+const PercentageFormatter: TickFormatterFunction = (numb: any) => {
   return numb + "%";
 };
 

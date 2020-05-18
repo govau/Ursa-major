@@ -23,6 +23,7 @@ export const useFetch = (props: Props) => {
       .then((res: any) => res)
       .then(({ errors, data }) => {
         if (errors) {
+          console.log(errors);
         } else {
           setState({ data: data.data, loading: false });
         }

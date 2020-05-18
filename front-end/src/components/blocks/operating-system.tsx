@@ -1,17 +1,21 @@
 import React, { useState, useLayoutEffect } from "react";
-import { useFetch } from "../hooks/use-fetch";
+import { useFetch } from "../hooks_helpers/use-fetch";
 import LineGraph from "../visualisations/line-chart";
 import { AxisDomain } from "recharts";
 import AxisTickRotate from "../visualisations/formatters/angle-axis-tick";
 import PercentageFormatter from "../visualisations/formatters/percentage-formatter";
 import { CategoryTooltip } from "../visualisations/formatters/category-tooltip";
+import { TableCellRowSpanMonthly } from "../hooks_helpers/table-formatter";
+import { Table } from "../hooks_helpers/table";
 
 interface Props {
   isTabletOrMobile: boolean;
+  chartView: boolean;
 }
 
 const OperatingSystemVisualisation: React.FC<Props> = ({
   isTabletOrMobile,
+  chartView,
 }) => {
   const operatingSysVersionData = useFetch({
     initialState: "",
@@ -25,7 +29,7 @@ const OperatingSystemVisualisation: React.FC<Props> = ({
     `,
   });
 
-  interface ScreenResMonthlyType {
+  interface OperatingSystemType {
     device_opsys: string;
     percent_month: number;
     month_year: string;
@@ -51,7 +55,7 @@ const OperatingSystemVisualisation: React.FC<Props> = ({
       //the following code restructures the JSON object from the API into suitable format
       //for the recharts API
       operatingSysVersionData.data.operating_system_total.forEach(
-        (row: ScreenResMonthlyType) => {
+        (row: OperatingSystemType) => {
           if (!months.includes(row.month_year)) {
             months.push(row.month_year);
           }
@@ -63,10 +67,10 @@ const OperatingSystemVisualisation: React.FC<Props> = ({
         let flattened = "";
 
         const monthData = operatingSysVersionData.data.operating_system_total.filter(
-          (row: ScreenResMonthlyType) => row.month_year === month
+          (row: OperatingSystemType) => row.month_year === month
         );
 
-        monthData.forEach((row: ScreenResMonthlyType) => {
+        monthData.forEach((row: OperatingSystemType) => {
           const devData = `"${[row.device_opsys]}":"${row.percent_month}",`;
           flattened += devData;
         });
@@ -109,9 +113,55 @@ const OperatingSystemVisualisation: React.FC<Props> = ({
     CustomToolTip: CategoryTooltip,
   };
 
-  return (
-    <>{!operatingSysVersionData.loading && <LineGraph {...lineGraphProps} />}</>
-  );
+  const renderView = () => {
+    if (!operatingSysVersionData.loading) {
+      if (chartView) {
+        return <LineGraph {...lineGraphProps} />;
+      } else {
+        return (
+          <Table
+            heading={lineGraphProps.Heading.text}
+            rowSpanInterval={yKeys.length}
+            headers={[
+              {
+                title: "Time",
+                key: "month_year",
+                renderCustom: (
+                  data: any,
+                  row: any,
+                  rowIndex: number,
+                  columnIndex: number
+                ) => (
+                  <TableCellRowSpanMonthly
+                    data={data}
+                    rowIndex={rowIndex}
+                    key={columnIndex}
+                    rowSpanSize={yKeys.length}
+                  />
+                ),
+              },
+              {
+                title: "Operating system",
+                key: "device_opsys",
+              },
+              {
+                title: "Total users (%)",
+                key: "percent_month",
+                type: "numeric",
+              },
+            ]}
+            data={operatingSysVersionData.data.operating_system_total.filter(
+              (row: OperatingSystemType) => row.device_opsys !== "Others"
+            )}
+          />
+        );
+      }
+    } else {
+      return <p></p>;
+    }
+  };
+
+  return <>{renderView()}</>;
 };
 
 export default OperatingSystemVisualisation;

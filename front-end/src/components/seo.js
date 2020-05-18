@@ -73,7 +73,7 @@ function SEO({ description, lang, meta, title }) {
       }}
     >
       <script>
-        {`var $html=document.documentElement;if($html.classList)$html.classList.remove("no-js"),$html.classList.add("js");else{var className="no-js";console.log("bye"),$html.className=$html.className.replace(new RegExp("(^|\\b)"+className.split(" ").join("|")+"(\\b|$)","gi")," "),$html.className+=" js",console.log("added js")}`}
+        {`var $html=document.documentElement;if($html.classList)$html.classList.remove("no-js"),$html.classList.add("js");else{var className="no-js";$html.className=$html.className.replace(new RegExp("(^|\\b)"+className.split(" ").join("|")+"(\\b|$)","gi")," "),$html.className+=" js",console.log("added js")}`}
       </script>
       <script type="text/javascript">
         {`window._vwo_code = window._vwo_code || (function(){

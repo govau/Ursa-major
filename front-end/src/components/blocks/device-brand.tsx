@@ -1,16 +1,22 @@
 import React, { useState, useLayoutEffect } from "react";
-import { useFetch } from "../hooks/use-fetch";
+import { useFetch } from "../hooks_helpers/use-fetch";
 import LineGraph from "../visualisations/line-chart";
 import { AxisDomain } from "recharts";
 import AxisTickRotate from "../visualisations/formatters/angle-axis-tick";
 import PercentageFormatter from "../visualisations/formatters/percentage-formatter";
 import { CategoryTooltip } from "../visualisations/formatters/category-tooltip";
+import { TableCellRowSpanMonthly } from "../hooks_helpers/table-formatter";
+import { Table } from "../hooks_helpers/table";
 
 interface Props {
   isTabletOrMobile: boolean;
+  chartView: boolean;
 }
 
-const DeviceBrandVisualisation: React.FC<Props> = ({ isTabletOrMobile }) => {
+const DeviceBrandVisualisation: React.FC<Props> = ({
+  isTabletOrMobile,
+  chartView,
+}) => {
   const DeviceBrandData = useFetch({
     initialState: "",
     query: `{
@@ -105,7 +111,56 @@ const DeviceBrandVisualisation: React.FC<Props> = ({ isTabletOrMobile }) => {
     CustomToolTip: CategoryTooltip,
   };
 
-  return <>{!DeviceBrandData.loading && <LineGraph {...lineGraphProps} />}</>;
+  const renderView = () => {
+    if (!DeviceBrandData.loading) {
+      if (chartView) {
+        return <LineGraph {...lineGraphProps} />;
+      } else {
+        return (
+          <Table
+            rowSpanInterval={yKeys.length}
+            heading={lineGraphProps.Heading.text}
+            headers={[
+              {
+                title: "Time",
+                key: "month_year",
+                renderCustom: (
+                  data: any,
+                  row: any,
+                  rowIndex: number,
+                  columnIndex: number
+                ) => (
+                  <TableCellRowSpanMonthly
+                    data={data}
+                    rowIndex={rowIndex}
+                    key={columnIndex}
+                    rowSpanSize={yKeys.length}
+                  />
+                ),
+              },
+              {
+                title: "Device Brand",
+                key: "device_brand",
+              },
+              {
+                title: "Total users (%)",
+                key: "percent_month",
+                type: "numeric",
+              },
+            ]}
+            //REFACTOR, should be in state
+            data={DeviceBrandData.data.device_brand.filter(
+              (row: DeviceBrandType) => row.device_brand !== "Others"
+            )}
+          />
+        );
+      }
+    } else {
+      return <p></p>;
+    }
+  };
+
+  return <>{renderView()}</>;
 };
 
 export default DeviceBrandVisualisation;

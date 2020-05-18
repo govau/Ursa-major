@@ -1,12 +1,13 @@
 import React, { useState, useLayoutEffect } from "react";
-import { useFetch } from "../hooks/use-fetch";
+import { useFetch } from "../hooks_helpers/use-fetch";
 import LineGraph from "../visualisations/line-chart";
 import { AxisDomain } from "recharts";
 import AxisTickRotate from "../visualisations/formatters/angle-axis-tick";
 import { UsersDataTooltip } from "../visualisations/formatters/category-tooltip";
 import { millionthFormatter } from "../visualisations/formatters/y-axis-formatter";
 import AUtable, { AUtableResponsiveWrapper } from "../navigation/ds/table";
-import { TableCellRowSpanMonthly } from "../hooks/table-formatter";
+import { TableCellRowSpanMonthly } from "../hooks_helpers/table-formatter";
+import { Table } from "../hooks_helpers/table";
 
 const AuTable: any = AUtable;
 
@@ -123,42 +124,40 @@ const OperatingSysVersionVisualisation: React.FC<Props> = ({
         return <LineGraph {...lineGraphProps} />;
       } else {
         return (
-          <AUtableResponsiveWrapper>
-            <AuTable
-              caption={lineGraphProps.Heading.text}
-              rowSpanInterval={yKeys.length}
-              headers={[
-                {
-                  title: "Time",
-                  key: "month_year",
-                  renderCustom: (
-                    data: any,
-                    row: any,
-                    rowIndex: number,
-                    columnIndex: number
-                  ) => (
-                    <TableCellRowSpanMonthly
-                      data={data}
-                      rowIndex={rowIndex}
-                      colIndex={columnIndex}
-                      rowSpanSize={yKeys.length}
-                    />
-                  ),
-                },
-                {
-                  title: "Operating system",
-                  key: "device_opsys_ver",
-                },
-                {
-                  title: "Total users",
-                  key: "opsys_version_count",
-                  type: "numeric",
-                  render: millionthFormatter,
-                },
-              ]}
-              data={operatingSysVersionData.data.opsys_version_total}
-            />
-          </AUtableResponsiveWrapper>
+          <Table
+            heading={lineGraphProps.Heading.text}
+            rowSpanInterval={yKeys.length}
+            headers={[
+              {
+                title: "Time",
+                key: "month_year",
+                renderCustom: (
+                  data: any,
+                  row: any,
+                  rowIndex: number,
+                  columnIndex: number
+                ) => (
+                  <TableCellRowSpanMonthly
+                    data={data}
+                    rowIndex={rowIndex}
+                    colIndex={columnIndex}
+                    rowSpanSize={yKeys.length}
+                  />
+                ),
+              },
+              {
+                title: "Operating system",
+                key: "device_opsys_ver",
+              },
+              {
+                title: "Total users",
+                key: "opsys_version_count",
+                type: "numeric",
+                render: millionthFormatter,
+              },
+            ]}
+            data={operatingSysVersionData.data.opsys_version_total}
+          />
         );
       }
     } else {

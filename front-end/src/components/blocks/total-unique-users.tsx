@@ -1,18 +1,13 @@
 import React, { useState, useLayoutEffect } from "react";
-import { useFetch } from "../hooks/use-fetch";
+import { useFetch } from "../hooks_helpers/use-fetch";
 import { AxisDomain } from "recharts";
 import { number } from "prop-types";
 import LineGraph from "../visualisations/line-chart";
-import {
-  scaleFormatter,
-  millionthFormatter,
-} from "../visualisations/formatters/y-axis-formatter";
+import { scaleFormatter } from "../visualisations/formatters/y-axis-formatter";
 import { formatDate } from "../visualisations/formatters/date-tick-formatter";
 import AxisTickRotate from "../visualisations/formatters/angle-axis-tick";
 import UniqueUsersToolTip from "../visualisations/formatters/unique-users-tooltip";
-import AUtable, { AUtableResponsiveWrapper } from "../../auds/react/table";
-
-const AuTable: any = AUtable;
+import { Table } from "../hooks_helpers/table";
 
 interface Props {
   isTabletOrMobile: boolean;
@@ -107,23 +102,22 @@ const UniqueUsersLineGraph: React.FC<Props> = ({
         return <LineGraph {...lineGraphProps} />;
       } else {
         return (
-          <AUtableResponsiveWrapper>
-            <AuTable
-              caption={lineGraphProps.Heading.text}
-              headers={[
-                { title: "Date", key: "visit_date" },
-                {
-                  title: "Total views (millions)",
-                  key: "total_unique_users_scale",
-                  type: "numeric",
-                },
-              ]}
-              striped
-              data={!graphData.loading && graphData.data.total_unique}
-            />
-          </AUtableResponsiveWrapper>
+          <Table
+            heading={lineGraphProps.Heading.text}
+            headers={[
+              { title: "Date", key: "visit_date" },
+              {
+                title: "Total views (millions)",
+                key: "total_unique_users_scale",
+                type: "numeric",
+              },
+            ]}
+            data={!graphData.loading && graphData.data.total_unique}
+          />
         );
       }
+    } else {
+      return <p></p>;
     }
   };
 

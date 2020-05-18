@@ -1,6 +1,6 @@
 /* eslint-disable react/display-name */
 import React, { useState, useLayoutEffect } from "react";
-import { useFetch } from "../hooks/use-fetch";
+import { useFetch } from "../hooks_helpers/use-fetch";
 import LineGraph from "../visualisations/line-chart";
 import { AxisDomain } from "recharts";
 import AxisTickRotate from "../visualisations/formatters/angle-axis-tick";
@@ -8,7 +8,8 @@ import { UsersDataTooltip } from "../visualisations/formatters/category-tooltip"
 import { formatHour } from "../visualisations/formatters/date-tick-formatter";
 import { millionthFormatter } from "../visualisations/formatters/y-axis-formatter";
 import AUtable, { AUtableResponsiveWrapper } from "../navigation/ds/table";
-import { TableCellRowSpanHourly } from "../hooks/table-formatter";
+import { TableCellRowSpanHourly } from "../hooks_helpers/table-formatter";
+import { Table } from "../hooks_helpers/table";
 
 const AuTable: any = AUtable;
 
@@ -135,41 +136,39 @@ const HourlyViewsVisualisation: React.FC<Props> = ({
         return <LineGraph {...lineGraphProps} />;
       } else {
         return (
-          <AUtableResponsiveWrapper>
-            <AuTable
-              caption={lineGraphProps.Heading.text}
-              rowSpanInterval={yKeys.length}
-              headers={[
-                {
-                  title: "Visit hour",
-                  key: "visit_hour",
-                  renderCustom: (
-                    data: any,
-                    row: any,
-                    rowIndex: number,
-                    columnIndex: number
-                  ) => (
-                    <TableCellRowSpanHourly
-                      data={data}
-                      rowIndex={rowIndex}
-                      colIndex={columnIndex}
-                    />
-                  ),
-                },
-                {
-                  title: "Day type",
-                  key: "day_type",
-                },
-                {
-                  title: "Total users (millions)",
-                  key: "total_unique_users",
-                  type: "numeric",
-                  render: millionthFormatter,
-                },
-              ]}
-              data={HourlyViewsData.data.hourly_unique_views}
-            />
-          </AUtableResponsiveWrapper>
+          <Table
+            heading={lineGraphProps.Heading.text}
+            rowSpanInterval={yKeys.length}
+            headers={[
+              {
+                title: "Visit hour",
+                key: "visit_hour",
+                renderCustom: (
+                  data: any,
+                  row: any,
+                  rowIndex: number,
+                  columnIndex: number
+                ) => (
+                  <TableCellRowSpanHourly
+                    data={data}
+                    rowIndex={rowIndex}
+                    colIndex={columnIndex}
+                  />
+                ),
+              },
+              {
+                title: "Day type",
+                key: "day_type",
+              },
+              {
+                title: "Total users (millions)",
+                key: "total_unique_users",
+                type: "numeric",
+                render: millionthFormatter,
+              },
+            ]}
+            data={HourlyViewsData.data.hourly_unique_views}
+          />
         );
       }
     } else {

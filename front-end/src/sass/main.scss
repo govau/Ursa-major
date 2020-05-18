@@ -142,7 +142,8 @@ h1 {
     background: $AU-color-background;
   }
   .au-table__caption {
-    @include AU-space(padding-left, 0.5unit);
+    @include AU-space(margin-bottom, 0.75unit);
+    text-align: center;
   }
 
   .au-table__row--border-bottom {

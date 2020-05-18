@@ -1,14 +1,12 @@
 import React, { useState, useLayoutEffect } from "react";
-import { useFetch } from "../hooks/use-fetch";
+import { useFetch } from "../hooks_helpers/use-fetch";
 import LineGraph from "../visualisations/line-chart";
 import { AxisDomain } from "recharts";
 import AxisTickRotate from "../visualisations/formatters/angle-axis-tick";
 import PercentageFormatter from "../visualisations/formatters/percentage-formatter";
 import { CategoryTooltip } from "../visualisations/formatters/category-tooltip";
-import AUtable, { AUtableResponsiveWrapper } from "../navigation/ds/table";
-import { TableCellRowSpanMonthly } from "../hooks/table-formatter";
-
-const AuTable: any = AUtable;
+import { TableCellRowSpanMonthly } from "../hooks_helpers/table-formatter";
+import { Table } from "../hooks_helpers/table";
 
 interface Props {
   isTabletOrMobile: boolean;
@@ -121,41 +119,39 @@ const BrowserMonthly: React.FC<Props> = ({ isTabletOrMobile, chartView }) => {
         return <LineGraph {...lineGraphProps} />;
       } else {
         return (
-          <AUtableResponsiveWrapper>
-            <AuTable
-              caption={lineGraphProps.Heading.text}
-              rowSpanInterval={yKeys.length}
-              headers={[
-                {
-                  title: "Time",
-                  key: "month_year",
-                  renderCustom: (
-                    data: any,
-                    row: any,
-                    rowIndex: number,
-                    columnIndex: number
-                  ) => (
-                    <TableCellRowSpanMonthly
-                      data={data}
-                      rowIndex={rowIndex}
-                      colIndex={columnIndex}
-                      rowSpanSize={yKeys.length}
-                    />
-                  ),
-                },
-                {
-                  title: "Device type",
-                  key: "device_browser",
-                },
-                {
-                  title: "Total users (%)",
-                  key: "percent_month",
-                  type: "numeric",
-                },
-              ]}
-              data={browserMonthlyData.data.total_browser}
-            />
-          </AUtableResponsiveWrapper>
+          <Table
+            heading={lineGraphProps.Heading.text}
+            rowSpanInterval={yKeys.length}
+            headers={[
+              {
+                title: "Time",
+                key: "month_year",
+                renderCustom: (
+                  data: any,
+                  row: any,
+                  rowIndex: number,
+                  columnIndex: number
+                ) => (
+                  <TableCellRowSpanMonthly
+                    data={data}
+                    rowIndex={rowIndex}
+                    colIndex={columnIndex}
+                    rowSpanSize={yKeys.length}
+                  />
+                ),
+              },
+              {
+                title: "Device type",
+                key: "device_browser",
+              },
+              {
+                title: "Total users (%)",
+                key: "percent_month",
+                type: "numeric",
+              },
+            ]}
+            data={browserMonthlyData.data.total_browser}
+          />
         );
       }
     } else {

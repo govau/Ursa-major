@@ -137,7 +137,7 @@ const DeviceCategoryVisualisation: React.FC<Props> = ({
                   <TableCellRowSpanMonthly
                     data={data}
                     rowIndex={rowIndex}
-                    colIndex={columnIndex}
+                    key={columnIndex}
                     rowSpanSize={yKeys.length}
                   />
                 ),

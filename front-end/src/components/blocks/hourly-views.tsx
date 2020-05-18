@@ -152,7 +152,7 @@ const HourlyViewsVisualisation: React.FC<Props> = ({
                   <TableCellRowSpanHourly
                     data={data}
                     rowIndex={rowIndex}
-                    colIndex={columnIndex}
+                    key={columnIndex}
                   />
                 ),
               },

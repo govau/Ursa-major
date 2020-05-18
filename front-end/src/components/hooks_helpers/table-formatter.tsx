@@ -5,22 +5,16 @@ interface Props {
   data: any;
   row?: any;
   rowIndex: number;
-  colIndex: number;
 }
 
 const TableCellRowSpanHourly: (props: Props) => any = ({
   data,
   row,
   rowIndex,
-  colIndex,
 }) => {
   return (
     rowIndex % 2 === 0 && (
-      <th
-        rowSpan={2}
-        className="au-table__cell au-table__cell-border-right"
-        key={`${colIndex}-${rowIndex}`}
-      >
+      <th rowSpan={2} className="au-table__cell au-table__cell-border-right">
         {formatHour(data)}
       </th>
     )
@@ -35,7 +29,6 @@ const TableCellRowSpanMonthly: (props: MonthlyProps) => any = ({
   data,
   row,
   rowIndex,
-  colIndex,
   rowSpanSize,
 }) => {
   return (
@@ -43,7 +36,6 @@ const TableCellRowSpanMonthly: (props: MonthlyProps) => any = ({
       <th
         rowSpan={rowSpanSize}
         className="au-table__cell au-table__cell-border-right"
-        key={`${colIndex}-${rowIndex}`}
       >
         {data}
       </th>

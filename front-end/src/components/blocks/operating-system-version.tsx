@@ -5,14 +5,11 @@ import { AxisDomain } from "recharts";
 import AxisTickRotate from "../visualisations/formatters/angle-axis-tick";
 import { UsersDataTooltip } from "../visualisations/formatters/category-tooltip";
 import { millionthFormatter } from "../visualisations/formatters/y-axis-formatter";
-import AUtable, { AUtableResponsiveWrapper } from "../navigation/ds/table";
 import {
   TableCellRowSpanMonthly,
   TableMillionthFormatter,
 } from "../hooks_helpers/table-formatter";
 import { Table } from "../hooks_helpers/table";
-
-const AuTable: any = AUtable;
 
 interface Props {
   isTabletOrMobile: boolean;
@@ -143,7 +140,7 @@ const OperatingSysVersionVisualisation: React.FC<Props> = ({
                   <TableCellRowSpanMonthly
                     data={data}
                     rowIndex={rowIndex}
-                    colIndex={columnIndex}
+                    key={columnIndex}
                     rowSpanSize={yKeys.length}
                   />
                 ),

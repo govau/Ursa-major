@@ -134,11 +134,12 @@ h1 {
     }
   }
   .au-table__wrapper {
-    max-height: 400px;
+    height: 400px;
     border: solid 1px lightgray;
   }
   .au-table__cell-border-right {
     border-right: solid 1px lightgray;
+    border-bottom: 3px #bbb solid;
     background: $AU-color-background;
   }
   .au-table__caption {
@@ -151,8 +152,6 @@ h1 {
   }
 
   .au-table__head {
-    border-bottom: 0.5rem solid #bbb;
-
     .au-table__header {
       background: $AU-color-background;
       top: 0;

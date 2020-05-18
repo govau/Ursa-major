@@ -5,11 +5,9 @@ import { AxisDomain } from "recharts";
 import AxisTickRotate from "../visualisations/formatters/angle-axis-tick";
 import PercentageFormatter from "../visualisations/formatters/percentage-formatter";
 import { CategoryTooltip } from "../visualisations/formatters/category-tooltip";
-import AUtable, { AUtableResponsiveWrapper } from "../navigation/ds/table";
 import { TableCellRowSpanMonthly } from "../hooks_helpers/table-formatter";
 import { Table } from "../hooks_helpers/table";
-
-const AuTable: any = AUtable;
+import _ from "lodash";
 
 interface Props {
   isTabletOrMobile: boolean;
@@ -136,7 +134,7 @@ const DeviceBrandVisualisation: React.FC<Props> = ({
                   <TableCellRowSpanMonthly
                     data={data}
                     rowIndex={rowIndex}
-                    colIndex={columnIndex}
+                    key={columnIndex}
                     rowSpanSize={yKeys.length}
                   />
                 ),
@@ -151,7 +149,10 @@ const DeviceBrandVisualisation: React.FC<Props> = ({
                 type: "numeric",
               },
             ]}
-            data={DeviceBrandData.data.device_brand}
+            //REFACTOR, should be in state
+            data={DeviceBrandData.data.device_brand.filter(
+              (row: DeviceBrandType) => row.device_brand !== "Others"
+            )}
           />
         );
       }

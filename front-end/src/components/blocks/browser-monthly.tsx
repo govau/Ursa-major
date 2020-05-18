@@ -135,7 +135,7 @@ const BrowserMonthly: React.FC<Props> = ({ isTabletOrMobile, chartView }) => {
                   <TableCellRowSpanMonthly
                     data={data}
                     rowIndex={rowIndex}
-                    colIndex={columnIndex}
+                    key={columnIndex}
                     rowSpanSize={yKeys.length}
                   />
                 ),
@@ -150,7 +150,10 @@ const BrowserMonthly: React.FC<Props> = ({ isTabletOrMobile, chartView }) => {
                 type: "numeric",
               },
             ]}
-            data={browserMonthlyData.data.total_browser}
+            //Refactor, should be instate
+            data={browserMonthlyData.data.total_browser.filter(
+              (row: BrowserMonthlyType) => row.device_browser !== "Firefox"
+            )}
           />
         );
       }

@@ -29,7 +29,7 @@ const OperatingSystemVisualisation: React.FC<Props> = ({
     `,
   });
 
-  interface ScreenResMonthlyType {
+  interface OperatingSystemType {
     device_opsys: string;
     percent_month: number;
     month_year: string;
@@ -55,7 +55,7 @@ const OperatingSystemVisualisation: React.FC<Props> = ({
       //the following code restructures the JSON object from the API into suitable format
       //for the recharts API
       operatingSysVersionData.data.operating_system_total.forEach(
-        (row: ScreenResMonthlyType) => {
+        (row: OperatingSystemType) => {
           if (!months.includes(row.month_year)) {
             months.push(row.month_year);
           }
@@ -67,10 +67,10 @@ const OperatingSystemVisualisation: React.FC<Props> = ({
         let flattened = "";
 
         const monthData = operatingSysVersionData.data.operating_system_total.filter(
-          (row: ScreenResMonthlyType) => row.month_year === month
+          (row: OperatingSystemType) => row.month_year === month
         );
 
-        monthData.forEach((row: ScreenResMonthlyType) => {
+        monthData.forEach((row: OperatingSystemType) => {
           const devData = `"${[row.device_opsys]}":"${row.percent_month}",`;
           flattened += devData;
         });
@@ -150,7 +150,9 @@ const OperatingSystemVisualisation: React.FC<Props> = ({
                 type: "numeric",
               },
             ]}
-            data={operatingSysVersionData.data.operating_system_total}
+            data={operatingSysVersionData.data.operating_system_total.filter(
+              (row: OperatingSystemType) => row.device_opsys !== "Others"
+            )}
           />
         );
       }

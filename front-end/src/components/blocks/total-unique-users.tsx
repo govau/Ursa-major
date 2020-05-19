@@ -8,7 +8,6 @@ import { formatDate } from "../visualisations/formatters/date-tick-formatter";
 import AxisTickRotate from "../visualisations/formatters/angle-axis-tick";
 import UniqueUsersToolTip from "../visualisations/formatters/unique-users-tooltip";
 import { Table } from "../hooks_helpers/table";
-import { TableMillionthFormatter } from "../hooks_helpers/table-formatter";
 
 interface Props {
   isTabletOrMobile: boolean;

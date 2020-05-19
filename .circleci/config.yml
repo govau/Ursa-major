@@ -20,6 +20,7 @@ jobs:
           name: Install dependencies, run tests
           command: |
             npm i
+            npm run coverage
             npm run build
       - save_cache:
           name: Save node_modules to cache

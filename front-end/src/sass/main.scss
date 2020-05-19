@@ -142,8 +142,11 @@ h1 {
     background: $AU-color-background;
   }
 
-  .au-table > .au-table__caption {
-    @include AU-sronly();
+  .au-table {
+    @include AU-fontgrid(xs);
+    .au-table__caption {
+      @include AU-sronly();
+    }
   }
 
   .au-table__caption {

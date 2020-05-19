@@ -13,6 +13,7 @@ import DeviceBrandType from "./graphQL_types/device_brand";
 import ScreenResType from "./graphQL_types/screen_res";
 import BrowserVersionType from "./graphQL_types/browser_version";
 import { RedisClient } from "redis";
+import AgencyCountType from "./graphQL_types/agency_count";
 
 const RootQuery = new GraphQLObjectType({
   name: "RootQueryType",
@@ -148,6 +149,21 @@ const RootQuery = new GraphQLObjectType({
           files.browser_version,
           context.redis_client,
           "browser_version"
+        );
+        return data;
+      },
+    },
+    agency_domain_count: {
+      type: new GraphQLList(AgencyCountType),
+      async resolve(
+        parentValue: any,
+        args: any,
+        context: { redis_client: RedisClient; req: Request }
+      ) {
+        const data: Array<any> = await fetchGCdata(
+          files.agency_count,
+          context.redis_client,
+          "agency_domain_count"
         );
         return data;
       },

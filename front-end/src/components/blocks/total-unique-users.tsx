@@ -110,6 +110,7 @@ const UniqueUsersLineGraph: React.FC<Props> = ({
                 title: "Total views (millions)",
                 key: "total_unique_users_scale",
                 type: "numeric",
+                render: (data: any) => <span>{data.toFixed(2)}M</span>,
               },
             ]}
             data={!graphData.loading && graphData.data.total_unique}

@@ -40,6 +40,7 @@ const files: { [key: string]: string } = {
   device_brand: `${directory}/device_brand_12months_daily_snapshot_doi.json`,
   browser_version: `${directory}/browser_version_12months_daily_snapshot_doi.json`,
   screen_res: `${directory}/screen_resolution_12months_daily_snapshot_doi.json`,
+  agency_count: `${directory}/websites_agencies_monthly_counter.json`,
 };
 
 export { gc, files };

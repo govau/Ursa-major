@@ -41,11 +41,11 @@ jobs:
       - image: govau/cf-cli
     steps:
       - attach_workspace:
-          at: ~/app-server
+          at: ~/app-server/api
       - run:
           name: Deploy server to cloud.gov.au development
           command: |
-            cd ~/app-server
+            cd ~/app-server/api
             cd api-deploy/
             cf login -a $CF_API_STAGING -o $CF_ORG -s $CF_SPACE -u $CF_USERNAME -p $CF_PASSWORD_STAGING
             cf zero-downtime-push ursa-major-api -f manifest-staging.yml
@@ -55,11 +55,11 @@ jobs:
       - image: govau/cf-cli
     steps:
       - attach_workspace:
-          at: ~/app-server
+          at: ~/app-server/api
       - run:
           name: Deploy server to cloud.gov.au development
           command: |
-            cd ~/app-server
+            cd ~/app-server/api
             cd api-deploy/
             cf login -a $CF_API_PROD -o $CF_ORG -s $CF_SPACE -u $CF_USERNAME -p $CF_PASSWORD_PROD
             cf zero-downtime-push analytics-api -f manifest-prod.yml
@@ -106,11 +106,11 @@ jobs:
       - image: govau/cf-cli
     steps:
       - attach_workspace:
-          at: ~/app-ui
+          at: ~/app-ui/front-end
       - run:
           name: Deploy to cloud.gov.au development
           command: |
-            cd ~/app-ui
+            cd ~/app-ui/front-end
             cd front-end-deploy/
             mv .deploy/manifest-prod.yml ./
             cf login -a $CF_API_PROD -o $CF_ORG -s $CF_SPACE -u $CF_USERNAME -p $CF_PASSWORD_PROD
@@ -121,11 +121,11 @@ jobs:
       - image: govau/cf-cli
     steps:
       - attach_workspace:
-          at: ~/app-ui
+          at: ~/app-ui/front-end
       - run:
           name: Deploy to cloud.gov.au development
           command: |
-            cd ~/app-ui
+            cd ~/app-ui/front-end
             cd front-end-deploy
             mv .deploy/manifest-staging.yml ./
             cf login -a $CF_API_STAGING -o $CF_ORG -s $CF_SPACE -u $CF_USERNAME -p $CF_PASSWORD_STAGING

@@ -1,17 +1,27 @@
+/* eslint-disable react/display-name */
 import React, { useState, useLayoutEffect } from "react";
-import { useFetch } from "../hooks/use-fetch";
+import { useFetch } from "../hooks_helpers/use-fetch";
 import LineGraph from "../visualisations/line-chart";
 import { AxisDomain } from "recharts";
 import AxisTickRotate from "../visualisations/formatters/angle-axis-tick";
 import { UsersDataTooltip } from "../visualisations/formatters/category-tooltip";
 import { formatHour } from "../visualisations/formatters/date-tick-formatter";
 import { millionthFormatter } from "../visualisations/formatters/y-axis-formatter";
+import {
+  TableCellRowSpanHourly,
+  TableMillionthFormatter,
+} from "../hooks_helpers/table-formatter";
+import { Table } from "../hooks_helpers/table";
 
 interface Props {
   isTabletOrMobile: boolean;
+  chartView?: boolean;
 }
 
-const HourlyViewsVisualisation: React.FC<Props> = ({ isTabletOrMobile }) => {
+const HourlyViewsVisualisation: React.FC<Props> = ({
+  isTabletOrMobile,
+  chartView,
+}) => {
   const HourlyViewsData = useFetch({
     initialState: "",
     query: `{
@@ -63,15 +73,9 @@ const HourlyViewsVisualisation: React.FC<Props> = ({ isTabletOrMobile }) => {
     const finalData: Array<any> = [];
     const xTicks: Array<any> = [];
     if (!HourlyViewsData.loading) {
-      //   console.log(HourlyViewsData);
       // REFACTOR, the data should have this structure out of the box
       //the following code restructures the JSON object from the API into suitable format
       //for the recharts API
-      //   HourlyViewsData.data.hourly_unique_views.forEach((row: DeviceBrandType) => {
-      //     if (!months.includes(row.month_year)) {
-      //       months.push(row.month_year);
-      //     }
-      //   });
       hours.forEach((hour: string, i: number) => {
         i !== 0 && i % 2 === 0 && xTicks.push(hour);
         let flattened = "";
@@ -120,7 +124,53 @@ const HourlyViewsVisualisation: React.FC<Props> = ({ isTabletOrMobile }) => {
     CustomToolTip: UsersDataTooltip,
   };
 
-  return <>{!HourlyViewsData.loading && <LineGraph {...lineGraphProps} />}</>;
+  const renderView = () => {
+    if (!HourlyViewsData.loading) {
+      if (chartView) {
+        return <LineGraph {...lineGraphProps} />;
+      } else {
+        return (
+          <Table
+            heading={lineGraphProps.Heading.text}
+            rowSpanInterval={yKeys.length}
+            headers={[
+              {
+                title: "Visit hour",
+                key: "visit_hour",
+                renderCustom: (
+                  data: any,
+                  row: any,
+                  rowIndex: number,
+                  columnIndex: number
+                ) => (
+                  <TableCellRowSpanHourly
+                    data={data}
+                    rowIndex={rowIndex}
+                    key={columnIndex}
+                  />
+                ),
+              },
+              {
+                title: "Day type",
+                key: "day_type",
+              },
+              {
+                title: "Average users (millions)",
+                key: "total_unique_users",
+                type: "numeric",
+                render: TableMillionthFormatter,
+              },
+            ]}
+            data={HourlyViewsData.data.hourly_unique_views}
+          />
+        );
+      }
+    } else {
+      return <p></p>;
+    }
+  };
+
+  return <>{renderView()}</>;
 };
 
 export default HourlyViewsVisualisation;

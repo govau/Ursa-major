@@ -1,5 +1,5 @@
 import React, { useState, useLayoutEffect } from "react";
-import { useFetch } from "../hooks/use-fetch";
+import { useFetch } from "../hooks_helpers/use-fetch";
 import { AxisDomain } from "recharts";
 import { number } from "prop-types";
 import LineGraph from "../visualisations/line-chart";
@@ -7,12 +7,17 @@ import { scaleFormatter } from "../visualisations/formatters/y-axis-formatter";
 import { formatDate } from "../visualisations/formatters/date-tick-formatter";
 import AxisTickRotate from "../visualisations/formatters/angle-axis-tick";
 import UniqueUsersToolTip from "../visualisations/formatters/unique-users-tooltip";
+import { Table } from "../hooks_helpers/table";
 
 interface Props {
   isTabletOrMobile: boolean;
+  chartView?: boolean;
 }
 
-const UniqueUsersLineGraph: React.FC<Props> = ({ isTabletOrMobile }) => {
+const UniqueUsersLineGraph: React.FC<Props> = ({
+  isTabletOrMobile,
+  chartView,
+}) => {
   const graphData = useFetch({
     initialState: "",
     query: `{total_unique {total_unique_users_scale visit_date}}`,
@@ -91,7 +96,33 @@ const UniqueUsersLineGraph: React.FC<Props> = ({ isTabletOrMobile }) => {
     CustomToolTip: UniqueUsersToolTip,
   };
 
-  return <>{!graphData.loading && <LineGraph {...lineGraphProps} />}</>;
+  const renderData = () => {
+    if (!graphData.loading) {
+      if (chartView) {
+        return <LineGraph {...lineGraphProps} />;
+      } else {
+        return (
+          <Table
+            heading={lineGraphProps.Heading.text}
+            headers={[
+              { title: "Date", key: "visit_date", render: formatDate },
+              {
+                title: "Total views (millions)",
+                key: "total_unique_users_scale",
+                type: "numeric",
+                render: (data: any) => <span>{data.toFixed(2)}M</span>,
+              },
+            ]}
+            data={!graphData.loading && graphData.data.total_unique}
+          />
+        );
+      }
+    } else {
+      return <p></p>;
+    }
+  };
+
+  return <>{renderData()}</>;
 };
 
 export default UniqueUsersLineGraph;

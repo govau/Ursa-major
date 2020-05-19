@@ -1,17 +1,24 @@
 import React, { useState, useLayoutEffect } from "react";
-import { useFetch } from "../hooks/use-fetch";
+import { useFetch } from "../hooks_helpers/use-fetch";
 import LineGraph from "../visualisations/line-chart";
 import { AxisDomain } from "recharts";
 import AxisTickRotate from "../visualisations/formatters/angle-axis-tick";
 import { UsersDataTooltip } from "../visualisations/formatters/category-tooltip";
 import { millionthFormatter } from "../visualisations/formatters/y-axis-formatter";
+import {
+  TableCellRowSpanMonthly,
+  TableMillionthFormatter,
+} from "../hooks_helpers/table-formatter";
+import { Table } from "../hooks_helpers/table";
 
 interface Props {
   isTabletOrMobile: boolean;
+  chartView: boolean;
 }
 
 const OperatingSysVersionVisualisation: React.FC<Props> = ({
   isTabletOrMobile,
+  chartView,
 }) => {
   const operatingSysVersionData = useFetch({
     initialState: "",
@@ -25,7 +32,7 @@ const OperatingSysVersionVisualisation: React.FC<Props> = ({
     `,
   });
 
-  interface ScreenResMonthlyType {
+  interface OpsysVersionType {
     device_opsys_ver: string;
     opsys_version_count: string;
     month_year: string;
@@ -51,7 +58,7 @@ const OperatingSysVersionVisualisation: React.FC<Props> = ({
       //the following code restructures the JSON object from the API into suitable format
       //for the recharts API
       operatingSysVersionData.data.opsys_version_total.forEach(
-        (row: ScreenResMonthlyType) => {
+        (row: OpsysVersionType) => {
           if (!months.includes(row.month_year)) {
             months.push(row.month_year);
           }
@@ -63,10 +70,10 @@ const OperatingSysVersionVisualisation: React.FC<Props> = ({
         let flattened = "";
 
         const monthData = operatingSysVersionData.data.opsys_version_total.filter(
-          (row: ScreenResMonthlyType) => row.month_year === month
+          (row: OpsysVersionType) => row.month_year === month
         );
 
-        monthData.forEach((row: ScreenResMonthlyType) => {
+        monthData.forEach((row: OpsysVersionType) => {
           const devData = `"${[row.device_opsys_ver]}":"${
             row.opsys_version_count
           }",`;
@@ -111,9 +118,54 @@ const OperatingSysVersionVisualisation: React.FC<Props> = ({
     CustomToolTip: UsersDataTooltip,
   };
 
-  return (
-    <>{!operatingSysVersionData.loading && <LineGraph {...lineGraphProps} />}</>
-  );
+  const renderView = () => {
+    if (!operatingSysVersionData.loading) {
+      if (chartView) {
+        return <LineGraph {...lineGraphProps} />;
+      } else {
+        return (
+          <Table
+            heading={lineGraphProps.Heading.text}
+            rowSpanInterval={yKeys.length}
+            headers={[
+              {
+                title: "Time",
+                key: "month_year",
+                renderCustom: (
+                  data: any,
+                  row: any,
+                  rowIndex: number,
+                  columnIndex: number
+                ) => (
+                  <TableCellRowSpanMonthly
+                    data={data}
+                    rowIndex={rowIndex}
+                    key={columnIndex}
+                    rowSpanSize={yKeys.length}
+                  />
+                ),
+              },
+              {
+                title: "Operating system",
+                key: "device_opsys_ver",
+              },
+              {
+                title: "Total users",
+                key: "opsys_version_count",
+                type: "numeric",
+                render: TableMillionthFormatter,
+              },
+            ]}
+            data={operatingSysVersionData.data.opsys_version_total}
+          />
+        );
+      }
+    } else {
+      return <p></p>;
+    }
+  };
+
+  return <>{renderView()}</>;
 };
 
 export default OperatingSysVersionVisualisation;

@@ -8,6 +8,7 @@ import { formatDate } from "../visualisations/formatters/date-tick-formatter";
 import AxisTickRotate from "../visualisations/formatters/angle-axis-tick";
 import UniqueUsersToolTip from "../visualisations/formatters/unique-users-tooltip";
 import { Table } from "../hooks_helpers/table";
+import { TableMillionthFormatter } from "../hooks_helpers/table-formatter";
 
 interface Props {
   isTabletOrMobile: boolean;
@@ -110,6 +111,7 @@ const UniqueUsersLineGraph: React.FC<Props> = ({
                 title: "Total views (millions)",
                 key: "total_unique_users_scale",
                 type: "numeric",
+                render: (data: any) => <span>{data.toFixed(2)}M</span>,
               },
             ]}
             data={!graphData.loading && graphData.data.total_unique}

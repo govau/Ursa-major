@@ -11,7 +11,7 @@ jobs:
       - restore_cache:
           name: Restore node_modules from cache
           keys:
-            - v3-dependency-cache-{{ checksum "api/package.json" }}
+            - v3-dependency-cache-{{ checksum "package.json" }}
       - run:
           name: Set up environment variables
           command: |
@@ -23,7 +23,7 @@ jobs:
             npm run build
       - save_cache:
           name: Save node_modules to cache
-          key: v3-dependency-cache-{{ checksum "api/package.json" }}
+          key: v3-dependency-cache-{{ checksum "package.json" }}
           paths:
             - node_modules/
       - run:
@@ -74,7 +74,7 @@ jobs:
       - restore_cache:
           name: Restore node_modules from cache
           keys:
-            - v3-dependency-cache-{{ checksum "front-end/package.json" }}
+            - v3-dependency-cache-{{ checksum "package.json" }}
       - run:
           name: Install dependencies
           command: |
@@ -82,7 +82,7 @@ jobs:
             npm run pancake
       - save_cache:
           name: Save node_modules to cache
-          key: v3-dependency-cache-{{ checksum "front-end/package.json" }}
+          key: v3-dependency-cache-{{ checksum "package.json" }}
           paths:
             - node_modules/
       - run:

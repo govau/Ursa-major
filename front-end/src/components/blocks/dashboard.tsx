@@ -9,6 +9,10 @@ import OperatingSystemVisualisation from "./operating-system";
 import HourlyViewsVisualisation from "./hourly-views";
 import { AUradio } from "../../auds/react/control-input";
 import { AUfieldset, AUlegend } from "../../auds/react/form";
+import Sunburst from "../visualisations/sunburst";
+import SunburstWithTooltips, {
+  SunburstHigh,
+} from "../visualisations/sunburstReactvis";
 
 const AuFieldset: any = AUfieldset;
 
@@ -40,7 +44,6 @@ const DashboardHomePage: React.FC<Props> = ({ isTabletOrMobile }) => {
                 label="Chart"
                 name="radio-ex"
                 id="radio-chart"
-                checked={state.chartView}
                 onChange={() => setstate(() => ({ chartView: true }))}
                 defaultChecked
               />
@@ -48,7 +51,6 @@ const DashboardHomePage: React.FC<Props> = ({ isTabletOrMobile }) => {
                 label="Table"
                 name="radio-ex"
                 id="radio-table"
-                checked={!state.chartView}
                 onChange={() => setstate(() => ({ chartView: false }))}
               />
             </AuFieldset>
@@ -92,10 +94,7 @@ const DashboardHomePage: React.FC<Props> = ({ isTabletOrMobile }) => {
             />
           </div>
           <div className="col-md-6">
-            <OperatingSysVersionVisualisation
-              isTabletOrMobile={isTabletOrMobile}
-              chartView={state.chartView}
-            />
+            <SunburstHigh />
           </div>
         </div>
         <div className="row">

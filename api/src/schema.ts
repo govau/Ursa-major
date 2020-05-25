@@ -105,7 +105,16 @@ const RootQuery = new GraphQLObjectType({
           context.redis_client,
           "opsys_version"
         );
-        return data;
+        const resultArray = data
+          .map((row: any) => ({
+            parent: row.device_opsys,
+            name: row.device_opsys_ver,
+            value: parseInt(row.opsys_version_count),
+          }))
+          .filter((data) =>
+            data.parent.match(/Windows|Android|Macintosh|iOS|Linux/gm)
+          );
+        return resultArray;
       },
     },
     device_brand: {

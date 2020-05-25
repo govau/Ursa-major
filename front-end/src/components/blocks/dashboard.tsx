@@ -9,10 +9,7 @@ import OperatingSystemVisualisation from "./operating-system";
 import HourlyViewsVisualisation from "./hourly-views";
 import { AUradio } from "../../auds/react/control-input";
 import { AUfieldset, AUlegend } from "../../auds/react/form";
-import Sunburst from "../visualisations/sunburst";
-import SunburstWithTooltips, {
-  SunburstHigh,
-} from "../visualisations/sunburstReactvis";
+import SunburstHigh from "../visualisations/sunburstReactvis";
 
 const AuFieldset: any = AUfieldset;
 

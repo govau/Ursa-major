@@ -112,8 +112,19 @@ const RootQuery = new GraphQLObjectType({
             value: parseInt(row.opsys_version_count),
           }))
           .filter((data) =>
-            data.parent.match(/Windows|Android|Macintosh|iOS|Linux/gm)
-          );
+            data.parent.match(/Windows$|Android$|Macintosh$|iOS$|Linux$/gm)
+          )
+          .sort((a, b) => {
+            const nameA = a.parent.toLowerCase(),
+              nameB = b.parent.toLowerCase();
+            if (nameA < nameB) {
+              return -1;
+            }
+            if (nameA > nameB) {
+              return 1;
+            }
+            return 0;
+          });
         return resultArray;
       },
     },

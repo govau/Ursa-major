@@ -9,7 +9,7 @@ import OperatingSystemVisualisation from "./operating-system";
 import HourlyViewsVisualisation from "./hourly-views";
 import { AUradio } from "../../auds/react/control-input";
 import { AUfieldset, AUlegend } from "../../auds/react/form";
-import SunburstHigh from "../visualisations/sunburstReactvis";
+import SunburstHigh from "../visualisations/sunburst-highcharts";
 
 const AuFieldset: any = AUfieldset;
 
@@ -91,7 +91,7 @@ const DashboardHomePage: React.FC<Props> = ({ isTabletOrMobile }) => {
             />
           </div>
           <div className="col-md-6">
-            <SunburstHigh />
+            <SunburstHigh chartView={state.chartView} />
           </div>
         </div>
         <div className="row">

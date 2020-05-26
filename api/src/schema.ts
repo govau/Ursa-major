@@ -155,7 +155,12 @@ const RootQuery = new GraphQLObjectType({
           context.redis_client,
           "screen_res"
         );
-        return data;
+        const filtered = data.filter((row) =>
+          row.device_screen_res.match(
+            /1920x1080$|1366.768$|375x667$|1440x900$/gm
+          )
+        );
+        return filtered;
       },
     },
     total_browser_version: {

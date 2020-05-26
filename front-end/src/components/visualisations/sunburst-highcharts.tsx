@@ -78,7 +78,21 @@ const SunburstHigh: React.FC<Props> = ({ chartView }) => {
     credits: {
       enabled: false,
     },
-    chart: {},
+    legend: {
+      enabled: true,
+    },
+    chart: {
+      events: {
+        load: function (this: any) {
+          console.log(this);
+          // eslint-disable-next-line @typescript-eslint/no-this-alias
+          const chart: any = this;
+          setTimeout(function () {
+            chart.reflow();
+          }, 0);
+        },
+      },
+    },
     tooltip: {
       formatter: function (this: any) {
         return `<p class="custom-tooltip__text">
@@ -99,6 +113,7 @@ const SunburstHigh: React.FC<Props> = ({ chartView }) => {
     },
     series: [
       {
+        type: "sunburst",
         levels: [
           {
             level: 1,
@@ -130,6 +145,25 @@ const SunburstHigh: React.FC<Props> = ({ chartView }) => {
             },
           },
         ],
+        dataLabels: {
+          /**
+           * A custom formatter that returns the name only if the inner arc
+           * is longer than a certain pixel size, so the shape has place for
+           * the label.
+           */
+          formatter: function (this: any) {
+            const shape = this.point.node.shapeArgs;
+
+            const innerArcFraction = (shape.end - shape.start) / (2 * Math.PI);
+            const perimeter = 2 * Math.PI * shape.innerR;
+
+            const innerArcPixels = innerArcFraction * perimeter;
+
+            if (innerArcPixels > 16) {
+              return this.point.name;
+            }
+          },
+        },
         type: "sunburst",
         data: state,
         allowDrillToNode: true,
@@ -142,6 +176,7 @@ const SunburstHigh: React.FC<Props> = ({ chartView }) => {
     if (typeof window !== `undefined`) {
       HighchartsSunburst(Highcharts);
     }
+
     if (!OpSysVersionData.loading) {
       setState((current: any) => {
         const data = current.concat(OpSysVersionData.data.opsys_version_total);
@@ -203,40 +238,7 @@ const SunburstHigh: React.FC<Props> = ({ chartView }) => {
     }
   };
 
-  return (
-    <div className="au-body">
-      {/* {!OpSysVersionData.loading && chartView ? (
-        <HighchartsReact
-          highcharts={Highcharts}
-          options={sunburstconfig}
-          constructor={"chart"}
-        ></HighchartsReact>
-      ) : (
-        <Table
-          heading="text"
-          headers={[
-            {
-              title: "Parent",
-              key: "parent",
-            },
-            {
-              title: "Operating system version",
-              key: "name",
-            },
-            {
-              title: "Total unique users",
-              key: "value",
-              type: "numeric",
-              render: TableMillionthFormatter,
-            },
-          ]}
-          data={OpSysVersionData.data.opsys_version_total}
-        /> */}
-      {/* )}
-       */}
-      {renderView()}
-    </div>
-  );
+  return <div className="au-body">{renderView()}</div>;
 };
 
 export default SunburstHigh;

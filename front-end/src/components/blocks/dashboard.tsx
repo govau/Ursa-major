@@ -42,13 +42,14 @@ const DashboardHomePage: React.FC<Props> = ({ isTabletOrMobile }) => {
                 name="radio-ex"
                 id="radio-chart"
                 onChange={() => setstate(() => ({ chartView: true }))}
-                defaultChecked
+                checked={state.chartView}
               />
               <AuRadio
                 label="Table"
                 name="radio-ex"
                 id="radio-table"
                 onChange={() => setstate(() => ({ chartView: false }))}
+                checked={!state.chartView}
               />
             </AuFieldset>
           </div>

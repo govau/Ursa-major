@@ -13,7 +13,14 @@ import { Table } from "../hooks_helpers/table";
 if (typeof window !== `undefined`) {
   HighchartsSunburst(Highcharts);
 }
-const colors = ["#008568", "#002957", "#e69f00", "#cc79a7", "#eee12f"];
+const colors = [
+  "#008568",
+  "#002957",
+  "#e69f00",
+  "#cc79a7",
+  "#008568",
+  "#eee12f",
+];
 
 interface Props {
   chartView: boolean;
@@ -85,7 +92,6 @@ const SunburstHigh: React.FC<Props> = ({ chartView }) => {
     chart: {
       events: {
         load: function (this: any) {
-          console.log(this);
           // eslint-disable-next-line @typescript-eslint/no-this-alias
           const chart: any = this;
           setTimeout(function () {
@@ -96,13 +102,12 @@ const SunburstHigh: React.FC<Props> = ({ chartView }) => {
     },
     tooltip: {
       formatter: function (this: any) {
+        const value = TableMillionthFormatter(this.point.value);
+        const Tooltiptext = `${this.point.name}: ${value} users`;
         return `<p class="custom-tooltip__text">
-        <span class="color-square" style="background-color:${
-          this.point.color
-        }"></span>
-        ${this.point.name}:  ${TableMillionthFormatter(
-          this.point.value
-        )} users</p>`;
+        <span class="color-square" style="background-color:${this.point.color}"></span>
+        ${Tooltiptext}
+        </p>`;
       },
       backgroundColor: null,
       borderWidth: 0,

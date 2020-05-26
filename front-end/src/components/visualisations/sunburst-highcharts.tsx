@@ -164,7 +164,6 @@ const SunburstHigh: React.FC<Props> = ({ chartView }) => {
             }
           },
         },
-        type: "sunburst",
         data: state,
         allowDrillToNode: true,
         cursor: "pointer",

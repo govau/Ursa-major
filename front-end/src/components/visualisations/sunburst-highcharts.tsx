@@ -34,6 +34,7 @@ const SunburstHigh: React.FC<Props> = ({ chartView }) => {
   const data = [
     {
       id: "Total",
+      name: "Total",
     },
     {
       id: "Macintosh",
@@ -159,7 +160,7 @@ const SunburstHigh: React.FC<Props> = ({ chartView }) => {
 
             const innerArcPixels = innerArcFraction * perimeter;
 
-            if (innerArcPixels > 16) {
+            if (innerArcPixels > 16 || this.point.name === "Total") {
               return this.point.name;
             }
           },

@@ -105,7 +105,27 @@ const RootQuery = new GraphQLObjectType({
           context.redis_client,
           "opsys_version"
         );
-        return data;
+        const resultArray = data
+          .map((row: any) => ({
+            parent: row.device_opsys,
+            name: row.device_opsys_ver,
+            value: parseInt(row.opsys_version_count),
+          }))
+          .filter((data) =>
+            data.parent.match(/Windows$|Android$|Macintosh$|iOS$|Linux$/gm)
+          )
+          .sort((a, b) => {
+            const nameA = a.parent.toLowerCase(),
+              nameB = b.parent.toLowerCase();
+            if (nameA < nameB) {
+              return -1;
+            }
+            if (nameA > nameB) {
+              return 1;
+            }
+            return 0;
+          });
+        return resultArray;
       },
     },
     device_brand: {
@@ -135,7 +155,12 @@ const RootQuery = new GraphQLObjectType({
           context.redis_client,
           "screen_res"
         );
-        return data;
+        const filtered = data.filter((row) =>
+          row.device_screen_res.match(
+            /1920x1080$|1366.768$|375x667$|1440x900$/gm
+          )
+        );
+        return filtered;
       },
     },
     total_browser_version: {

@@ -65,9 +65,10 @@ h1 {
   @include AU-space(padding-bottom, 1unit);
 }
 
-.custom-tooltip {
+.custom-tooltip,
+.highcharts-tooltip > span {
   @include AU-fontgrid(xs);
-  background-color: rgba(255, 255, 255, 1);
+  background-color: $AU-color-background;
   color: $AU-color-foreground-text;
   border: solid 2px $AU-color-foreground-alt-hint;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
@@ -81,18 +82,18 @@ h1 {
 
   &__text {
     position: relative;
-
-    .color-square {
-      border: solid 1px #636363;
-      border-radius: 2px;
-      vertical-align: bottom;
-      @include AU-space(height, 0.75unit);
-      @include AU-space(width, 0.75unit);
-      display: inline-block;
-      margin-right: 5px;
-      vertical-align: middle;
-    }
   }
+}
+
+.color-square {
+  border: solid 1px #636363;
+  border-radius: 2px;
+  vertical-align: bottom;
+  @include AU-space(height, 0.75unit);
+  @include AU-space(width, 0.75unit);
+  display: inline-block;
+  margin-right: 5px;
+  vertical-align: middle;
 }
 
 .mt-hero {

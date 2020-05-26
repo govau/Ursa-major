@@ -36,7 +36,7 @@ const files: { [key: string]: string } = {
   hourly_unique_views: `${directory}/uniquevisitors_90days_hourly_weeksplit_snapshot_doi.json`,
   operating_system_views: `${directory}/opsys_12months_daily_snapshot_doi.json`,
   device_category: `${directory}/device_category_12months_daily_snapshot_doi.json`,
-  opsys_version: `${directory}/opsys_version_12months_daily_snapshot_doi.json`,
+  opsys_version: `${directory}/opsys_version_12months_uptodate_snapshot_doi.json`,
   device_brand: `${directory}/device_brand_12months_daily_snapshot_doi.json`,
   browser_version: `${directory}/browser_version_12months_daily_snapshot_doi.json`,
   screen_res: `${directory}/screen_resolution_12months_daily_snapshot_doi.json`,

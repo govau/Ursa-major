@@ -101,6 +101,7 @@ const SunburstHigh: React.FC<Props> = ({ chartView }) => {
       },
     },
     tooltip: {
+      hideDelay: 100,
       formatter: function (this: any) {
         const value = TableMillionthFormatter(this.point.value);
         const Tooltiptext = `${this.point.name}: ${value} users`;

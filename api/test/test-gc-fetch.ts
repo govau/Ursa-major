@@ -24,7 +24,7 @@ describe("Test redis", () => {
   it("Still returns data if JSON parse fails and then replaces it", async () => {
     redis_client.set("screen_res", "blabla");
     const data = await fetchGCdata(filePath, redis_client, "screen_res");
-    expect(data).to.have.length(72);
+    expect(data).to.have.length.greaterThan(70);
     const redis_data_after_request = await getAsync("screen_res");
     const parsed = JSON.parse(redis_data_after_request);
     expect(data).to.eql(parsed);

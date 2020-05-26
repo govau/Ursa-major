@@ -14,7 +14,7 @@ describe("App", () => {
   it("Gives 200 when good request", (done) => {
     request(App)
       .post("/api")
-      .send({ query: "{opsys_version_total {device_opsys_ver}}" })
+      .send({ query: "{opsys_version_total {name}}" })
       .expect(200, done);
   });
 });

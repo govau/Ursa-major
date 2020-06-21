@@ -22,6 +22,7 @@ const redis_client =
     ? redis.createClient({ port: 6379 })
     : redis.createClient({ host: hostname, port, password, url });
 
+redis_client.flushall();
 const app: Application = express();
 
 env === "dev" && app.use(cors());

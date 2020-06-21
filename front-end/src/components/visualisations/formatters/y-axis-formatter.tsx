@@ -1,7 +1,7 @@
 import { TickFormatterFunction } from "recharts";
 
 const scaleFormatter: TickFormatterFunction = (numb: any) => {
-  return numb / 10 + "M";
+  return numb + "M";
 };
 
 const millionthFormatter: TickFormatterFunction = (numb: any) => {

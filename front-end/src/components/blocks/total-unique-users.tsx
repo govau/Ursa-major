@@ -69,8 +69,8 @@ const UniqueUsersLineGraph: React.FC<Props> = ({
 
   //REFACTOR this should be automatic based off the data
   const yDomain: [AxisDomain, AxisDomain] = isTabletOrMobile
-    ? [50, 350]
-    : [0, 30];
+    ? [10, 40]
+    : [0, 5];
 
   const lineGraphProps = {
     data: isTabletOrMobile ? state.data : graphData.data.total_unique,
@@ -78,7 +78,7 @@ const UniqueUsersLineGraph: React.FC<Props> = ({
     x_key: "visit_date",
     yDomain,
     type: number,
-    yTicks: isTabletOrMobile ? [100, 200, 300] : [10, 20, 30, 40],
+    yTicks: isTabletOrMobile ? [10, 20, 30] : [1, 2, 3, 4],
     xTicks: isTabletOrMobile ? state.xTicksMobile : state.xTicksDesktop,
     xTickSize: 10,
     xTickMargin: 5,

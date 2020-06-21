@@ -15,7 +15,7 @@ const UniqueUsersToolTip: (props: Props) => JSX.Element = ({
   let date = "";
 
   if (payload && payload[0]) {
-    totalVal = payload[0].payload.total_unique_users_scale * 100000;
+    totalVal = payload[0].payload.total_unique_users_scale * 1000000;
     if (isTabletOrMobile) {
       date = `Fortnight ending ${formatDate(payload[0].payload.visit_date)}`;
     } else {

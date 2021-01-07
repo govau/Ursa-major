@@ -1,20 +1,20 @@
 import React, { useState } from "react";
-import UniqueUsersLineGraph from "./total-unique-users";
-import DeviceCategoryVisualisation from "./device-category";
-import BrowserMonthly from "./browser-monthly";
-import ScreenResVisualisation from "./screen-res";
-import DeviceBrandVisualisation from "./device-brand";
-import OperatingSysVersionVisualisation from "./operating-system-version";
-import OperatingSystemVisualisation from "./operating-system";
-import HourlyViewsVisualisation from "./hourly-views";
 import { AUradio } from "../../auds/react/control-input";
 import { AUfieldset, AUlegend } from "../../auds/react/form";
+import BrowserMonthly from "./browser-monthly";
+import DeviceBrandVisualisation from "./device-brand";
+import DeviceCategoryVisualisation from "./device-category";
+import HourlyViewsVisualisation from "./hourly-views";
+import OperatingSystemVisualisation from "./operating-system";
+import OperatingSysVersionVisualisation from "./operating-system-version";
+import ScreenResVisualisation from "./screen-res";
+import UniqueUsersLineGraph from "./total-unique-users";
 
 const AuFieldset: any = AUfieldset;
 
 interface Props {
   isTabletOrMobile: boolean;
-  chartView: boolean;
+  chartView?: boolean;
 }
 
 const AuRadio: any = AUradio;
@@ -42,7 +42,6 @@ const DashboardHomePage: React.FC<Props> = ({ isTabletOrMobile }) => {
                 id="radio-chart"
                 checked={state.chartView}
                 onChange={() => setstate(() => ({ chartView: true }))}
-                defaultChecked
               />
               <AuRadio
                 label="Table"

@@ -1,12 +1,12 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
+import { graphql, useStaticQuery } from "gatsby";
 import React from "react";
-import SEO from "../components/seo";
-import DefaultLayout from "../components/layouts/default-layout";
-import { useStaticQuery, graphql } from "gatsby";
-import Section from "../components/layouts/section";
 import { useMediaQuery } from "react-responsive";
-import Hero from "../components/layouts/hero";
 import DashboardHomePage from "../components/blocks/dashboard";
+import DefaultLayout from "../components/layouts/default-layout";
+import Hero from "../components/layouts/hero";
+import Section from "../components/layouts/section";
+import SEO from "../components/seo";
 
 const IndexPage = () => {
   //get MD content

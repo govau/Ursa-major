@@ -1,5 +1,4 @@
 import React from "react";
-import { useStaticQuery, graphql } from "gatsby";
 import AUheader, { AUheaderBrand } from "../../auds/react/header";
 
 interface Props {
@@ -10,18 +9,6 @@ const AUHeader: any = AUheader;
 const Brand: any = AUheaderBrand;
 
 const Header: React.FC<Props> = ({ siteTitle }) => {
-  const data = useStaticQuery(graphql`
-    query {
-      placeholderImage: file(relativePath: { eq: "header-logo-agov.png" }) {
-        childImageSharp {
-          fluid {
-            src
-          }
-        }
-      }
-    }
-  `);
-
   return (
     <>
       <AUHeader dark>
@@ -32,7 +19,7 @@ const Header: React.FC<Props> = ({ siteTitle }) => {
                 title={siteTitle}
                 subline="The analytics dashboard for gov.au services"
                 link="/"
-                brandImage={data.placeholderImage.childImageSharp.fluid.src}
+                brandImage={"../../header-logo-agov.png"}
                 brandImageAlt="The Australian Government Coat of Arms"
               />
             </div>

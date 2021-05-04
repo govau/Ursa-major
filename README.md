@@ -18,10 +18,8 @@ To ensure the server works correctly you will need to add service account key in
 Add a file in the `/api` directory named `.env`. Then follow these steps
 
 1. Vist [google cloud platform landing page](https://console.cloud.google.com/)
-2. Open the sidebar and then click `APIs & Services` > `Credentials`
-3. Under `Service Accounts` click the row with the name of `Storage admin -bq`
-4. Click `Create key`
-5. Copy the private key and client email of this json file into the `.env` file you created earlier. Like so:
+2. Create a service account with required permissions to access cloud storage buckets and download the key.
+3. Copy the private key and client email of this json file into the `.env` file.
 
 ```
 PRIVATE_KEY=[insert private key here]

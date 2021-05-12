@@ -1,14 +1,13 @@
 /* eslint-disable react/display-name */
-import React, { useState, useLayoutEffect } from "react";
-import { useFetch } from "../hooks_helpers/use-fetch";
-import LineGraph from "../visualisations/line-chart";
+import React, { useLayoutEffect, useState } from "react";
 import { AxisDomain } from "recharts";
-import AxisTickRotate from "../visualisations/formatters/angle-axis-tick";
-import PercentageFormatter from "../visualisations/formatters/percentage-formatter";
-import DeviceCategoryToolTip from "../visualisations/formatters/devices-tooltip";
-import LineLabel from "../visualisations/formatters/line-label";
-import { TableCellRowSpanMonthly } from "../hooks_helpers/table-formatter";
 import { Table } from "../hooks_helpers/table";
+import { TableCellRowSpanMonthly } from "../hooks_helpers/table-formatter";
+import { useFetch } from "../hooks_helpers/use-fetch";
+import AxisTickRotate from "../visualisations/formatters/angle-axis-tick";
+import DeviceCategoryToolTip from "../visualisations/formatters/devices-tooltip";
+import PercentageFormatter from "../visualisations/formatters/percentage-formatter";
+import LineGraph from "../visualisations/line-chart";
 
 interface Props {
   isTabletOrMobile: boolean;
@@ -112,7 +111,7 @@ const DeviceCategoryVisualisation: React.FC<Props> = ({
       : { top: 20, right: 10, bottom: 40, left: -10 },
     legend: true,
     CustomToolTip: DeviceCategoryToolTip,
-    CustomLabel: LineLabel,
+    // CustomLabel: LineLabel,
   };
 
   const renderView = () => {

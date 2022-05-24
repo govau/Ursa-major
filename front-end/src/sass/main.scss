@@ -182,3 +182,11 @@ h1 {
     @include AU-space(padding, 0 0.5unit);
   }
 }
+
+.decommission-banner {
+  margin-top: 0;
+  margin-bottom: 2em;
+  p {
+    max-width: none;
+  }
+}

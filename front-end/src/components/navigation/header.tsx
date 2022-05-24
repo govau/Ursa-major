@@ -1,5 +1,6 @@
 import React from "react";
 import AUheader, { AUheaderBrand } from "../../auds/react/header";
+import AUpageAlert from "../../auds/react/page-alerts"
 
 interface Props {
   siteTitle: string;
@@ -13,6 +14,11 @@ const Header: React.FC<Props> = ({ siteTitle }) => {
     <>
       <AUHeader dark>
         <div className="container-fluid">
+          <div className="row">
+            <AUpageAlert as="warning" className={`decommission-banner`}>
+              <p>analytics.service.gov.au has been decommissioned and will be taken down from 19 June 2022. For further information please contact <a href="mailto:info@dta.gov.au">info@dta.gov.au</a>.</p>
+            </AUpageAlert>
+          </div>
           <div className="row">
             <div className="col-md-9">
               <Brand

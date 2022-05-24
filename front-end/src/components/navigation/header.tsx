@@ -7,6 +7,7 @@ interface Props {
 }
 
 const AUHeader: any = AUheader;
+const PageAlert: any = AUpageAlert;
 const Brand: any = AUheaderBrand;
 
 const Header: React.FC<Props> = ({ siteTitle }) => {
@@ -15,9 +16,9 @@ const Header: React.FC<Props> = ({ siteTitle }) => {
       <AUHeader dark>
         <div className="container-fluid">
           <div className="row">
-            <AUpageAlert as="warning" className={`decommission-banner`}>
+            <PageAlert as="warning" className={`decommission-banner`}>
               <p>analytics.service.gov.au has been decommissioned and will be taken down from 19 June 2022. For further information please contact <a href="mailto:info@dta.gov.au">info@dta.gov.au</a>.</p>
-            </AUpageAlert>
+            </PageAlert>
           </div>
           <div className="row">
             <div className="col-md-9">
